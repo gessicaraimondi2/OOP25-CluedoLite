@@ -1,14 +1,13 @@
 package it.unibo.CluedoLite.model;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import it.unibo.CluedoLite.model.creationCards.Card;
 import it.unibo.CluedoLite.model.creationCards.Rooms;
 import it.unibo.CluedoLite.model.creationCards.Characters;
 import it.unibo.CluedoLite.model.creationCards.Weapons;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class Deck {
     private final List<Card> cards = new ArrayList<>(); //create the deck of cards as an ArrayList of Card objects
