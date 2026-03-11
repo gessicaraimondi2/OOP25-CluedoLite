@@ -1,5 +1,8 @@
 package it.unibo.CluedoLite.model.creationCards;
-public class Weapons extends Card{ //class for the weapon cards, inherits from Card
+/*
+* Class representing a weapon card in the game, inherits from Card
+ */
+public class Weapons extends Card{ 
     public Weapons(String name) {
         super(name);
     }

@@ -1,5 +1,8 @@
 package it.unibo.CluedoLite.model.creationCards;
-public class Rooms extends Card{ //class for the room cards, inherits from Card
+/*
+* Class representing a room card in the game, inherits from Card
+ */
+public class Rooms extends Card{ 
      public Rooms(String name) {
          super(name);
      }

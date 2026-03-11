@@ -9,6 +9,14 @@ import it.unibo.CluedoLite.model.creationCards.Rooms;
 import it.unibo.CluedoLite.model.creationCards.Characters;
 import it.unibo.CluedoLite.model.creationCards.Weapons;
 
+/*
+* Class Deck represents the deck of cards used in the Cluedo game. 
+* It initializes the deck with all the character, weapon, and room cards, shuffles them, 
+* and provides a method to retrieve the list of cards in the deck. 
+* The Deck class is used to generate the secret solution and to deal cards to players during the game.
+ */
+
+
 public class Deck {
     private final List<Card> cards = new ArrayList<>(); //create the deck of cards as an ArrayList of Card objects
 

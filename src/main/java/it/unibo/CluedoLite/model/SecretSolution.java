@@ -8,14 +8,18 @@ import it.unibo.CluedoLite.model.creationCards.Weapons;
 import it.unibo.CluedoLite.model.creationCards.Characters;
 import it.unibo.CluedoLite.model.creationCards.Card;
 
+/*
+* Class SecretSolution represents the secret solution of the Cluedo game, 
+* which consists of one character card, one weapon card, and one room card.
+ */
+
 public class SecretSolution {
     private final List<Card> solution = new ArrayList<>(); //create the solution as an ArrayList of Card objects
     private Characters secretCharacters;
     private Weapons secretWeapons;
     private Rooms secretRooms;
     
-    public SecretSolution() {
-        Deck deck = new Deck(); //create a new deck of cards to generate the secret solution from
+    public SecretSolution(Deck deck) {
         generateSecretSolution(deck); //generate the secret solution using the provided deck of cards
     }
 
@@ -43,7 +47,7 @@ public class SecretSolution {
     }
 
     public List<Card> getSolution() {
-        return solution;
+        return solution; //return the secret solution as a list of Card objects
     }
 }
 
