@@ -1,18 +1,23 @@
-package main.java.it.unibo.CluedoLite.model.Player.impl;
-
+package it.unibo.CluedoLite.model.Player.impl;
+/**
+ * Represents a player in the game.
+ * Each player has a name and can choose exactly one character.
+ */
 public class Player {
     private final String name;
-    private Character character; // chosen character
+    private CreationCharacter character; // chosen character
 
     public Player(String name) {
         this.name = name;
     }
-
-    public void chooseCharacter(Character character) {
+    
+    public void chooseCharacter(CreationCharacter character) {
         this.character = character;
     }
-
-    public Character getCharacter() {
+    /*
+     * Returns the character chosen by the player.
+     */
+    public CreationCharacter getCharacter() {
         return character;
     }
 

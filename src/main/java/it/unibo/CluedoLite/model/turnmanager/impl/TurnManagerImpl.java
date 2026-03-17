@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.turnmanager.impl;
+/*package it.unibo.CluedoLite.model.turnmanager.impl;
 
 import java.util.*;
 
@@ -8,6 +8,7 @@ import it.unibo.CluedoLite.model.Player.impl.Game;
 /**
  * Implementation of the {@link TurnManager} interface.
  */
+/*
 public class TurnManagerImpl implements TurnManager{
 
      private static final int MIN_PLAYERS=3;
@@ -21,7 +22,7 @@ public class TurnManagerImpl implements TurnManager{
  * @throws IllegalArgumentException if the players list is null, has fewer than 3 or more than 6 players
  * 
  */
-    public TurnManagerImpl(List<Player> players){
+/*    public TurnManagerImpl(List<Player> players){
         if(players==null){
             throw new IllegalArgumentException("Il nummero di giocatori non può essere nullo");
         }
@@ -35,14 +36,12 @@ public class TurnManagerImpl implements TurnManager{
     } 
 
     
-      {@inheritDoc}
     @Override
     public Player getCurrentPlayer(){
         return this.players.get(this.current_index);
     } 
 
     
-     {@inheritDoc}
      
     @Override
     public Player nextTurn(){
@@ -50,3 +49,4 @@ public class TurnManagerImpl implements TurnManager{
         return this.players.get(this.current_index);
     }
 } 
+*/
