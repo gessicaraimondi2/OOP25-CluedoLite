@@ -1,4 +1,5 @@
 package it.unibo.CluedoLite.model.turnmanager.api;
+import it.unibo.CluedoLite.model.Player.impl.Player;
 
 /**
  * Interface rapresenting the logic of the class that manages the turn order of players in the game.
