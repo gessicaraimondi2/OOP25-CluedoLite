@@ -1,8 +1,7 @@
-package it.unibo.CluedoLite.model;
+package it.unibo.CluedoLite.model.GameSetUp;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import it.unibo.CluedoLite.model.creationCards.Card;
 import it.unibo.CluedoLite.model.creationCards.Rooms;
@@ -19,10 +18,11 @@ import it.unibo.CluedoLite.model.creationCards.Weapons;
 
 public class Deck {
     private final List<Card> cards = new ArrayList<>(); //create the deck of cards as an ArrayList of Card objects
+    private final List<Card> OriginalCards = new ArrayList<>(); //create a copy of the original deck of cards
 
     public Deck(){
         InitializeCards();
-        Collections.shuffle(cards); //shuffle the deck to randomize the order of the cards
+        OriginalCards.addAll(cards); //add all the cards from the initialized deck to the OriginalCards list to keep a copy of the original deck
     }
 
     public void InitializeCards() { //initialize the deck with all the cards for all the types
@@ -53,6 +53,10 @@ public class Deck {
 
     public List<Card> getCards() {
         return cards;
+    }
+
+    public List<Card> getOriginalCards() {
+        return OriginalCards;
     }
 }
 

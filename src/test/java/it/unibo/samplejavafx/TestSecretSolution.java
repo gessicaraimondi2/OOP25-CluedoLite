@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.Deck;
-import it.unibo.CluedoLite.model.SecretSolution;
+import it.unibo.CluedoLite.model.GameSetUp.Deck;
+import it.unibo.CluedoLite.model.GameSetUp.SecretSolution;
 import it.unibo.CluedoLite.model.creationCards.Card;
 import it.unibo.CluedoLite.model.creationCards.Characters;
 import it.unibo.CluedoLite.model.creationCards.Weapons;
@@ -49,5 +49,7 @@ public class TestSecretSolution {
 
         // 4. The deck must have 18 cards (21 total - 3 solution cards)
         assertEquals(18, deck.getCards().size());
+        //5. The original deck must still have 21 cards
+        assertEquals(21, deck.getOriginalCards().size());
     }
 }
