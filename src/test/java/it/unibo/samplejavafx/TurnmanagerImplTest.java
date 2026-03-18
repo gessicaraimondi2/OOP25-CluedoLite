@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.Player.impl.Player;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.CluedoLite.model.Turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.Turnmanager.impl.TurnManagerImpl;
 
 
 public class TurnmanagerImplTest {
@@ -17,7 +17,7 @@ public class TurnmanagerImplTest {
     private List<Player> players;
 
     /**
-    * Initializes a Players list before the test.
+    * Initializes a Players list before each test.
      */
     @BeforeEach
     void init() {
@@ -39,5 +39,36 @@ public class TurnmanagerImplTest {
         assertEquals(p3, tm.nextTurn());
         assertEquals(p4, tm.nextTurn());
         assertEquals(p1, tm.nextTurn());
+    }
+
+    /**
+     * Tests that isGameOver() returns true after endGame() is called.
+     */
+    @Test
+    void testEndGame() {
+        final TurnManager tm = new TurnManagerImpl(players);
+        tm.endGame();
+        assertTrue(tm.isGameOver());
+    }
+
+    /**
+     * Tests that nextTurn() throws IllegalStateException after the game is over.
+     */
+    @Test
+    void testNextTurnThrowsWhenGameOver() {
+        final TurnManager tm = new TurnManagerImpl(players);
+        tm.endGame();
+        assertThrows(IllegalStateException.class, () -> tm.nextTurn());
+    }
+
+    /**
+     * Tests that getCurrentPlayer() still returns the correct player after endGame().
+     */
+    @Test
+    void testGetCurrentPlayerAfterGameOver() {
+        final TurnManager tm = new TurnManagerImpl(players);
+        tm.nextTurn();
+        tm.endGame();
+        assertEquals(p2, tm.getCurrentPlayer());
     }
 }
