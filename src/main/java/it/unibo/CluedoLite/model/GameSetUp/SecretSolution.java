@@ -1,6 +1,7 @@
-package it.unibo.CluedoLite.model;
+package it.unibo.CluedoLite.model.GameSetUp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.creationCards.Rooms;
@@ -20,6 +21,7 @@ public class SecretSolution {
     private Rooms secretRooms;
     
     public SecretSolution(Deck deck) {
+        Collections.shuffle(deck.getCards()); //shuffle the deck to randomize the order of the cards
         generateSecretSolution(deck); //generate the secret solution using the provided deck of cards
     }
 
