@@ -1,18 +1,16 @@
-/*package it.unibo.CluedoLite.model.turnmanager.impl;
+package it.unibo.CluedoLite.model.turnmanager.impl;
 
 import java.util.*;
 
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.Player.impl.Game;
+import it.unibo.CluedoLite.model.Player.impl.Player;
 
 /**
  * Implementation of the {@link TurnManager} interface.
  */
-/*
+
 public class TurnManagerImpl implements TurnManager{
 
-     private static final int MIN_PLAYERS=3;
-    private static final int MAX_PLAYERS=6;
     private final List<Player> players;
     private int current_index;
 /**
@@ -22,31 +20,25 @@ public class TurnManagerImpl implements TurnManager{
  * @throws IllegalArgumentException if the players list is null, has fewer than 3 or more than 6 players
  * 
  */
-/*    public TurnManagerImpl(List<Player> players){
-        if(players==null){
-            throw new IllegalArgumentException("Il nummero di giocatori non può essere nullo");
-        }
-
-        if(players.size()<MIN_PLAYERS || players.size()>MAX_PLAYERS){
-            throw new IllegalArgumentException("Il numero di giocatori deve essere compreso tra 3 e 6");
-        }
-
+public TurnManagerImpl(List<Player> players){
         this.players=List.copyOf(players);
         this.current_index=0;
     } 
 
-    
+    /**
+     * @return the current player
+     */
     @Override
     public Player getCurrentPlayer(){
         return this.players.get(this.current_index);
     } 
 
-    
-     
+     /**
+     * @return the next player who will take the turn
+     */
     @Override
     public Player nextTurn(){
         this.current_index=(this.current_index+1)%this.players.size();
         return this.players.get(this.current_index);
     }
 } 
-*/
