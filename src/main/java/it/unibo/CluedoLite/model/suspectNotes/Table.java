@@ -44,6 +44,14 @@ public class Table {
             return rooms;
         }
     }
+
+    // Checks whether the given card is already marked as EXCLUDED in the table.
+    // Returns true if the card is already present with state EXCLUDED.
+    public boolean alreadyExcluded(Card name){
+        return searchType(name).stream()
+                        .filter(box -> box.getCard().equals(name))
+                        .anyMatch(box -> box.getState().equals(State.EXCLUDED));
+    }                
 }
 
 
