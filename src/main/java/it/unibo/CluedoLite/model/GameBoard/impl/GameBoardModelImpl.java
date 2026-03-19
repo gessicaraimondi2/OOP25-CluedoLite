@@ -2,8 +2,7 @@ package it.unibo.CluedoLite.model.GameBoard.impl;
 
 import java.util.*;
 
-import it.unibo.CluedoLite.model.GameBoard.api.GameBoardModel;
-import it.unibo.CluedoLite.model.GameBoard.api.Room;
+import it.unibo.CluedoLite.model.GameBoard.api.*;
 import it.unibo.CluedoLite.model.Player.impl.Player;
 
 public class GameBoardModelImpl implements GameBoardModel{
@@ -30,45 +29,47 @@ public class GameBoardModelImpl implements GameBoardModel{
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @Override
     public List<Room> getRooms() {
         return List.copyOf(rooms);
     }
 
     /**
-    * {@inheritDoc}
-    */
-    @Override
-    public Room getRoomByName(String name) {
-        return rooms.stream()
-                .filter(r -> r.getName().equals(name))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @Override
     public Room getPlayerPosition(Player p) {
         return playersposition.get(p);
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void setPlayerPosition(Player p,Room r){
         playersposition.put(p,r);
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     @Override
     public boolean areAdjacent(Room r1, Room r2){
         return r1.getAdjacent().contains(r2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canMoveTo(Player p, Room target) {
+        Room current = playersposition.get(p);
+        if (current == null) {
+            // all'inizio il giocatore può scegliere qualsiasi stanza
+            return true;
+        }
+        return current.getAdjacent().contains(target);
     }
 }

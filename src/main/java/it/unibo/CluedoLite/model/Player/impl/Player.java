@@ -46,4 +46,18 @@ public class Player {
     public List<Card> getHand() {
         return hand;
     }
+
+        public Card findMatchingCard(Card character, Card weapon, Card room) {
+        for (Card card : getHand()) {
+            if (card.getName().equals(character.getName()) ||
+                card.getName().equals(weapon.getName())    ||
+                card.getName().equals(room.getName())) {
+                if (!this.table.alreadyExcluded(card)) {
+                    return card;
+                }
+            }
+        }
+        return null;
+    }
+
 }

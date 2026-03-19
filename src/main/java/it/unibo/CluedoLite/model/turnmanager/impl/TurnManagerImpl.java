@@ -3,6 +3,7 @@ package it.unibo.CluedoLite.model.Turnmanager.impl;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.Turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.creationCards.Card;
 import it.unibo.CluedoLite.model.Player.impl.Player;
 
 /**
@@ -14,19 +15,14 @@ public class TurnManagerImpl implements TurnManager{
     private final List<Player> players;
     private int currentIndex;
     private boolean gameOver = false;
-/**
- * Constructs a TurnManager with the given list of players.
- * 
- * @param players the list of the players of the game
- * 
- */
+
     public TurnManagerImpl(List<Player> players){
             this.players=List.copyOf(players);
             this.currentIndex=0;
     } 
 
     /**
-     * @return the current player
+     * {@inheritDoc}
      */
     @Override
     public Player getCurrentPlayer(){
@@ -34,7 +30,7 @@ public class TurnManagerImpl implements TurnManager{
     } 
 
     /**
-     * Marks the game as over, preventing further turn progression.
+     * {@inheritDoc}
      */
     @Override
     public void endGame() {
@@ -42,16 +38,15 @@ public class TurnManagerImpl implements TurnManager{
     }
 
     /**
-     * @return true if the game has ended, false otherwise
+     * {@inheritDoc}
      */
     @Override
     public boolean isGameOver() {
         return this.gameOver;
     }
 
-     /**
-     * @return the next player who will take the turn
-     * @throws IllegalStateException if the game is already over
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Player nextTurn(){
@@ -60,5 +55,30 @@ public class TurnManagerImpl implements TurnManager{
         }
         this.currentIndex=(this.currentIndex+1)%this.players.size();
         return this.players.get(this.currentIndex);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Card SuggestionResponse(Card character, Card weapon, Card room) {
+        int suspectIndex = currentIndex;
+
+        for (int i = 1; i < players.size(); i++) {
+            Player respondent = players.get((suspectIndex + i) % players.size());
+            Card cardToShow = respondent.findMatchingCard(character, weapon, room);
+
+            if (cardToShow != null) {
+                System.out.printf("%s mostra a %s: %s%n",
+                    respondent.getName(), 
+                    (players.get(currentIndex)).getName(), 
+                    cardToShow.getName());
+
+                return cardToShow;
+            }
+        }
+
+        System.out.println("Nessuno ha carte corrispondenti.");
+        return null;
     }
 } 

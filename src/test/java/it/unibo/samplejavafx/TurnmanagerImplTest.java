@@ -10,14 +10,20 @@ import java.util.List;
 import it.unibo.CluedoLite.model.Player.impl.Player;
 import it.unibo.CluedoLite.model.Turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.Turnmanager.impl.TurnManagerImpl;
+// import it.unibo.CluedoLite.model.creationCards.Card;
+// import it.unibo.CluedoLite.model.creationCards.Characters;
+// import it.unibo.CluedoLite.model.creationCards.Rooms;
+// import it.unibo.CluedoLite.model.creationCards.Weapons;
 
 
 public class TurnmanagerImplTest {
     private Player p1, p2, p3, p4;
     private List<Player> players;
+    // private Card character, weapon, room;
+	// private TurnManager tm;
 
     /**
-    * Initializes a Players list before each test.
+     * Initializes players and cards before each test.
      */
     @BeforeEach
     void init() {
@@ -26,7 +32,14 @@ public class TurnmanagerImplTest {
         p3 = new Player("Gessica");
         p4 = new Player("Valentina");
         this.players = List.of(p1, p2, p3, p4);
+
+        // character = new Characters("Miss Scarlett");
+        // weapon = new Weapons("Dagger");
+        // room = new Rooms("Kitchen");
+
+	    // tm = new TurnManagerImpl(players);
     }
+
 
     /**
      * Tests the normal turn order.
