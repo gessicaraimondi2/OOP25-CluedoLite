@@ -18,11 +18,9 @@ import it.unibo.CluedoLite.model.creationCards.Weapons;
 
 public class Deck {
     private final List<Card> cards = new ArrayList<>(); //create the deck of cards as an ArrayList of Card objects
-    private final List<Card> OriginalCards = new ArrayList<>(); //create a copy of the original deck of cards
 
     public Deck(){
         InitializeCards();
-        OriginalCards.addAll(cards); //add all the cards from the initialized deck to the OriginalCards list to keep a copy of the original deck
     }
 
     public void InitializeCards() { //initialize the deck with all the cards for all the types
@@ -53,10 +51,6 @@ public class Deck {
 
     public List<Card> getCards() {
         return cards;
-    }
-
-    public List<Card> getOriginalCards() {
-        return OriginalCards;
     }
 }
 

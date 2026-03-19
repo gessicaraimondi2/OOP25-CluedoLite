@@ -8,7 +8,9 @@ import it.unibo.CluedoLite.model.Player.impl.Player;
 import it.unibo.CluedoLite.model.GameSetUp.CardDistribution;
 import it.unibo.CluedoLite.model.GameSetUp.Deck;
 import it.unibo.CluedoLite.model.GameSetUp.SecretSolution;
-
+/*
+* This test class verifies the correct distribution of cards to players in the CluedoLite game. 
+ */
 public class TestCardDistribution {
 
     @Test
