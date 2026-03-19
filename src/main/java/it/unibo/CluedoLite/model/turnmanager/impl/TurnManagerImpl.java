@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.model.Turnmanager.impl;
+package it.unibo.CluedoLite.model.turnmanager.impl;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.Turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.creationCards.Card;
+import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.Player.impl.Player;
 
 /**

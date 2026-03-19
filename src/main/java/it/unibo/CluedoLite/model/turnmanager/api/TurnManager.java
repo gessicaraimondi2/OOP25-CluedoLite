@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.Turnmanager.api;
+package it.unibo.CluedoLite.model.turnmanager.api;
 
 
 import it.unibo.CluedoLite.model.Player.impl.Player;
