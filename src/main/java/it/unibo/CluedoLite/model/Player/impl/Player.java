@@ -3,7 +3,9 @@ package it.unibo.CluedoLite.model.Player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
-import it.unibo.CluedoLite.model.creationCards.Card;
+import it.unibo.CluedoLite.model.creationCards.*;
+import it.unibo.CluedoLite.model.suspectNotes.*;
+
 /**
  * Represents a player in the game.
  * Each player has a name and can choose exactly one character.
@@ -13,10 +15,12 @@ public class Player {
     private final String name;
     private CreationCharacter character; // chosen character
     private final List<Card> hand; // cards in the player's hand
+    private Table table;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
+        this.table = new Table(this.hand);
     }
     
     public void chooseCharacter(CreationCharacter character) {

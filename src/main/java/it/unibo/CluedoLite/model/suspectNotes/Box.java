@@ -7,16 +7,24 @@ import it.unibo.CluedoLite.model.creationCards.*;
  */
 
 public class Box{
-    Card name;
-    State state;        
+    private Card name;
+    private State state;        
 
-    Box(Card name){
+    public Box(Card name){
         this.name = name;
-        this.state = State.POSSIBLE;        // default state before any card is excluded
+        this.state = State.POSSIBLE;  // default state before any card is excluded
     }
 
     // Marks this specific box as EXCLUDED, independently of the table or any player logic
-    void excludeCard(Box box){              
+    public void excludeCard(){              
         this.state = State.EXCLUDED;
+    }
+
+   public State getState(){
+        return this.state;
+    }
+
+    public Card getCard(){
+        return name;
     }
 }
