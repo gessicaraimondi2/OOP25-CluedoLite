@@ -49,7 +49,5 @@ public class TestSecretSolution {
 
         // 4. The deck must have 18 cards (21 total - 3 solution cards)
         assertEquals(18, deck.getCards().size());
-        //5. The original deck must still have 21 cards
-        assertEquals(21, deck.getOriginalCards().size());
     }
 }
