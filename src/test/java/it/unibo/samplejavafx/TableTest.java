@@ -16,13 +16,14 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class TableTest {
-    private static final Deck deck = Table.deck;
+    private static final Deck deck = Table.getDeck();
     private Characters missScarlett;
     private Weapons candlestick;
     private Rooms kitchen;
 
 
-    // Before each test, takes one card from each category (character, weapon, and room) from the deck. 
+    // Before each test, takes one card from each category (character, 
+    // weapon, and room) from the deck. 
     @BeforeEach
     void setUp() {
         missScarlett = (Characters) deck.getCards().stream()
@@ -56,13 +57,17 @@ class TableTest {
         assertEquals(State.EXCLUDED, box.getState());
     }
 
-    // Checks that the total number of Boxes in a table matches the number of cards in the deck.
+    // Checks that the total number of Boxes in a table matches the number 
+    // of cards in the deck.
     @Test
     void tableCreation() {
         Table table = new Table(new ArrayList<>());
         int deckSize = deck.getCards().size(); // 21 cards
-        int boxesNum = table.searchType(missScarlett).size() + table.searchType(candlestick).size() + table.searchType(kitchen).size(); 
-        assertEquals(deckSize, boxesNum); // The sum of all three lists must equal the total deck size
+        int boxesNum = table.searchType(missScarlett).size() 
+        + table.searchType(candlestick).size() 
+        + table.searchType(kitchen).size(); 
+        assertEquals(deckSize, boxesNum); // The sum of all three lists must 
+                                          // equal the total deck size
 
     }
 
@@ -97,10 +102,33 @@ class TableTest {
         List<Card> hand = List.of(missScarlett);
         Table table = new Table(hand);
 
-        assertDoesNotThrow(() -> table.initializeTable(hand)); // does not generate errors or corrupt the structure
-   
+        assertDoesNotThrow(() -> table.initializeTable(hand)); // does not generate errors 
+                                                               // or corrupt the structure
         long characterCount = deck.getCards().stream()
                 .filter(c -> c instanceof Characters).count();
-        assertEquals(characterCount, table.searchType(missScarlett).size()); // the list size remains the same (no boxes added/removed)
+        assertEquals(characterCount, table.searchType(missScarlett).size()); // the list size 
+                                                                             // remains the same 
+                                                                             // (no boxes added/removed)
+    }
+
+    // Checks that alreadyExcluded returns false for a POSSIBLE card and true for an EXCLUDED card
+    @Test
+    void alreadyExcluded(){
+        Table emptyTable = new Table(new ArrayList<>());    // No cards in hand: all cards should start 
+                                                            // as POSSIBLE
+        Table handTable = new Table(List.of(missScarlett)); // Miss Scarlett in hand: this card is 
+                                                            // marked as EXCLUDED
+        assertFalse(emptyTable.alreadyExcluded(missScarlett),
+         "card not in hand should be POSSIBLE");
+        assertTrue(handTable.alreadyExcluded(missScarlett),
+         "card in hand should be EXCLUDED");
+    }
+    // Checks that updateTable correctly marks the given card as EXCLUDED
+    @Test
+    void updateTable() {
+        Table table = new Table(new ArrayList<>());
+        table.updateTable(missScarlett);
+        assertTrue(table.alreadyExcluded(missScarlett),
+         "card should be EXCLUDED after updateTable");
     }
 }

@@ -12,15 +12,15 @@ import it.unibo.CluedoLite.model.GameBoard.api.Room;
 public final class Suspicion {
     private final Characters suspectCharacter;
     private final Weapons suspectWeapon;
-    private final Room suspectroom; // The room where the player is currently located when making the suspicion
+    private final Room suspectRoom; // The room where the player is currently located when making the suspicion
 
-    public Suspicion (Characters suspectCharacter, Weapons suspectWeapon, Room suspectroom) {
+    public Suspicion (Characters suspectCharacter, Weapons suspectWeapon, Room suspectRoom) {
         this.suspectCharacter = suspectCharacter;
         this.suspectWeapon = suspectWeapon;
-        this.suspectroom = suspectroom;
+        this.suspectRoom = suspectRoom;
     }
 
-    public Characters getSuspect() { 
+    public Characters getCharacter() { 
         return suspectCharacter; 
     }
 
@@ -29,13 +29,13 @@ public final class Suspicion {
     }
 
     public Room getRoom() { 
-        return suspectroom; 
+        return suspectRoom; 
     }
 
     @Override
     public String toString() {
         return "Sospetto: " + suspectCharacter.getName() 
              + " con " + suspectWeapon.getName() 
-             + " nella " + suspectroom.getName();
+             + " nella " + suspectRoom.getName();
     }
 }

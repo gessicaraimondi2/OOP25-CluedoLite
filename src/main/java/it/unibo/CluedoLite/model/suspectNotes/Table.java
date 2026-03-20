@@ -11,7 +11,7 @@ import it.unibo.CluedoLite.model.GameSetUp.*;
  */
 
 public class Table {
-    public static Deck deck = new Deck();
+    private static Deck deck = new Deck();
     private final List<Box> rooms = new ArrayList<>();
     private final List<Box> characters = new ArrayList<>();
     private final List<Box> weapons = new ArrayList<>();
@@ -23,6 +23,10 @@ public class Table {
             searchType(name).add(box); // determines the card type and adds the Box to the correct list         
         }
         initializeTable(hand);
+    }
+
+    public static Deck getDeck(){
+        return deck;
     }
 
     // Updates the table based on the player's hand
@@ -51,7 +55,14 @@ public class Table {
         return searchType(name).stream()
                         .filter(box -> box.getCard().equals(name))
                         .anyMatch(box -> box.getState().equals(State.EXCLUDED));
-    }                
+    }
+    
+    // Excludes the box corresponding to the given card in the table
+    public void updateTable(Card name){
+        searchType(name).stream()
+        .filter(box -> box.getCard().equals(name))
+        .forEach(box -> box.excludeCard());
+    }
 }
 
 

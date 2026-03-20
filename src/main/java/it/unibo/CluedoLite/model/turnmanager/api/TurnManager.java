@@ -1,6 +1,7 @@
-package it.unibo.CluedoLite.model.turnmanager.api;
+package it.unibo.CluedoLite.model.Turnmanager.api;
 
 
+import it.unibo.CluedoLite.model.AccuseAndSuspect.Suspicion;
 import it.unibo.CluedoLite.model.Player.impl.Player;
 import it.unibo.CluedoLite.model.creationCards.Card;
 
@@ -43,10 +44,8 @@ import it.unibo.CluedoLite.model.creationCards.Card;
      * The other players, in circular order, show the first card in their hand
      * that matches the suggestion and has not yet been excluded from the notebook.
      *
-     * @param character the suspected character card
-     * @param weapon    the suspected weapon card
-     * @param room      the suspected room card
+     * @param suspicion the suspected cards
      * @return the card shown by the first player who can respond, or null if no one can
      */
-    Card SuggestionResponse(Card character, Card weapon, Card room);
+    Card SuggestionResponse(Suspicion suspicion);
 }

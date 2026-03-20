@@ -3,6 +3,7 @@ package it.unibo.CluedoLite.model.Player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
+import it.unibo.CluedoLite.model.GameBoard.api.Room;
 import it.unibo.CluedoLite.model.creationCards.*;
 import it.unibo.CluedoLite.model.suspectNotes.*;
 
@@ -47,7 +48,7 @@ public class Player {
         return hand;
     }
 
-        public Card findMatchingCard(Card character, Card weapon, Card room) {
+        public Card findMatchingCard(Card character, Card weapon, Room room) {
         for (Card card : getHand()) {
             if (card.getName().equals(character.getName()) ||
                 card.getName().equals(weapon.getName())    ||
