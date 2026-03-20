@@ -1,21 +1,29 @@
-package it.unibo.CluedoLite.model.creationCards;
+package it.unibo.CluedoLite.model.creationCards.impl;
+
+import it.unibo.CluedoLite.model.creationCards.api.InterfaceCard;
+
 /*
 * Abstaract class representing a card in the game, 
 * with a name property and a constructor to initialize it, 
 * and a getter method to retrieve the name of the card. 
 * This class is extended
  */
-public abstract class Card{
+public abstract class Card implements InterfaceCard{
     private final String name;
 
     public Card(String name) {
         this.name = name;
     }
-
+    
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
+    public abstract CardType getType();
+
+    @Override
     public String toString() {
         return name;
     }

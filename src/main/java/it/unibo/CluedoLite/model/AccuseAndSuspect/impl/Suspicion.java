@@ -1,26 +1,27 @@
-package it.unibo.CluedoLite.model.AccuseAndSuspect;
+package it.unibo.CluedoLite.model.AccuseAndSuspect.impl;
 
-import it.unibo.CluedoLite.model.creationCards.Characters;
-import it.unibo.CluedoLite.model.creationCards.Weapons;
+import it.unibo.CluedoLite.model.creationCards.impl.Weapons;
+import it.unibo.CluedoLite.model.creationCards.impl.Characters;
 import it.unibo.CluedoLite.model.GameBoard.api.Room;
+import it.unibo.CluedoLite.model.AccuseAndSuspect.api.InterfaceSuspicion;
 
 /*
  * This class represents a suspicion made by a player in the CluedoLite game. 
  * It encapsulates the character, weapon, and room that the player suspects to be involved in the crime. 
  * The class provides getter methods to retrieve the details of the suspicion.
  */
-public final class Suspicion {
+public final class Suspicion implements InterfaceSuspicion {
     private final Characters suspectCharacter;
     private final Weapons suspectWeapon;
-    private final Room suspectroom; // The room where the player is currently located when making the suspicion
+    private final Room suspectRoom; // The room where the player is currently located when making the suspicion
 
-    public Suspicion (Characters suspectCharacter, Weapons suspectWeapon, Room suspectroom) {
+    public Suspicion (Characters suspectCharacter, Weapons suspectWeapon, Room suspectRoom) {
         this.suspectCharacter = suspectCharacter;
         this.suspectWeapon = suspectWeapon;
-        this.suspectroom = suspectroom;
+        this.suspectRoom = suspectRoom;
     }
 
-    public Characters getSuspect() { 
+    public Characters getCharacters() { 
         return suspectCharacter; 
     }
 
@@ -29,13 +30,13 @@ public final class Suspicion {
     }
 
     public Room getRoom() { 
-        return suspectroom; 
+        return suspectRoom; 
     }
 
     @Override
     public String toString() {
         return "Sospetto: " + suspectCharacter.getName() 
              + " con " + suspectWeapon.getName() 
-             + " nella " + suspectroom.getName();
+             + " nella " + suspectRoom.getName();
     }
 }

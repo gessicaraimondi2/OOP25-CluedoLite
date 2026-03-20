@@ -4,50 +4,38 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.GameSetUp.Deck;
-import it.unibo.CluedoLite.model.GameSetUp.SecretSolution;
-import it.unibo.CluedoLite.model.creationCards.Card;
-import it.unibo.CluedoLite.model.creationCards.Characters;
-import it.unibo.CluedoLite.model.creationCards.Weapons;
-import it.unibo.CluedoLite.model.creationCards.Rooms;
+import it.unibo.CluedoLite.model.GameSetUp.impl.Deck;
+import it.unibo.CluedoLite.model.GameSetUp.impl.SecretSolution;
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationCards.impl.CardType;
 
-/*
-* Test class for the SecretSolution class.
- */
 public class TestSecretSolution {
 
     @Test
     public void testSecretSolutionGeneration() {
-        Deck deck = new Deck();
+        List<Card> cards = Deck.getAllCards(); // 21 carte
 
-        // Regenerate the secret solution and get the solution cards
-        SecretSolution secretSolution = new SecretSolution(deck);
+        SecretSolution secretSolution = new SecretSolution(cards); // rimuove 3 carte da cards
         List<Card> sol = secretSolution.getSolution();
 
-        // 1. The solution must contain exactly 3 cards
+        // 1. La soluzione deve contenere esattamente 3 carte
         assertEquals(3, sol.size());
 
-        // 2. The solution must contain 1 character, 1 weapon, and 1 room
-        boolean hasCharacter = false;
-        boolean hasWeapon = false;
-        boolean hasRoom = false;
-
-        for (Card c : sol) {
-            if (c instanceof Characters) hasCharacter = true;
-            if (c instanceof Weapons) hasWeapon = true;
-            if (c instanceof Rooms) hasRoom = true;
-        }
+        // 2. La soluzione deve contenere 1 personaggio, 1 arma e 1 stanza
+        boolean hasCharacter = sol.stream().anyMatch(c -> c.getType() == CardType.CHARACTER);
+        boolean hasWeapon    = sol.stream().anyMatch(c -> c.getType() == CardType.WEAPON);
+        boolean hasRoom      = sol.stream().anyMatch(c -> c.getType() == CardType.ROOM);
 
         assertTrue(hasCharacter);
         assertTrue(hasWeapon);
         assertTrue(hasRoom);
 
-        // 3. The solution cards must not be in the deck anymore
+        // 3. Le carte della soluzione non devono essere nel mazzo rimanente
         for (Card c : sol) {
-            assertFalse(deck.getCards().contains(c));
+            assertFalse(cards.contains(c));
         }
 
-        // 4. The deck must have 18 cards (21 total - 3 solution cards)
-        assertEquals(18, deck.getCards().size());
+        // 4. Il mazzo deve avere 18 carte (21 - 3)
+        assertEquals(18, cards.size());
     }
 }

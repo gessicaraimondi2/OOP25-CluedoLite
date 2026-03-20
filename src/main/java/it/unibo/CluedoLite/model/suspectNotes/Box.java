@@ -1,6 +1,6 @@
 package it.unibo.CluedoLite.model.suspectNotes;
 
-import it.unibo.CluedoLite.model.creationCards.*;
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
 
 /*
  * Class representing a single entry in the suspect notes: it stores a card and its current state
