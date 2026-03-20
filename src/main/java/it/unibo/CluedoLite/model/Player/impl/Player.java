@@ -3,8 +3,8 @@ package it.unibo.CluedoLite.model.Player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
-import it.unibo.CluedoLite.model.GameBoard.api.Room;
-import it.unibo.CluedoLite.model.creationCards.*;
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
+
 import it.unibo.CluedoLite.model.suspectNotes.*;
 
 /**
@@ -12,6 +12,7 @@ import it.unibo.CluedoLite.model.suspectNotes.*;
  * Each player has a name and can choose exactly one character.
  * The player also has a hand of cards that they can use during the game.
  */
+
 public class Player {
     private final String name;
     private CreationCharacter character; // chosen character
@@ -27,6 +28,7 @@ public class Player {
     public void chooseCharacter(CreationCharacter character) {
         this.character = character;
     }
+
     /*
      * Returns the character chosen by the player.
      */
@@ -48,7 +50,7 @@ public class Player {
         return hand;
     }
 
-        public Card findMatchingCard(Card character, Card weapon, Room room) {
+        public Card findMatchingCard(Card character, Card weapon, Card room) {
         for (Card card : getHand()) {
             if (card.getName().equals(character.getName()) ||
                 card.getName().equals(weapon.getName())    ||
