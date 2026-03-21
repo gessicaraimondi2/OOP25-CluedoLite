@@ -2,9 +2,9 @@ package it.unibo.CluedoLite.model.Player.impl;
 
 import it.unibo.CluedoLite.model.creationCards.Characters;
 /**
- * Represents a playable character in the game.
- * Each character has a name (inherited from Characters)
- * and a unique color associated with it.
+ * Represents a playable character in the game
+ * Each character has a name 
+ * and a unique color associated with it
  */
 public class CreationCharacter extends Characters{
     private final String color;
@@ -19,7 +19,7 @@ public class CreationCharacter extends Characters{
     }
     /*
      * Returns a string representation of the character,
-     * including its name and color.
+     * including its name and color
      */
     @Override
     public String toString() {

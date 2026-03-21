@@ -8,9 +8,9 @@ import it.unibo.CluedoLite.model.creationCards.*;
 import it.unibo.CluedoLite.model.suspectNotes.*;
 
 /**
- * Represents a player in the game.
- * Each player has a name and can choose exactly one character.
- * The player also has a hand of cards that they can use during the game.
+ * Represents a player in the game
+ * Each player has a name and can choose exactly one character
+ * The player also has a hand of cards that they can use during the game
  */
 public class Player {
     private final String name;
@@ -28,7 +28,7 @@ public class Player {
         this.character = character;
     }
     /*
-     * Returns the character chosen by the player.
+     * Returns the character chosen by the player
      */
     public CreationCharacter getCharacter() {
         return character;
@@ -38,12 +38,12 @@ public class Player {
         return name;
     }
 
-    // Adds a card to the player's hand.
+    // Adds a card to the player's hand
     public void addCard(Card card) {
         hand.add(card);
     }
 
-    // Returns the list of cards in the player's hand.
+    // Returns the list of cards in the player's hand
     public List<Card> getHand() {
         return hand;
     }
