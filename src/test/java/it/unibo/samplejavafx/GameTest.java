@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.Player.impl.Game;
 import it.unibo.CluedoLite.model.Player.impl.Player;
+import it.unibo.CluedoLite.model.GameFlow.impl.Game;
 import it.unibo.CluedoLite.model.Player.impl.CreationCharacter;
 
 public class GameTest {

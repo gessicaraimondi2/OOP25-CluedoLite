@@ -1,7 +1,10 @@
-package it.unibo.CluedoLite.model.Player.impl;
+package it.unibo.CluedoLite.model.GameFlow.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.unibo.CluedoLite.model.Player.impl.CreationCharacter;
+import it.unibo.CluedoLite.model.Player.impl.Player;
 
 public class Game {
 

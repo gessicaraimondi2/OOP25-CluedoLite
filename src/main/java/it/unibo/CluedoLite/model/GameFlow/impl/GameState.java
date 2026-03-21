@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.Player.impl;
+package it.unibo.CluedoLite.model.GameFlow.impl;
 /*
 * Represents the possible states of the game
  */
