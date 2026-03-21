@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.Player.impl.Game;
 import it.unibo.CluedoLite.model.Player.impl.Player;
+import it.unibo.CluedoLite.model.GameFlow.impl.Game;
 import it.unibo.CluedoLite.model.Player.impl.CreationCharacter;
 
 public class GameTest {
 
     /*
-     * Tests that the game is created correctly with a valid number of players.
+     * Tests that the game is created correctly with a valid number of players
      */
     @Test
     public void testValidNumberOfPlayers() {
@@ -27,7 +27,7 @@ public class GameTest {
     }
 
     /*
-     * Tests that the available characters list contains exactly 6 characters.
+     * Tests that the available characters list contains exactly 6 characters
      */
     @Test
     public void testAvailableCharactersCount() {
@@ -36,7 +36,7 @@ public class GameTest {
     }
 
     /*
-     * Tests that a player can be correctly inserted into the game.
+     * Tests that a player can be correctly inserted into the game
      */
     @Test
     public void testSetPlayerCorrectly() {
@@ -47,7 +47,7 @@ public class GameTest {
     }
 
     /*
-     * Tests that setting a player out of bounds throws an exception.
+     * Tests that setting a player out of bounds throws an exception
      */
     @Test
     public void testSetPlayerOutOfBounds() {
@@ -56,7 +56,7 @@ public class GameTest {
     }
 
     /*
-     * Tests that assigning a character to a valid player works correctly.
+     * Tests that assigning a character to a valid player works correctly
      */
     @Test
     public void testAssignCharacterCorrectly() {
@@ -72,18 +72,18 @@ public class GameTest {
     }
 
     /*
-     * Tests that assigning a character to a null player throws an exception.
+     * Tests that assigning a character to a null player throws an exception
      */
     @Test
     public void testAssignCharacterToNullPlayer() {
         Game game = new Game(3);
         CreationCharacter c = game.getAvailableCharacters().get(0);
 
-        assertThrows(NullPointerException.class, () -> game.assignCharacterToPlayer(0, c));
+        assertThrows(IllegalStateException.class, () -> game.assignCharacterToPlayer(0, c));
     }
 
     /*
-     * Tests that a character cannot be assigned twice.
+     * Tests that a character cannot be assigned twice
      */
     @Test
     public void testAssignDuplicateCharacter() {
@@ -103,7 +103,7 @@ public class GameTest {
     }
 
     /* 
-     * Tests that an assigned character is removed from the list of available characters.
+     * Tests that an assigned character is removed from the list of available characters
     */
     @Test
     public void testCharacterIsRemovedFromAvailableList() {
@@ -120,7 +120,7 @@ public class GameTest {
     }
 
     /*
-     * Full scenario test: players are added, characters assigned, and duplicates prevented.
+     * Tests that players are added, characters assigned, and duplicates prevented
      */
     @Test
     public void testGameSetupAndCharacterAssignment() {
@@ -134,7 +134,7 @@ public class GameTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        // Make a copy of the original list BEFORE assignments
+        // Make a copy of the original list before assignments
         List<CreationCharacter> characters = new ArrayList<>(game.getAvailableCharacters());
 
         game.assignCharacterToPlayer(0, characters.get(0)); 
