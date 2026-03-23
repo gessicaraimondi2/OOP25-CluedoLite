@@ -3,8 +3,9 @@ package it.unibo.CluedoLite.model.turnmanager.impl;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.player.impl.Player;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 /**
  * Implementation of the {@link TurnManager} interface.
@@ -61,24 +62,17 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public Card SuggestionResponse(Card character, Card weapon, Card room) {
+    public Card SuggestionResponse(Suspicion suspicion) {
         int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
             Player respondent = players.get((suspectIndex + i) % players.size());
-            Card cardToShow = respondent.findMatchingCard(character, weapon, room);
+            Card cardToShow = respondent.findMatchingCard(suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
 
             if (cardToShow != null) {
-                System.out.printf("%s mostra a %s: %s%n",
-                    respondent.getName(), 
-                    (players.get(currentIndex)).getName(), 
-                    cardToShow.getName());
-
                 return cardToShow;
             }
         }
-
-        System.out.println("Nessuno ha carte corrispondenti.");
         return null;
     }
 } 

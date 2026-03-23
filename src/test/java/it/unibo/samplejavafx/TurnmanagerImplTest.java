@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.creationCards.impl.*;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
@@ -15,8 +17,9 @@ import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 public class TurnmanagerImplTest {
     private Player p1, p2, p3, p4;
     private List<Player> players;
-    // private Card character, weapon, room;
-	// private TurnManager tm;
+    private Card character, weapon, room;
+    private Suspicion suspect;
+	private TurnManager tm;
 
     /**
      * Initializes players and cards before each test.
@@ -29,11 +32,14 @@ public class TurnmanagerImplTest {
         p4 = new Player("Valentina");
         this.players = List.of(p1, p2, p3, p4);
 
-        // character = new Characters("Miss Scarlett");
-        // weapon = new Weapons("Dagger");
-        // room = new Rooms("Kitchen");
+        character = new Characters("Miss Scarlett");
+        weapon = new Weapons("Dagger");
+        room = new Rooms("Kitchen");
 
-	    // tm = new TurnManagerImpl(players);
+
+        suspect= new Suspicion(character, weapon, room);
+       
+	    tm = new TurnManagerImpl(players);
     }
 
 
@@ -79,5 +85,29 @@ public class TurnmanagerImplTest {
         tm.nextTurn();
         tm.endGame();
         assertEquals(p2, tm.getCurrentPlayer());
+    }
+
+        @Test
+    void testSuggestionResponseFirstMatch() {
+        p2.addCard(character);
+        assertEquals(character, tm.SuggestionResponse(suspect));
+    }
+
+    @Test
+    void testSuggestionResponseSkipsNoMatch() {
+        p3.addCard(weapon);
+        assertEquals(weapon, tm.SuggestionResponse(suspect));
+    }
+
+    @Test
+    void testSuggestionResponseNoMatch() {
+        assertNull(tm.SuggestionResponse(suspect));
+    }
+
+    @Test
+    void testSuggestionResponseCircularOrder() {
+        tm.nextTurn(); // currentPlayer = p2
+        p1.addCard(room);
+        assertEquals(room, tm.SuggestionResponse(suspect));
     }
 }
