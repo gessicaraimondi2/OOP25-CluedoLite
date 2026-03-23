@@ -2,6 +2,7 @@ package it.unibo.CluedoLite.model.suspectNotes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 import it.unibo.CluedoLite.model.creationCards.impl.CardType;
 import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
