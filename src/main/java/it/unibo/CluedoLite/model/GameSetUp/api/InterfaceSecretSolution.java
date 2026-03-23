@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.GameSetUp.api;
+package it.unibo.CluedoLite.model.gameSetUp.api;
 
 import java.util.List;
 

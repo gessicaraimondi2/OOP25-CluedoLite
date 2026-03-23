@@ -1,7 +1,7 @@
-package it.unibo.CluedoLite.model.GameBoard.api;
+package it.unibo.CluedoLite.model.gameBoard.api;
 import java.util.*;
 
-import it.unibo.CluedoLite.model.Player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public interface GameBoardModel {
 

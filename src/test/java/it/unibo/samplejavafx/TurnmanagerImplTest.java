@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.Player.impl.Player;
-import it.unibo.CluedoLite.model.Turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.Turnmanager.impl.TurnManagerImpl;
+import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
 
 public class TurnmanagerImplTest {

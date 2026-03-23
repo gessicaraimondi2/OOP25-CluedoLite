@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.GameBoard.api.Room;
-import it.unibo.CluedoLite.model.GameBoard.impl.*;
-import it.unibo.CluedoLite.model.Player.impl.Player;
+import it.unibo.CluedoLite.model.gameBoard.api.Room;
+import it.unibo.CluedoLite.model.gameBoard.impl.*;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public class GameBoardModelImplTest {
 

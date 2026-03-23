@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.Player.impl;
+package it.unibo.CluedoLite.model.player.impl;
 
 import java.util.List;
 import java.util.ArrayList;

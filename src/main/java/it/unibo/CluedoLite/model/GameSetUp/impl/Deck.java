@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.GameSetUp.impl;
+package it.unibo.CluedoLite.model.gameSetUp.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;

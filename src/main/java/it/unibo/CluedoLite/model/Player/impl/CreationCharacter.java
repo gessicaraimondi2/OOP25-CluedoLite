@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.Player.impl;
+package it.unibo.CluedoLite.model.player.impl;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Characters;
 /**

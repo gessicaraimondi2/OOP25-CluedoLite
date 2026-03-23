@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.model.GameBoard.impl;
+package it.unibo.CluedoLite.model.gameBoard.impl;
 
 import java.util.*;
 
-import it.unibo.CluedoLite.model.GameBoard.api.*;
-import it.unibo.CluedoLite.model.Player.impl.Player;
+import it.unibo.CluedoLite.model.gameBoard.api.*;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public class GameBoardModelImpl implements GameBoardModel{
     private final Map<Player,Room> playersposition=new HashMap<>();

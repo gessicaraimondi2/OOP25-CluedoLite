@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.GameBoard.impl;
+package it.unibo.CluedoLite.model.gameBoard.impl;
 
 import java.util.*;
 
-import it.unibo.CluedoLite.model.GameBoard.api.Room;
+import it.unibo.CluedoLite.model.gameBoard.api.Room;
 
 public class RoomImpl implements Room {
     private final String name;

@@ -1,9 +1,7 @@
-package it.unibo.CluedoLite.model.AccuseAndSuspect.impl;
+package it.unibo.CluedoLite.model.accuseAndSuspect.impl;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Weapons;
-import it.unibo.CluedoLite.model.creationCards.impl.Characters;
-import it.unibo.CluedoLite.model.GameBoard.api.Room;
-import it.unibo.CluedoLite.model.AccuseAndSuspect.api.InterfaceSuspicion;
+import it.unibo.CluedoLite.model.accuseAndSuspect.api.InterfaceSuspicion;
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
 
 /*
  * This class represents a suspicion made by a player in the CluedoLite game. 
@@ -11,25 +9,25 @@ import it.unibo.CluedoLite.model.AccuseAndSuspect.api.InterfaceSuspicion;
  * The class provides getter methods to retrieve the details of the suspicion.
  */
 public final class Suspicion implements InterfaceSuspicion {
-    private final Characters suspectCharacter;
-    private final Weapons suspectWeapon;
-    private final Room suspectRoom; // The room where the player is currently located when making the suspicion
+    private final Card suspectCharacter;
+    private final Card suspectWeapon;
+    private final Card suspectRoom; // The room where the player is currently located when making the suspicion
 
-    public Suspicion (Characters suspectCharacter, Weapons suspectWeapon, Room suspectRoom) {
+    public Suspicion (Card suspectCharacter, Card suspectWeapon, Card suspectRoom) {
         this.suspectCharacter = suspectCharacter;
         this.suspectWeapon = suspectWeapon;
         this.suspectRoom = suspectRoom;
     }
 
-    public Characters getCharacters() { 
+    public Card getCharacters() { 
         return suspectCharacter; 
     }
 
-    public Weapons getWeapon() { 
+    public Card getWeapon() { 
         return suspectWeapon; 
     }
 
-    public Room getRoom() { 
+    public Card getRoom() { 
         return suspectRoom; 
     }
 
