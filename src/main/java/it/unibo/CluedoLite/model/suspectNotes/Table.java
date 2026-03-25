@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.suspectNotes;
+package it.unibo.CluedoLite.model.suspectnotes;
 
 import java.util.ArrayList;
 import java.util.List;

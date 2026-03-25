@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.suspectNotes.*;
+import it.unibo.CluedoLite.model.suspectnotes.*;
 
 /**
  * Represents a player in the game
@@ -12,26 +12,26 @@ import it.unibo.CluedoLite.model.suspectNotes.*;
  * The player also has a hand of cards that they can use during the game
  */
 
-public class Player {
+public class PlayerImpl {
     private final String name;
-    private CreationCharacter character; // chosen character
+    private CreationCharacterImpl character; // chosen character
     private final List<Card> hand; // cards in the player's hand
     private Table table;
 
-    public Player(String name) {
+    public PlayerImpl(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
         this.table = new Table(this.hand);
     }
     
-    public void chooseCharacter(CreationCharacter character) {
+    public void chooseCharacter(CreationCharacterImpl character) {
         this.character = character;
     }
 
     /*
      * Returns the character chosen by the player
      */
-    public CreationCharacter getCharacter() {
+    public CreationCharacterImpl getCharacter() {
         return character;
     }
 

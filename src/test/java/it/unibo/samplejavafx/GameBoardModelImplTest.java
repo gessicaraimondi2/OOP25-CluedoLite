@@ -6,17 +6,17 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.CluedoLite.model.gameBoard.api.Room;
 import it.unibo.CluedoLite.model.gameBoard.impl.*;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameBoardModelImplTest {
 
     private GameBoardModelImpl board;
-    private Player player;
+    private PlayerImpl player;
 
     @BeforeEach
     void setUp() {
         board = new GameBoardModelImpl();
-        player = new Player("Scarlett");
+        player = new PlayerImpl("Scarlett");
     }
 
     @Test

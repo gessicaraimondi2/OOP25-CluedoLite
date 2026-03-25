@@ -1,7 +1,7 @@
 package it.unibo.CluedoLite.model.gameBoard.api;
 import java.util.*;
 
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public interface GameBoardModel {
 
@@ -19,7 +19,7 @@ public interface GameBoardModel {
      * @param p the player whose position is requested
      * @return the room where the player is located, or null if not yet placed
      */
-    Room getPlayerPosition(Player p);
+    Room getPlayerPosition(PlayerImpl p);
 
     /**
      * Sets the position of the given player to the specified room.
@@ -27,7 +27,7 @@ public interface GameBoardModel {
      * @param p the player whose position is to be set
      * @param r the room where the player will be placed
      */
-    void setPlayerPosition(Player p,Room r);
+    void setPlayerPosition(PlayerImpl p,Room r);
 
     
     /**
@@ -48,5 +48,5 @@ public interface GameBoardModel {
      * @param target the room the player wants to move to
      * @return true if the move is allowed, false otherwise
      */
-    boolean canMoveTo(Player p, Room target) ;
+    boolean canMoveTo(PlayerImpl p, Room target) ;
 }

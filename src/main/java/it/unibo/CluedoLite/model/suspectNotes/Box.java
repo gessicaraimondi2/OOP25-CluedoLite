@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.suspectNotes;
+package it.unibo.CluedoLite.model.suspectnotes;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 

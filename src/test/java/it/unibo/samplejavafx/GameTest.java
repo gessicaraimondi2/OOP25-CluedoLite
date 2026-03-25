@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameFlow.impl.Game;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacter;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.gameFlow.impl.GameImpl;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameTest {
 
@@ -17,13 +17,13 @@ public class GameTest {
      */
     @Test
     public void testValidNumberOfPlayers() {
-        assertDoesNotThrow(() -> new Game(3));
+        assertDoesNotThrow(() -> new GameImpl(3));
     }
 
     @Test
     public void testInvalidNumberOfPlayers() {
-        assertThrows(IllegalArgumentException.class, () -> new Game(2));
-        assertThrows(IllegalArgumentException.class, () -> new Game(7));
+        assertThrows(IllegalArgumentException.class, () -> new GameImpl(2));
+        assertThrows(IllegalArgumentException.class, () -> new GameImpl(7));
     }
 
     /*
@@ -31,7 +31,7 @@ public class GameTest {
      */
     @Test
     public void testAvailableCharactersCount() {
-        Game game = new Game(3);
+        GameImpl game = new GameImpl(3);
         assertEquals(6, game.getAvailableCharacters().size());
     }
 
@@ -40,8 +40,8 @@ public class GameTest {
      */
     @Test
     public void testSetPlayerCorrectly() {
-        Game game = new Game(3);
-        Player p = new Player("Anna");
+        GameImpl game = new GameImpl(3);
+        PlayerImpl p = new PlayerImpl("Anna");
         game.setPlayer(0, p);
         assertEquals(p, game.getPlayers().get(0));
     }
@@ -51,8 +51,8 @@ public class GameTest {
      */
     @Test
     public void testSetPlayerOutOfBounds() {
-        Game game = new Game(3);
-        assertThrows(IndexOutOfBoundsException.class, () -> game.setPlayer(3, new Player("Test")));
+        GameImpl game = new GameImpl(3);
+        assertThrows(IndexOutOfBoundsException.class, () -> game.setPlayer(3, new PlayerImpl("Test")));
     }
 
     /*
@@ -60,12 +60,12 @@ public class GameTest {
      */
     @Test
     public void testAssignCharacterCorrectly() {
-        Game game = new Game(3);
+        GameImpl game = new GameImpl(3);
 
-        Player p1 = new Player("Anna");
+        PlayerImpl p1 = new PlayerImpl("Anna");
         game.setPlayer(0, p1);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
         game.assignCharacterToPlayer(0, c);
 
         assertEquals(c, p1.getCharacter());
@@ -76,8 +76,8 @@ public class GameTest {
      */
     @Test
     public void testAssignCharacterToNullPlayer() {
-        Game game = new Game(3);
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        GameImpl game = new GameImpl(3);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         assertThrows(IllegalStateException.class, () -> game.assignCharacterToPlayer(0, c));
     }
@@ -87,15 +87,15 @@ public class GameTest {
      */
     @Test
     public void testAssignDuplicateCharacter() {
-        Game game = new Game(3);
+        GameImpl game = new GameImpl(3);
 
-        Player p1 = new Player("Anna");
-        Player p2 = new Player("Chiara");
+        PlayerImpl p1 = new PlayerImpl("Anna");
+        PlayerImpl p2 = new PlayerImpl("Chiara");
 
         game.setPlayer(0, p1);
         game.setPlayer(1, p2);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         game.assignCharacterToPlayer(0, c);
 
@@ -107,12 +107,12 @@ public class GameTest {
     */
     @Test
     public void testCharacterIsRemovedFromAvailableList() {
-        Game game = new Game(3);
+        GameImpl game = new GameImpl(3);
 
-        Player p1 = new Player("Anna");
+        PlayerImpl p1 = new PlayerImpl("Anna");
         game.setPlayer(0, p1);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         game.assignCharacterToPlayer(0, c);
 
@@ -124,18 +124,18 @@ public class GameTest {
      */
     @Test
     public void testGameSetupAndCharacterAssignment() {
-        Game game = new Game(3);
+        GameImpl game = new GameImpl(3);
 
-        Player p1 = new Player("Anna");
-        Player p2 = new Player("Chiara");
-        Player p3 = new Player("Sara");
+        PlayerImpl p1 = new PlayerImpl("Anna");
+        PlayerImpl p2 = new PlayerImpl("Chiara");
+        PlayerImpl p3 = new PlayerImpl("Sara");
 
         game.setPlayer(0, p1);
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
         // Make a copy of the original list before assignments
-        List<CreationCharacter> characters = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> characters = new ArrayList<>(game.getAvailableCharacters());
 
         game.assignCharacterToPlayer(0, characters.get(0)); 
         game.assignCharacterToPlayer(1, characters.get(1)); 

@@ -6,10 +6,10 @@ import it.unibo.CluedoLite.model.creationCards.impl.Characters;
  * Each character has a name 
  * and a unique color associated with it
  */
-public class CreationCharacter extends Characters{
+public class CreationCharacterImpl extends Characters{
     private final String color;
 
-    public CreationCharacter(String name, String color) {
+    public CreationCharacterImpl(String name, String color) {
         super(name);
         this.color = color;      
     }

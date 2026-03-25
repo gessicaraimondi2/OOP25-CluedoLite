@@ -3,10 +3,10 @@ package it.unibo.CluedoLite.model.gameBoard.impl;
 import java.util.*;
 
 import it.unibo.CluedoLite.model.gameBoard.api.*;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameBoardModelImpl implements GameBoardModel{
-    private final Map<Player,Room> playersposition=new HashMap<>();
+    private final Map<PlayerImpl,Room> playersposition=new HashMap<>();
     private final List<Room> rooms=new ArrayList<>();
 
     public GameBoardModelImpl(){
@@ -40,7 +40,7 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public Room getPlayerPosition(Player p) {
+    public Room getPlayerPosition(PlayerImpl p) {
         return playersposition.get(p);
     }
 
@@ -48,7 +48,7 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public void setPlayerPosition(Player p,Room r){
+    public void setPlayerPosition(PlayerImpl p,Room r){
         playersposition.put(p,r);
     }
 
@@ -64,7 +64,7 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public boolean canMoveTo(Player p, Room target) {
+    public boolean canMoveTo(PlayerImpl p, Room target) {
         Room current = playersposition.get(p);
         if (current == null) {
             // all'inizio il giocatore può scegliere qualsiasi stanza

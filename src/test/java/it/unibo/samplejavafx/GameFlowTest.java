@@ -8,22 +8,22 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameFlow.impl.Game;
-import it.unibo.CluedoLite.model.gameFlow.impl.GameState;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacter;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.gameFlow.api.GameState;
+import it.unibo.CluedoLite.model.gameFlow.impl.GameImpl;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameFlowTest {
 
-    private Game game;
-    private Player p1, p2, p3;
+    private GameImpl game;
+    private PlayerImpl p1, p2, p3;
 
     @BeforeEach
     void setUp() {
-        game = new Game(3);
-        p1 = new Player("Anna");
-        p2 = new Player("Chiara");
-        p3 = new Player("Sara");
+        game = new GameImpl(3);
+        p1 = new PlayerImpl("Anna");
+        p2 = new PlayerImpl("Chiara");
+        p3 = new PlayerImpl("Sara");
     }
 
     /*
@@ -62,7 +62,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));
@@ -113,7 +113,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));
@@ -134,7 +134,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));

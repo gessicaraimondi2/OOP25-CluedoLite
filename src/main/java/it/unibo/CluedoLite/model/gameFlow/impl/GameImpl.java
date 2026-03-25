@@ -3,27 +3,28 @@ package it.unibo.CluedoLite.model.gameFlow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.player.impl.CreationCharacter;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.gameFlow.api.GameState;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
-public class Game {
+public class GameImpl {
 
-    private final List<Player> players;
-    private final List<CreationCharacter> availableCharacters;
+    private final List<PlayerImpl> players;
+    private final List<CreationCharacterImpl> availableCharacters;
     private GameState state;
 
-     private static final List<CreationCharacter> DEFAULT_CHARACTERS = List.of(
-        new CreationCharacter("Miss Scarlet", "RED"),
-        new CreationCharacter("Colonel Mustard", "YELLOW"),
-        new CreationCharacter("Mrs. White", "WHITE"),
-        new CreationCharacter("Mr. Green", "GREEN"),
-        new CreationCharacter("Mrs. Peacock", "BLUE"),
-        new CreationCharacter("Professor Plum", "PURPLE")
+     private static final List<CreationCharacterImpl> DEFAULT_CHARACTERS = List.of(
+        new CreationCharacterImpl("Miss Scarlet", "RED"),
+        new CreationCharacterImpl("Colonel Mustard", "YELLOW"),
+        new CreationCharacterImpl("Mrs. White", "WHITE"),
+        new CreationCharacterImpl("Mr. Green", "GREEN"),
+        new CreationCharacterImpl("Mrs. Peacock", "BLUE"),
+        new CreationCharacterImpl("Professor Plum", "PURPLE")
     );
     /*
      * Creates a new game; The number of players must be between 3 and 6
      */
-    public Game(int numPlayers) {
+    public GameImpl(int numPlayers) {
         if (numPlayers < 3 || numPlayers > 6) {
             throw new IllegalArgumentException("Number of players must be between 3 and 6");
         }
@@ -38,19 +39,19 @@ public class Game {
     /*
      * Returns the list of players in the game
      */
-    public List<Player> getPlayers() {
+    public List<PlayerImpl> getPlayers() {
         return players;
     }
     /*
      * Returns the list of characters that are still available
      */
-    public List<CreationCharacter> getAvailableCharacters() {
+    public List<CreationCharacterImpl> getAvailableCharacters() {
         return availableCharacters;
     }
     /*
      * Sets a player in the given position.
      */
-    public void setPlayer(int index, Player player) {
+    public void setPlayer(int index, PlayerImpl player) {
         players.set(index, player);
     }
     /**
@@ -59,13 +60,13 @@ public class Game {
      * 2. The character has not already been chosen by another player
      * 3. Removes the character from the available list
      */
-    public void assignCharacterToPlayer(int index, CreationCharacter character) {
+    public void assignCharacterToPlayer(int index, CreationCharacterImpl character) {
 
         if (players.get(index) == null) {
             throw new IllegalStateException("Player not initialized");
         }
 
-        for (Player p : players) {
+        for (PlayerImpl p : players) {
             if (p != null && p.getCharacter() != null && p.getCharacter().equals(character)) {
                 throw new IllegalArgumentException("This character is already chosen by another player");
             }
@@ -97,7 +98,7 @@ public class Game {
     }
     // Returns true if every player has a character assigned
     public boolean allCharactersAssigned() {
-        for (Player p : players)
+        for (PlayerImpl p : players)
             if (p == null || p.getCharacter() == null) return false;
         return true;
     }
@@ -112,7 +113,7 @@ public class Game {
     public void resetGame() {
         if (state != GameState.IN_PROGRESS)
             throw new IllegalStateException("Game is not in progress");
-        for (Player p : players)
+        for (PlayerImpl p : players)
             if (p != null) p.chooseCharacter(null);
         availableCharacters.clear();
         availableCharacters.addAll(DEFAULT_CHARACTERS);

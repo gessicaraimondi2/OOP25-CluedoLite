@@ -8,15 +8,15 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 import it.unibo.CluedoLite.model.creationCards.impl.*;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
 
 public class TurnmanagerImplTest {
-    private Player p1, p2, p3, p4;
-    private List<Player> players;
+    private PlayerImpl p1, p2, p3, p4;
+    private List<PlayerImpl> players;
     private Card character, weapon, room;
     private Suspicion suspect;
 	private TurnManager tm;
@@ -26,10 +26,10 @@ public class TurnmanagerImplTest {
      */
     @BeforeEach
     void init() {
-        p1 = new Player("Giulia");
-        p2 = new Player("Giorgia");
-        p3 = new Player("Gessica");
-        p4 = new Player("Valentina");
+        p1 = new PlayerImpl("Giulia");
+        p2 = new PlayerImpl("Giorgia");
+        p3 = new PlayerImpl("Gessica");
+        p4 = new PlayerImpl("Valentina");
         this.players = List.of(p1, p2, p3, p4);
 
         character = new Characters("Miss Scarlett");

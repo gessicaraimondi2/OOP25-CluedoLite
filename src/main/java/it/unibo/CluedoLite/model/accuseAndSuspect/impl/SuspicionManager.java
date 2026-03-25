@@ -3,7 +3,7 @@ package it.unibo.CluedoLite.model.accuseAndSuspect.impl;
 import it.unibo.CluedoLite.model.accuseAndSuspect.api.InterfaceSuspicionManager;
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 import it.unibo.CluedoLite.model.gameBoard.impl.GameBoardModelImpl;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 /*
  * This class manages the suspicion phase of the CluedoLite game.
@@ -29,7 +29,7 @@ public class SuspicionManager implements InterfaceSuspicionManager {
      * Otherwise, it returns a new Suspicion object with the specified character, weapon, and the room where the player is located.
      */
     @Override
-    public Suspicion makeSuspicion(Player player, Card character, Card weapon) {
+    public Suspicion makeSuspicion(PlayerImpl player, Card character, Card weapon) {
 
         // Get the room where the player is currently located and cast it to a Card, since rooms are represented as Cards in the game
         Card room = (Card) board.getPlayerPosition(player);
