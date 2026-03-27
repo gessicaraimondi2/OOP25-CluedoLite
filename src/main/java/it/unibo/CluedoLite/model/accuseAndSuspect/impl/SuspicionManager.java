@@ -2,45 +2,44 @@ package it.unibo.CluedoLite.model.accuseAndSuspect.impl;
 
 import it.unibo.CluedoLite.model.accuseAndSuspect.api.InterfaceSuspicionManager;
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.gameBoard.impl.GameBoardModelImpl;
 import it.unibo.CluedoLite.model.player.impl.Player;
 
-/*
- * This class manages the suspicion phase of the CluedoLite game.
- * It creates a Suspicion object using the character and weapon chosen by the player,
- * and the room where the player currently is.
+/**
+ * Implementation of the {@link InterfaceSuspicionManager} interface.
+ * This class is responsible for creating {@link Suspicion} objects during the suspicion phase.
+ *
+ * Responsibilities:
+ *  - validates that the player is currently in a room before allowing a suspicion
+ *  - creates and returns a {@link Suspicion} object with the given character, weapon, and room
+ *
+ * This class belongs to the MODEL layer and contains no view or controller logic.
+ * The room is received directly as a parameter from the controller,
+ * since the controller already knows the current room of the player.
  */
 public class SuspicionManager implements InterfaceSuspicionManager {
 
-    //The game board is needed to determine the room of the player when making a suspicion
-    private final GameBoardModelImpl board;
-
     /**
-    * Constructs a {@link SuspicionManager} with the given game board.
-    * @param board the {@link GameBoardModelImpl} representing the current game board
-    */
-    public SuspicionManager(GameBoardModelImpl board) {
-        this.board = board;
-    }
-
-    /*
-     * Creates a Suspicion object based on the player's current position and the chosen character and weapon.
-     * If the player is not in a room, it returns null and prints a message indicating that the suspicion cannot be made.
-     * Otherwise, it returns a new Suspicion object with the specified character, weapon, and the room where the player is located.
+     * Creates a {@link Suspicion} object based on the player's chosen character and weapon,
+     * and the room where the player is currently located.
+     *
+     * The room is passed directly by the controller rather than retrieved from the board,
+     * keeping this class decoupled from the {@link it.unibo.CluedoLite.model.gameBoard.impl.GameBoardModelImpl}.
+     *
+     * @param player    the player who is making the suspicion
+     * @param character the card representing the suspected character
+     * @param weapon    the card representing the suspected weapon
+     * @param room      the card representing the room where the player currently is,
+     *                  or {@code null} if the player is not in any room
+     * @return a new {@link Suspicion} object if the room is valid, {@code null} otherwise
      */
     @Override
-    public Suspicion makeSuspicion(Player player, Card character, Card weapon) {
-
-        // Get the room where the player is currently located and cast it to a Card, since rooms are represented as Cards in the game
-        Card room = (Card) board.getPlayerPosition(player);
-
-        // If the player is not in a room, they cannot make a suspicion
+    public Suspicion makeSuspicion(Player player, Card character, Card weapon, Card room) {
+        // A suspicion can only be made if the player is currently in a room
         if (room == null) {
             System.out.println("The player is not in a room and cannot make a suspicion.");
             return null;
         }
-
-        // Create and return a new Suspicion object with the chosen character, weapon, and the room where the player is located
+        // Create and return the Suspicion with the chosen character, weapon, and current room
         return new Suspicion(character, weapon, room);
     }
 }

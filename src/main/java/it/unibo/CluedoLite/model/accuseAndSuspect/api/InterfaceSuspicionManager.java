@@ -18,5 +18,5 @@ public interface InterfaceSuspicionManager {
      * @param weapon the suspected weapon.
      * @return a Suspicion object, or null if the player is not in a room.
      */
-    Suspicion makeSuspicion(Player player, Card character, Card weapon);
+    Suspicion makeSuspicion(Player player, Card character, Card weapon, Card room);
 }
