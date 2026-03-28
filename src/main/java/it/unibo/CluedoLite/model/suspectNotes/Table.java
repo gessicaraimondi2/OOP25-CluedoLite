@@ -25,6 +25,18 @@ public class Table {
         initializeTable(hand);
     }
 
+    public List<Box> getCharacters(){
+        return characters;
+    }
+
+    public List<Box> getWeapons(){
+        return weapons;
+    }
+
+    public List<Box> getRooms(){
+        return rooms;
+    }
+
     public static Deck getDeck(){
         return deck;
     }

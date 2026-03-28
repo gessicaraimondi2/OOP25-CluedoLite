@@ -2,11 +2,13 @@ package it.unibo.samplejavafx;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import it.unibo.CluedoLite.model.creationCards.*;
 import it.unibo.CluedoLite.model.GameSetUp.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.unibo.CluedoLite.model.suspectNotes.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
