@@ -2,8 +2,11 @@ package it.unibo.CluedoLite.model.suspectNotes;
 
 import java.util.ArrayList;
 import java.util.List;
-import it.unibo.CluedoLite.model.creationCards.*;
-import it.unibo.CluedoLite.model.GameSetUp.*;
+
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationCards.impl.Characters;
+import it.unibo.CluedoLite.model.creationCards.impl.Weapons;
+import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
 
 /*
  * Represents the suspect notes table, grouping all cards into Boxes
@@ -11,34 +14,17 @@ import it.unibo.CluedoLite.model.GameSetUp.*;
  */
 
 public class Table {
-    private static Deck deck = new Deck();
     private final List<Box> rooms = new ArrayList<>();
     private final List<Box> characters = new ArrayList<>();
     private final List<Box> weapons = new ArrayList<>();
 
     // Builds the suspect notes table by creating a Box for each card and grouping them by type
     public Table(List<Card> hand){
-        for(Card name : deck.getCards()){      
+        for (Card name : Deck.getAllCards()) {      
             Box box = new Box(name);   
-            searchType(name).add(box); // determines the card type and adds the Box to the correct list         
+            searchType(name).add(box);
         }
         initializeTable(hand);
-    }
-
-    public List<Box> getCharacters(){
-        return characters;
-    }
-
-    public List<Box> getWeapons(){
-        return weapons;
-    }
-
-    public List<Box> getRooms(){
-        return rooms;
-    }
-
-    public static Deck getDeck(){
-        return deck;
     }
 
     // Updates the table based on the player's hand
@@ -76,5 +62,3 @@ public class Table {
         .forEach(box -> box.excludeCard());
     }
 }
-
-

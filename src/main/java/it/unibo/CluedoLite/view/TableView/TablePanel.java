@@ -1,5 +1,7 @@
 package it.unibo.CluedoLite.view.TableView;
 
+import it.unibo.CluedoLite.model.creationCards.impl.CardType;
+import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
 import it.unibo.CluedoLite.model.suspectNotes.Box;
 import it.unibo.CluedoLite.model.suspectNotes.Table;
 import java.util.List;
@@ -28,9 +30,9 @@ public class TablePanel extends JPanel {
         add(rooms);
         add(weapons);
 
-        fillTable(table.getCharacters(), characters);
-        fillTable(table.getWeapons(), weapons);
-        fillTable(table.getRooms(), rooms);
+        fillTable(table.searchType(Deck.getCardsByType(CardType.CHARACTER).get(0)), characters);
+        fillTable(table.searchType(Deck.getCardsByType(CardType.WEAPON).get(0)), weapons);
+        fillTable(table.searchType(Deck.getCardsByType(CardType.ROOM).get(0)), rooms);
     }
 
     // Creates a styled panel for a card category section.

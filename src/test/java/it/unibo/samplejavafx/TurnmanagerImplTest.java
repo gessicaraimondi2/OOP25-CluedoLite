@@ -10,7 +10,7 @@ import java.util.List;
 import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 import it.unibo.CluedoLite.model.creationCards.impl.*;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.turnmanager.api.turnManager;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
 
@@ -19,7 +19,7 @@ public class TurnmanagerImplTest {
     private List<PlayerImpl> players;
     private Card character, weapon, room;
     private Suspicion suspect;
-	private TurnManager tm;
+	private turnManager tm;
 
     /**
      * Initializes players and cards before each test.
@@ -48,7 +48,7 @@ public class TurnmanagerImplTest {
      */
     @Test
     void testTurn() {
-        final TurnManager tm = new TurnManagerImpl(players);
+        final turnManager tm = new TurnManagerImpl(players);
         assertEquals(p1, tm.getCurrentPlayer());
         assertEquals(p2, tm.nextTurn());
         assertEquals(p3, tm.nextTurn());
@@ -61,7 +61,7 @@ public class TurnmanagerImplTest {
      */
     @Test
     void testEndGame() {
-        final TurnManager tm = new TurnManagerImpl(players);
+        final turnManager tm = new TurnManagerImpl(players);
         tm.endGame();
         assertTrue(tm.isGameOver());
     }
@@ -71,7 +71,7 @@ public class TurnmanagerImplTest {
      */
     @Test
     void testNextTurnThrowsWhenGameOver() {
-        final TurnManager tm = new TurnManagerImpl(players);
+        final turnManager tm = new TurnManagerImpl(players);
         tm.endGame();
         assertThrows(IllegalStateException.class, () -> tm.nextTurn());
     }
@@ -81,7 +81,7 @@ public class TurnmanagerImplTest {
      */
     @Test
     void testGetCurrentPlayerAfterGameOver() {
-        final TurnManager tm = new TurnManagerImpl(players);
+        final turnManager tm = new TurnManagerImpl(players);
         tm.nextTurn();
         tm.endGame();
         assertEquals(p2, tm.getCurrentPlayer());

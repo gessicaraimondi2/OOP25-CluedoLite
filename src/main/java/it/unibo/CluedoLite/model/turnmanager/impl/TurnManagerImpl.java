@@ -3,15 +3,15 @@ package it.unibo.CluedoLite.model.turnmanager.impl;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
+import it.unibo.CluedoLite.model.turnmanager.api.turnManager;
 import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 /**
- * Implementation of the {@link TurnManager} interface.
+ * Implementation of the {@link turnManager} interface.
  */
 
-public class TurnManagerImpl implements TurnManager{
+public class TurnManagerImpl implements turnManager{
 
     private final List<PlayerImpl> players;
     private int currentIndex;

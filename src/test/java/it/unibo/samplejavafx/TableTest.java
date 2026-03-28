@@ -3,8 +3,8 @@ package it.unibo.samplejavafx;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.*;
-import it.unibo.CluedoLite.model.GameSetUp.Deck;
+import it.unibo.CluedoLite.model.creationCards.impl.*;
+import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.unibo.CluedoLite.model.suspectNotes.*;
@@ -18,28 +18,29 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class TableTest {
-    private static final Deck deck = Table.getDeck();
-    private Characters missScarlett;
-    private Weapons candlestick;
-    private Rooms kitchen;
+    private Card missScarlett;
+    private Card candlestick;
+    private Card kitchen;
 
 
     // Before each test, takes one card from each category (character, 
     // weapon, and room) from the deck. 
-    @BeforeEach
+   @BeforeEach
     void setUp() {
-        missScarlett = (Characters) deck.getCards().stream()
-                .filter(c -> c instanceof Characters)
+        List<Card> allCards = Deck.getAllCards();
+
+        missScarlett = allCards.stream()
+                .filter(c -> c.getType() == CardType.CHARACTER)
                 .findFirst()
                 .orElseThrow();
 
-        candlestick = (Weapons) deck.getCards().stream()
-                .filter(c -> c instanceof Weapons)
+        candlestick = allCards.stream()
+                .filter(c -> c.getType() == CardType.WEAPON)
                 .findFirst()
                 .orElseThrow();
 
-        kitchen = (Rooms) deck.getCards().stream()
-                .filter(c -> c instanceof Rooms)
+        kitchen = allCards.stream()
+                .filter(c -> c.getType() == CardType.ROOM)
                 .findFirst()
                 .orElseThrow();
     }
@@ -64,7 +65,7 @@ class TableTest {
     @Test
     void tableCreation() {
         Table table = new Table(new ArrayList<>());
-        int deckSize = deck.getCards().size(); // 21 cards
+        int deckSize = Deck.getAllCards().size(); // 21 cards
         int boxesNum = table.searchType(missScarlett).size() 
         + table.searchType(candlestick).size() 
         + table.searchType(kitchen).size(); 
@@ -106,7 +107,7 @@ class TableTest {
 
         assertDoesNotThrow(() -> table.initializeTable(hand)); // does not generate errors 
                                                                // or corrupt the structure
-        long characterCount = deck.getCards().stream()
+        long characterCount = Deck.getAllCards().stream()
                 .filter(c -> c instanceof Characters).count();
         assertEquals(characterCount, table.searchType(missScarlett).size()); // the list size 
                                                                              // remains the same 

@@ -9,7 +9,7 @@ import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
  * Interface rapresenting the logic of the class that manages the turn order of players in the game.
  */
 
- public interface TurnManager {
+ public interface turnManager {
 
     /**
      * Returns the player whose turn it currently is.
