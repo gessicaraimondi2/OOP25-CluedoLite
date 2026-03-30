@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view;
+package it.unibo.CluedoLite.view.menuview;
 
 import javax.swing.*;
 import java.awt.*;

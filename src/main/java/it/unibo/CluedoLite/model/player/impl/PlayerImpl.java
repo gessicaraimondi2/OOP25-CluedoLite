@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.suspectnotes.*;
 
 /**
@@ -12,9 +14,9 @@ import it.unibo.CluedoLite.model.suspectnotes.*;
  * The player also has a hand of cards that they can use during the game
  */
 
-public class PlayerImpl {
+public class PlayerImpl implements Player{
     private final String name;
-    private CreationCharacterImpl character; // chosen character
+    private CreationCharacter character; // chosen character
     private final List<Card> hand; // cards in the player's hand
     private Table table;
 
@@ -24,14 +26,14 @@ public class PlayerImpl {
         this.table = new Table(this.hand);
     }
     
-    public void chooseCharacter(CreationCharacterImpl character) {
+    public void chooseCharacter(CreationCharacter character) {
         this.character = character;
     }
 
     /*
      * Returns the character chosen by the player
      */
-    public CreationCharacterImpl getCharacter() {
+    public CreationCharacter getCharacter() {
         return character;
     }
 
