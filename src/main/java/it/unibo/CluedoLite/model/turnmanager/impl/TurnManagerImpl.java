@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.player.api.Player;
 
 /**
  * Implementation of the {@link TurnManager} interface.
@@ -13,11 +13,11 @@ import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class TurnManagerImpl implements TurnManager{
 
-    private final List<PlayerImpl> players;
+    private final List<Player> players;
     private int currentIndex;
     private boolean gameOver = false;
 
-    public TurnManagerImpl(List<PlayerImpl> players){
+    public TurnManagerImpl(List<Player> players){
             this.players=List.copyOf(players);
             this.currentIndex=0;
     } 
@@ -26,7 +26,7 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public PlayerImpl getCurrentPlayer(){
+    public Player getCurrentPlayer(){
         return this.players.get(this.currentIndex);
     } 
 
@@ -50,7 +50,7 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public PlayerImpl nextTurn(){
+    public Player nextTurn(){
         if (this.gameOver) {
             throw new IllegalStateException("Non si puo proseguire:il gioco è gia finito");
         }
@@ -66,7 +66,7 @@ public class TurnManagerImpl implements TurnManager{
         int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
-            PlayerImpl respondent = players.get((suspectIndex + i) % players.size());
+            Player respondent = players.get((suspectIndex + i) % players.size());
             Card cardToShow = respondent.findMatchingCard(suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
 
             if (cardToShow != null) {

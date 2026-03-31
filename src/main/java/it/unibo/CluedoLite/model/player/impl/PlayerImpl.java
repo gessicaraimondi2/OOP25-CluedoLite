@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.suspectnotes.*;
+import it.unibo.CluedoLite.model.suspectNotes.*;
 
 /**
  * Represents a player in the game
