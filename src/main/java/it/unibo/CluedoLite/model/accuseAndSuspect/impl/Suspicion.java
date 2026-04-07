@@ -1,7 +1,7 @@
-package it.unibo.CluedoLite.model.accuseAndSuspect.impl;
+package it.unibo.CluedoLite.model.accuseandsuspect.impl;
 
-import it.unibo.CluedoLite.model.accuseAndSuspect.api.InterfaceSuspicion;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.accuseandsuspect.api.InterfaceSuspicion;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 
 /*
  * This class represents a suspicion made by a player in the CluedoLite game. 
@@ -33,8 +33,8 @@ public final class Suspicion implements InterfaceSuspicion {
 
     @Override
     public String toString() {
-        return "Sospetto: " + suspectCharacter.getName() 
-             + " con " + suspectWeapon.getName() 
-             + " nella " + suspectRoom.getName();
+        return "Suspect: " + suspectCharacter.getName() 
+             + " with " + suspectWeapon.getName() 
+             + " in the " + suspectRoom.getName();
     }
 }

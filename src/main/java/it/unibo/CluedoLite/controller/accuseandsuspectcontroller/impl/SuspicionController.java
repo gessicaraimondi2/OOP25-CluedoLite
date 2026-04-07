@@ -1,11 +1,12 @@
-package it.unibo.CluedoLite.controller;
+package it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl;
 
 import java.util.function.Consumer;
 import javax.swing.JOptionPane;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.accuseAndSuspect.impl.*;
+
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.*;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.impl.Player;
-import it.unibo.CluedoLite.view.suspicionView.SuspicionView;
+import it.unibo.CluedoLite.view.suspicionview.SuspicionView;
 
 /**
  * Controller for the suspicion phase of the CluedoLite game.

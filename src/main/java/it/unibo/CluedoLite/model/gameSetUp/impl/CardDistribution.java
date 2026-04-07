@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.gameSetUp.impl;
+package it.unibo.CluedoLite.model.gamesetup.impl;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.impl.Player;
 
 /**

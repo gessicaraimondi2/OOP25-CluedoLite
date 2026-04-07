@@ -1,6 +1,6 @@
 package it.unibo.CluedoLite.model.player.impl;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Characters;
+import it.unibo.CluedoLite.model.creationcards.impl.Characters;
 /**
  * Represents a playable character in the game
  * Each character has a name 

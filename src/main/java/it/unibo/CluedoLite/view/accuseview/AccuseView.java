@@ -1,41 +1,41 @@
-package it.unibo.CluedoLite.view.suspicionview;
+package it.unibo.CluedoLite.view.accuseview;
 
 import javax.swing.*;
-import java.awt.*;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import java.awt.*;
 
 /**
- * This class represents the Swing VIEW for the suspicion phase of the CluedoLite game.
+ * This class represents the Swing VIEW for the accusation phase of the CluedoLite game.
  *
  * Responsibilities:
  * - displays to the player:
- *      - the room they are currently in (not editable, determined by the game)
  *      - a dropdown list of selectable characters
  *      - a dropdown list of selectable weapons
+ *      - a dropdown list of selectable rooms
  *  - exposes getter methods so the controller can read the player's choices
  *  - exposes the confirm button so the controller can attach the confirmation logic
  *
  * This class contains NO game logic: it only handles presentation and input collection.
  * It does not know what happens after the player confirms — that is the controller's responsibility.
  */
-public class SuspicionView extends JFrame {
+public class AccuseView extends JFrame {
 
-    private static final Color BG_DARK = new Color(30, 0, 0);
-    private static final Color DD_COLOR = new Color(100, 15, 15);
-    private static final Color BTN_COLOR = new Color(90, 25, 25);
+    private static final Color BG_DARK    = new Color(30, 0, 0);
+    private static final Color DD_COLOR  = new Color(100, 15, 15);
+    private static final Color BTN_COLOR  = new Color(90, 25, 25);
     private static final Color TEXT_WHITE = Color.WHITE;
 
     // JComboBox for the selection of the suspected character
     private final JComboBox<Card> characterBox;
     // JComboBox for the selection of the suspected weapon
     private final JComboBox<Card> weaponBox;
-    // JTextField for displaying the current room (not editable by the player)
-    private final JTextField roomField;
-    // JButton for confirming the suspicion, exposed to the controller via getConfirmButton()
+    // JComboBox for the selection of the suspected room
+    private final JComboBox<Card> roomBox;
+    // JButton for confirming the accusation, exposed to the controller via getConfirmButton()
     private JButton confirmButton;
 
     /**
-     * Constructs the suspicion view and initializes all its components.
+     * Constructs the accusation view and initializes all its components.
      * The view receives all data ready from the controller — it does not
      * fetch or compute anything on its own.
      * 
@@ -43,10 +43,10 @@ public class SuspicionView extends JFrame {
      * @param weapons    array of {@link Card} objects representing the available weapons
      * @param room       {@link Card} representing the room where the player is currently located
      */
-    public SuspicionView(Card[] characters, Card[] weapons, Card room) {
+    public AccuseView(Card[] characters, Card[] weapons, Card[] room) {
 
-        // Title of the suspicion window
-        setTitle("Make Your Suspicion:");
+        // Title of the accusation window
+        setTitle("Make Your Accusation:");
         // Fixed window size: wide enough to display all components clearly
         setSize(700, 550);
         // Center the window on the screen
@@ -82,20 +82,19 @@ public class SuspicionView extends JFrame {
         weaponBox.setFont(new Font("Serif", Font.BOLD, 15));
         panel.add(weaponBox);
 
-        // Row 3: room display (read-only)
-        JLabel roomLabel = new JLabel("The Room is:");
+        // Row 3: room selection
+        JLabel roomLabel = new JLabel("Choose the Room:");
         roomLabel.setForeground(TEXT_WHITE);
         roomLabel.setFont(new Font("Serif", Font.BOLD, 30));
         panel.add(roomLabel);
-        roomField = new JTextField(room.getName());
-        roomField.setEditable(false);
-        roomField.setBackground(DD_COLOR);
-        roomField.setForeground(TEXT_WHITE);
-        roomField.setFont(new Font("Serif", Font.BOLD, 15));
-        panel.add(roomField);
+        roomBox = new JComboBox<>(room);
+        roomBox.setBackground(DD_COLOR);
+        roomBox.setForeground(TEXT_WHITE);
+        roomBox.setFont(new Font("Serif", Font.BOLD, 15));
+        panel.add(roomBox);
 
-        // Botton to confirm the suspicion, placed in the south region of the BorderLayout
-        confirmButton = new JButton("Confirm your Suspicion");
+        // Botton to confirm the accusation, placed in the south region of the BorderLayout
+        confirmButton = new JButton("Confirm your Accusation");
         confirmButton.setBackground(BTN_COLOR);
         confirmButton.setForeground(TEXT_WHITE);
         confirmButton.setFont(new Font("Serif", Font.BOLD, 30));
@@ -128,6 +127,16 @@ public class SuspicionView extends JFrame {
     public Card getSelectedWeapon() {
         return (Card) weaponBox.getSelectedItem();
     }
+
+    /**
+     * Returns the room card currently selected by the player in the dropdown.
+     * Called by the controller when the confirm button is pressed.
+     *
+     * @return the {@link Card} representing the suspected room
+     */
+    public Card getSelectedRoom() {
+        return (Card) roomBox.getSelectedItem();
+    }   
 
     /**
      * Exposes the confirm button to the controller.

@@ -1,7 +1,7 @@
-package it.unibo.CluedoLite.model.accuseAndSuspect.api;
+package it.unibo.CluedoLite.model.accuseandsuspect.api;
 
-import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.impl.Player;
 
 /**

@@ -3,8 +3,8 @@ package it.unibo.CluedoLite.model.player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.suspectNotes.*;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.suspectnotes.*;
 
 /**
  * Represents a player in the game
