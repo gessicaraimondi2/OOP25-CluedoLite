@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.suspectnotes.*;
+import it.unibo.CluedoLite.model.suspectNotes.api.*;
+import it.unibo.CluedoLite.model.suspectNotes.impl.*;
 
 /**
  * Represents a player in the game
@@ -23,7 +24,7 @@ public class PlayerImpl implements Player{
     public PlayerImpl(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
-        this.table = new Table(this.hand);
+        this.table = new TableImpl(this.hand);
     }
     
     public void chooseCharacter(CreationCharacter character) {

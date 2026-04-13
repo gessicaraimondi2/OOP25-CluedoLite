@@ -1,8 +1,10 @@
 package it.unibo.CluedoLite.view.TableView;
 
 import javax.swing.*;
+
+import it.unibo.CluedoLite.model.suspectNotes.api.State;
+
 import java.awt.*;
-import it.unibo.CluedoLite.model.suspectNotes.State;
 
 /*
  * Custom JPanel representing a single card in the suspect notes table.

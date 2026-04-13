@@ -1,16 +1,17 @@
-package it.unibo.CluedoLite.model.suspectNotes;
+package it.unibo.CluedoLite.model.suspectNotes.impl;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationCards.impl.*;
+import it.unibo.CluedoLite.model.suspectNotes.api.*;
 
 /*
  * Class representing a single entry in the suspect notes: it stores a card and its current state
  */
 
-public class Box{
+public class BoxImpl implements Box{
     private Card name;
     private State state;        
 
-    public Box(Card name){
+    public BoxImpl(Card name){
         this.name = name;
         this.state = State.POSSIBLE;  // default state before any card is excluded
     }

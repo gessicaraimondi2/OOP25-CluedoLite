@@ -2,8 +2,9 @@ package it.unibo.CluedoLite.view.TableView;
 
 import it.unibo.CluedoLite.model.creationCards.impl.CardType;
 import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
-import it.unibo.CluedoLite.model.suspectNotes.Box;
-import it.unibo.CluedoLite.model.suspectNotes.Table;
+import it.unibo.CluedoLite.model.suspectNotes.api.Box;
+import it.unibo.CluedoLite.model.suspectNotes.api.Table;
+
 import java.util.List;
 import javax.swing.*;
 import java.awt.Color;

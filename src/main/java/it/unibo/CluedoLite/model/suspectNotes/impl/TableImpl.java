@@ -1,27 +1,22 @@
-package it.unibo.CluedoLite.model.suspectNotes;
+package it.unibo.CluedoLite.model.suspectNotes.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.creationCards.impl.Characters;
-import it.unibo.CluedoLite.model.creationCards.impl.Weapons;
-import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
+import it.unibo.CluedoLite.model.creationCards.impl.*;
+import it.unibo.CluedoLite.model.gameSetUp.impl.*;
+import it.unibo.CluedoLite.model.suspectNotes.api.*;
 
-/*
- * Represents the suspect notes table, grouping all cards into Boxes
- * based on their type (characters, weapons, rooms).
- */
 
-public class Table {
+public class TableImpl implements Table{
     private final List<Box> rooms = new ArrayList<>();
     private final List<Box> characters = new ArrayList<>();
     private final List<Box> weapons = new ArrayList<>();
 
     // Builds the suspect notes table by creating a Box for each card and grouping them by type
-    public Table(List<Card> hand){
+    public TableImpl(List<Card> hand){
         for (Card name : Deck.getAllCards()) {      
-            Box box = new Box(name);   
+            Box box = new BoxImpl(name);   
             searchType(name).add(box);
         }
         initializeTable(hand);
