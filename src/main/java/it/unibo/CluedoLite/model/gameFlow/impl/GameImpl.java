@@ -3,17 +3,20 @@ package it.unibo.CluedoLite.model.gameFlow.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.CluedoLite.model.gameFlow.api.Game;
 import it.unibo.CluedoLite.model.gameFlow.api.GameState;
+import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
-public class GameImpl {
 
-    private final List<PlayerImpl> players;
-    private final List<CreationCharacterImpl> availableCharacters;
+public class GameImpl implements Game{
+
+    private final List<Player> players;
+    private final List<CreationCharacter> availableCharacters;
     private GameState state;
 
-     private static final List<CreationCharacterImpl> DEFAULT_CHARACTERS = List.of(
+     private static final List<CreationCharacter> DEFAULT_CHARACTERS = List.of( 
         new CreationCharacterImpl("Miss Scarlet", "RED"),
         new CreationCharacterImpl("Colonel Mustard", "YELLOW"),
         new CreationCharacterImpl("Mrs. White", "WHITE"),
@@ -39,19 +42,19 @@ public class GameImpl {
     /*
      * Returns the list of players in the game
      */
-    public List<PlayerImpl> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
     /*
      * Returns the list of characters that are still available
      */
-    public List<CreationCharacterImpl> getAvailableCharacters() {
+    public List<CreationCharacter> getAvailableCharacters() {
         return availableCharacters;
     }
     /*
      * Sets a player in the given position.
      */
-    public void setPlayer(int index, PlayerImpl player) {
+    public void setPlayer(int index, Player player) {
         players.set(index, player);
     }
     /**
@@ -60,13 +63,13 @@ public class GameImpl {
      * 2. The character has not already been chosen by another player
      * 3. Removes the character from the available list
      */
-    public void assignCharacterToPlayer(int index, CreationCharacterImpl character) {
+    public void assignCharacterToPlayer(int index, CreationCharacter character) {
 
         if (players.get(index) == null) {
             throw new IllegalStateException("Player not initialized");
         }
 
-        for (PlayerImpl p : players) {
+        for (Player p : players) {
             if (p != null && p.getCharacter() != null && p.getCharacter().equals(character)) {
                 throw new IllegalArgumentException("This character is already chosen by another player");
             }
@@ -98,7 +101,7 @@ public class GameImpl {
     }
     // Returns true if every player has a character assigned
     public boolean allCharactersAssigned() {
-        for (PlayerImpl p : players)
+        for (Player p : players)
             if (p == null || p.getCharacter() == null) return false;
         return true;
     }
@@ -113,7 +116,7 @@ public class GameImpl {
     public void resetGame() {
         if (state != GameState.IN_PROGRESS)
             throw new IllegalStateException("Game is not in progress");
-        for (PlayerImpl p : players)
+        for (Player p : players)
             if (p != null) p.chooseCharacter(null);
         availableCharacters.clear();
         availableCharacters.addAll(DEFAULT_CHARACTERS);
