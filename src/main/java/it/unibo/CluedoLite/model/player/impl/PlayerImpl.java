@@ -3,8 +3,10 @@ package it.unibo.CluedoLite.model.player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.suspectnotes.*;
+import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.CluedoLite.model.suspectNotes.*;
 
 /**
  * Represents a player in the game
@@ -12,16 +14,18 @@ import it.unibo.CluedoLite.model.suspectnotes.*;
  * The player also has a hand of cards that they can use during the game
  */
 
-public class Player {
+public class PlayerImpl implements Player{
     private final String name;
     private CreationCharacter character; // chosen character
     private final List<Card> hand; // cards in the player's hand
     private Table table;
+    private boolean eliminated;//true if the player made a wrong final accusation and can no longer take actions
 
-    public Player(String name) {
+    public PlayerImpl(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
         this.table = new Table(this.hand);
+        this.eliminated = false;
     }
     
     public void chooseCharacter(CreationCharacter character) {
@@ -62,4 +66,11 @@ public class Player {
         return null;
     }
 
+    public void eliminate() {
+        this.eliminated = true;
+    }
+
+    public boolean isEliminated() {
+        return this.eliminated;
+    }
 }

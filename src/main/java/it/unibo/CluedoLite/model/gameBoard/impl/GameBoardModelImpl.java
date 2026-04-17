@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.model.gameboard.impl;
+package it.unibo.CluedoLite.model.gameBoard.impl;
 
 import java.util.*;
 
-import it.unibo.CluedoLite.model.gameboard.api.*;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.gameBoard.api.*;
+import it.unibo.CluedoLite.model.player.api.Player;
 
 public class GameBoardModelImpl implements GameBoardModel{
     private final Map<Player,Room> playersposition=new HashMap<>();
@@ -34,6 +34,17 @@ public class GameBoardModelImpl implements GameBoardModel{
     @Override
     public List<Room> getRooms() {
         return List.copyOf(rooms);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Room getRoomByName(String name) {
+        for (Room r : rooms) {
+            if (r.getName().equalsIgnoreCase(name)) return r;
+        }
+        return null;
     }
 
     /**
