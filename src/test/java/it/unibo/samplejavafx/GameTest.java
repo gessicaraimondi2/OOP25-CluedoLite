@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameFlow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.gameflow.impl.Game;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacter;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public class GameTest {
 
@@ -17,13 +17,13 @@ public class GameTest {
      */
     @Test
     public void testValidNumberOfPlayers() {
-        assertDoesNotThrow(() -> new GameImpl(3));
+        assertDoesNotThrow(() -> new Game(3));
     }
 
     @Test
     public void testInvalidNumberOfPlayers() {
-        assertThrows(IllegalArgumentException.class, () -> new GameImpl(2));
-        assertThrows(IllegalArgumentException.class, () -> new GameImpl(7));
+        assertThrows(IllegalArgumentException.class, () -> new Game(2));
+        assertThrows(IllegalArgumentException.class, () -> new Game(7));
     }
 
     /*
@@ -31,7 +31,7 @@ public class GameTest {
      */
     @Test
     public void testAvailableCharactersCount() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
         assertEquals(6, game.getAvailableCharacters().size());
     }
 
@@ -40,8 +40,8 @@ public class GameTest {
      */
     @Test
     public void testSetPlayerCorrectly() {
-        GameImpl game = new GameImpl(3);
-        PlayerImpl p = new PlayerImpl("Anna");
+        Game game = new Game(3);
+        Player p = new Player("Anna");
         game.setPlayer(0, p);
         assertEquals(p, game.getPlayers().get(0));
     }
@@ -51,8 +51,8 @@ public class GameTest {
      */
     @Test
     public void testSetPlayerOutOfBounds() {
-        GameImpl game = new GameImpl(3);
-        assertThrows(IndexOutOfBoundsException.class, () -> game.setPlayer(3, new PlayerImpl("Test")));
+        Game game = new Game(3);
+        assertThrows(IndexOutOfBoundsException.class, () -> game.setPlayer(3, new Player("Test")));
     }
 
     /*
@@ -60,9 +60,9 @@ public class GameTest {
      */
     @Test
     public void testAssignCharacterCorrectly() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
 
-        PlayerImpl p1 = new PlayerImpl("Anna");
+        Player p1 = new Player("Anna");
         game.setPlayer(0, p1);
 
         CreationCharacter c = game.getAvailableCharacters().get(0);
@@ -76,7 +76,7 @@ public class GameTest {
      */
     @Test
     public void testAssignCharacterToNullPlayer() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
         CreationCharacter c = game.getAvailableCharacters().get(0);
 
         assertThrows(IllegalStateException.class, () -> game.assignCharacterToPlayer(0, c));
@@ -87,10 +87,10 @@ public class GameTest {
      */
     @Test
     public void testAssignDuplicateCharacter() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
 
-        PlayerImpl p1 = new PlayerImpl("Anna");
-        PlayerImpl p2 = new PlayerImpl("Chiara");
+        Player p1 = new Player("Anna");
+        Player p2 = new Player("Chiara");
 
         game.setPlayer(0, p1);
         game.setPlayer(1, p2);
@@ -107,9 +107,9 @@ public class GameTest {
     */
     @Test
     public void testCharacterIsRemovedFromAvailableList() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
 
-        PlayerImpl p1 = new PlayerImpl("Anna");
+        Player p1 = new Player("Anna");
         game.setPlayer(0, p1);
 
         CreationCharacter c = game.getAvailableCharacters().get(0);
@@ -124,11 +124,11 @@ public class GameTest {
      */
     @Test
     public void testGameSetupAndCharacterAssignment() {
-        GameImpl game = new GameImpl(3);
+        Game game = new Game(3);
 
-        PlayerImpl p1 = new PlayerImpl("Anna");
-        PlayerImpl p2 = new PlayerImpl("Chiara");
-        PlayerImpl p3 = new PlayerImpl("Sara");
+        Player p1 = new Player("Anna");
+        Player p2 = new Player("Chiara");
+        Player p3 = new Player("Sara");
 
         game.setPlayer(0, p1);
         game.setPlayer(1, p2);

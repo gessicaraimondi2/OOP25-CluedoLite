@@ -4,19 +4,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.gameBoard.api.Room;
-import it.unibo.CluedoLite.model.gameBoard.impl.*;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.gameboard.api.Room;
+import it.unibo.CluedoLite.model.gameboard.impl.*;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public class GameBoardModelImplTest {
 
     private GameBoardModelImpl board;
-    private PlayerImpl player;
+    private Player player;
 
     @BeforeEach
     void setUp() {
         board = new GameBoardModelImpl();
-        player = new PlayerImpl("Scarlett");
+        player = new Player("Scarlett");
     }
 
     @Test

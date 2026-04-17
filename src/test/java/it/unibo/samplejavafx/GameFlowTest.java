@@ -8,22 +8,22 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameFlow.api.GameState;
-import it.unibo.CluedoLite.model.gameFlow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.gameflow.impl.Game;
+import it.unibo.CluedoLite.model.gameflow.impl.GameState;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacter;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 public class GameFlowTest {
 
-    private GameImpl game;
-    private PlayerImpl p1, p2, p3;
+    private Game game;
+    private Player p1, p2, p3;
 
     @BeforeEach
     void setUp() {
-        game = new GameImpl(3);
-        p1 = new PlayerImpl("Anna");
-        p2 = new PlayerImpl("Chiara");
-        p3 = new PlayerImpl("Sara");
+        game = new Game(3);
+        p1 = new Player("Anna");
+        p2 = new Player("Chiara");
+        p3 = new Player("Sara");
     }
 
     /*

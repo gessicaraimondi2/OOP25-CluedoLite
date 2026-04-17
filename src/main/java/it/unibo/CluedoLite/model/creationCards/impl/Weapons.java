@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.creationCards.impl;
+package it.unibo.CluedoLite.model.creationcards.impl;
 
 /*
 * Class representing a weapon card in the game, inherits from Card

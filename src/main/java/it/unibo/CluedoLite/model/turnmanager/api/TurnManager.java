@@ -1,22 +1,22 @@
 package it.unibo.CluedoLite.model.turnmanager.api;
 
 
-import it.unibo.CluedoLite.model.accuseAndSuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.player.impl.Player;
 
 /**
  * Interface rapresenting the logic of the class that manages the turn order of players in the game.
  */
 
- public interface turnManager {
+ public interface TurnManager {
 
     /**
      * Returns the player whose turn it currently is.
      *
      * @return the current player
      */
-    PlayerImpl getCurrentPlayer();
+    Player getCurrentPlayer();
 
     /**
      * Marks the game as over, preventing any further turn progression.
@@ -37,7 +37,7 @@ import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
      * @return the next player
      * @throws IllegalStateException if the game is already over
      */
-    PlayerImpl nextTurn();
+    Player nextTurn();
 
     /**
      * Handles the response to the current player's suggestion.

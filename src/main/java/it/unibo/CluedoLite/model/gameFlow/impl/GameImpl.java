@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.gameFlow.impl;
+package it.unibo.CluedoLite.model.gameflow.impl;
 
 import java.util.ArrayList;
 import java.util.List;

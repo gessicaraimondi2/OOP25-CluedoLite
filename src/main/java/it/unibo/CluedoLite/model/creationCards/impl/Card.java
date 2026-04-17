@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.model.creationCards.impl;
+package it.unibo.CluedoLite.model.creationcards.impl;
 
-import it.unibo.CluedoLite.model.creationCards.api.InterfaceCard;
+import it.unibo.CluedoLite.model.creationcards.api.InterfaceCard;
 
 /*
 * Abstaract class representing a card in the game, 

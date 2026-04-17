@@ -1,16 +1,15 @@
 package it.unibo.CluedoLite.model.player.impl;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Characters;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.creationcards.impl.Characters;
 /**
  * Represents a playable character in the game
  * Each character has a name 
  * and a unique color associated with it
  */
-public class CreationCharacterImpl extends Characters implements CreationCharacter{
+public class CreationCharacter extends Characters{
     private final String color;
 
-    public CreationCharacterImpl(String name, String color) {
+    public CreationCharacter(String name, String color) {
         super(name);
         this.color = color;      
     }

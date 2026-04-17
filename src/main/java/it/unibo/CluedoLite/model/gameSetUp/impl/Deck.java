@@ -1,11 +1,11 @@
-package it.unibo.CluedoLite.model.gameSetUp.impl;
+package it.unibo.CluedoLite.model.gamesetup.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.unibo.CluedoLite.model.creationCards.impl.*;
+import it.unibo.CluedoLite.model.creationcards.impl.*;
 
 /**
  * Enum representing the deck of cards in the game.

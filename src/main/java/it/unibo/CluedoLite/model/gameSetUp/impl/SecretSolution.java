@@ -1,12 +1,12 @@
-package it.unibo.CluedoLite.model.gameSetUp.impl;
+package it.unibo.CluedoLite.model.gamesetup.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.creationCards.impl.CardType;
-import it.unibo.CluedoLite.model.gameSetUp.api.InterfaceSecretSolution;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.CardType;
+import it.unibo.CluedoLite.model.gamesetup.api.InterfaceSecretSolution;
 
 public class SecretSolution implements InterfaceSecretSolution{
     private final List<Card> solution = new ArrayList<>();
