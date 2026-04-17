@@ -19,11 +19,13 @@ public class PlayerImpl implements Player{
     private CreationCharacter character; // chosen character
     private final List<Card> hand; // cards in the player's hand
     private Table table;
+    private boolean eliminated;//true if the player made a wrong final accusation and can no longer take actions
 
     public PlayerImpl(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
         this.table = new Table(this.hand);
+        this.eliminated = false;
     }
     
     public void chooseCharacter(CreationCharacter character) {
@@ -64,4 +66,11 @@ public class PlayerImpl implements Player{
         return null;
     }
 
+    public void eliminate() {
+        this.eliminated = true;
+    }
+
+    public boolean isEliminated() {
+        return this.eliminated;
+    }
 }

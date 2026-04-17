@@ -1,5 +1,6 @@
 package it.unibo.CluedoLite.model.turnmanager.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.creationCards.impl.Card;
@@ -18,7 +19,7 @@ public class TurnManagerImpl implements TurnManager{
     private boolean gameOver = false;
 
     public TurnManagerImpl(List<Player> players){
-            this.players=List.copyOf(players);
+            this.players=new ArrayList<>(players);
             this.currentIndex=0;
     } 
 
@@ -52,9 +53,13 @@ public class TurnManagerImpl implements TurnManager{
     @Override
     public Player nextTurn(){
         if (this.gameOver) {
-            throw new IllegalStateException("Non si puo proseguire:il gioco è gia finito");
+            throw new IllegalStateException("The game is over");
         }
-        this.currentIndex=(this.currentIndex+1)%this.players.size();
+        
+        do {
+            this.currentIndex = (this.currentIndex + 1) % this.players.size();
+        } while (this.players.get(this.currentIndex).isEliminated());
+
         return this.players.get(this.currentIndex);
     }
 
@@ -62,7 +67,7 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public Card SuggestionResponse(Suspicion suspicion) {
+    public Card suggestionResponse(Suspicion suspicion) {
         int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {

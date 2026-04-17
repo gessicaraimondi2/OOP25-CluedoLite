@@ -55,5 +55,19 @@ public interface Player {
      * @return the first matching non-excluded card, or {@code null} if none found
      */
     Card findMatchingCard(Card character, Card weapon, Card room);
+
+    /**
+    * Marks this player as eliminated after a wrong final accusation.
+    * An eliminated player can no longer take actions or move.
+    */
+    void eliminate();
+
+    /**
+     * Returns whether this player has been eliminated from the game.
+     *
+     * @return {@code true} if the player made a wrong final accusation, {@code false} otherwise
+     */
+    boolean isEliminated();
+
 }
 

@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.gameboard;
+package it.unibo.CluedoLite.view.gameboard.impl;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,20 +13,20 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-import it.unibo.CluedoLite.controller.gameboard.GameBoardController;
-import it.unibo.CluedoLite.model.creationCards.impl.Rooms;
+import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.model.gameBoard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.CluedoLite.view.gameboard.RoomView;
+import it.unibo.CluedoLite.view.gameboard.api.Board;
 
 
-public class Board extends JPanel{
+public class BoardImpl extends JPanel implements Board{
     private List<Player> players = new ArrayList<>();
     private Image backgroundImg;
-    private int activePlayerIndex = 0;
     private Map<RoomView, Image> roomImages = new HashMap<>();
     private GameBoardController controller;
 
-    public Board(List<Player> p, GameBoardController c){
+    public BoardImpl(List<Player> p, GameBoardController c){
         this.controller=c;
 
         try {
@@ -54,6 +54,12 @@ public class Board extends JPanel{
 
     }
 
+    /**
+     * Renders the board panel, drawing the background, rooms, center label and player tokens.
+     * Called automatically by Swing whenever the panel needs to be redrawn.
+     *
+     * @param g the graphics context provided by Swing
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //pulisce il pannello prima di ridisegnare 
@@ -64,6 +70,11 @@ public class Board extends JPanel{
         drawPlayers(g2);
     }
 
+    /**
+     * Draws all rooms on the board with their background color, image and name label.
+     *
+     * @param g2 the 2D graphics context used for rendering
+     */
     public void drawRooms(Graphics2D g2){
         for(RoomView r : RoomView.values()){
             
@@ -99,7 +110,12 @@ public class Board extends JPanel{
         }
     }
 
-    public void drawCenter(Graphics2D g2){
+    /**
+     * Draws the center area of the board with the "CLUEDO Lite" title.
+     *
+     * @param g2 the 2D graphics context used for rendering
+     */
+    private void drawCenter(Graphics2D g2){
         Rectangle r = getCenterRect();
 
         g2.setFont(new Font("Serif", Font.BOLD, (int)(getWidth() * 0.05)));
@@ -130,7 +146,13 @@ public class Board extends JPanel{
         g2.drawString("Lite", liteX, liteY);
     }
 
-    public void drawPlayers(Graphics2D g2){
+    /**
+     * Draws a colored token for each player on the board.
+     * Players not yet placed are shown below the center area.
+     *
+     * @param g2 the 2D graphics context used for rendering
+     */
+    private void drawPlayers(Graphics2D g2){
         int size = (int)(Math.min(getWidth(), getHeight()) * 0.025);
         int padding = (int)(getWidth() * 0.01);
         int centerIndex = 0;
@@ -163,17 +185,26 @@ public class Board extends JPanel{
         }
     }
 
+    /**
+     * Handles a mouse click on the board.
+     * If the click falls inside a room, forwards the move request to the controller.
+     *
+     * @param p the point clicked by the user
+     */
     private void handleClick(Point p) {
         for (RoomView r : RoomView.values()) {
              if (r.toRect(getWidth(), getHeight()).contains(p)) {
                 controller.move(controller.getRoomByName(r.name));
-                activePlayerIndex = (activePlayerIndex + 1) % players.size();
-                repaint();//ridisegna il pannello con il nuovo stato
                 return;
             }
         }
     }
 
+    /**
+     * Computes and returns the rectangle representing the center area of the board.
+     *
+     * @return the center rectangle
+     */
     private Rectangle getCenterRect() {
         int w = (int)(getWidth() * 0.20);
         int h = (int)(getHeight() * 0.15);
@@ -182,13 +213,31 @@ public class Board extends JPanel{
         return new Rectangle(x, y, w, h);
     }
 
+    /**
+     * Draws a single player token as a colored circle.
+     * The active player is highlighted with a black border.
+     *
+     * @param g2   the 2D graphics context used for rendering
+     * @param p    the player whose token is being drawn
+     * @param x    the x coordinate of the token
+     * @param y    the y coordinate of the token
+     * @param size the diameter of the token in pixels
+     */
     private void drawToken(Graphics2D g2, Player p, int x, int y, int size) {
         g2.setColor(Color.decode(p.getCharacter().getColor())); // trasforma nel formato "#FF0000"
         g2.fillOval(x, y, size, size);
-        if (p == players.get(activePlayerIndex)) {
+        if (p == controller.currentPlayer()) {
             g2.setColor(Color.BLACK);
             g2.setStroke(new BasicStroke(3f));
             g2.drawOval(x, y, size, size);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void wrongRoomSelected(){
+        JOptionPane.showMessageDialog(this, "You can not move in this room", "ERROR", JOptionPane.WARNING_MESSAGE);
     }
 }
