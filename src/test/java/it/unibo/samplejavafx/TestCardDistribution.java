@@ -8,7 +8,8 @@ import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.gamesetup.impl.CardDistribution;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 /*
  * This test class verifies the correct distribution of cards to players in the CluedoLite game.
@@ -24,9 +25,9 @@ public class TestCardDistribution {
         assertEquals(18, totalCards, "The deck should have 18 cards after removing the secret solution cards");
 
         List<Player> players = Arrays.asList(
-            new Player("Alice"),
-            new Player("Bob"),
-            new Player("Charlie")
+            new PlayerImpl("Alice"),
+            new PlayerImpl("Bob"),
+            new PlayerImpl("Charlie")
         );
 
         new CardDistribution(cards, players); // distribuisce le 18 carte

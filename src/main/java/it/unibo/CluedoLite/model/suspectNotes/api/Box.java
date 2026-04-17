@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.model.suspectNotes.api;
+package it.unibo.CluedoLite.model.suspectnotes.api;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 
 
 public interface Box{

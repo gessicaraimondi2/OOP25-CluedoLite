@@ -2,7 +2,7 @@ package it.unibo.CluedoLite.model.accuseandsuspect.impl;
 
 import it.unibo.CluedoLite.model.accuseandsuspect.api.InterfaceSuspicionManager;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.api.Player;
 
 /**
  * Implementation of the {@link InterfaceSuspicionManager} interface.

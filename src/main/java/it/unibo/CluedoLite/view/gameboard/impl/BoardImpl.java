@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
-import it.unibo.CluedoLite.model.gameBoard.api.Room;
+import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.view.gameboard.RoomView;
 import it.unibo.CluedoLite.view.gameboard.api.Board;

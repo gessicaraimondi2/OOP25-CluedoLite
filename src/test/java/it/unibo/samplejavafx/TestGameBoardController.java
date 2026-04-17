@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
  
 import it.unibo.CluedoLite.controller.gameboard.impl.GameBoardControllerImpl;
 import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
-import it.unibo.CluedoLite.model.gameBoard.api.Room;
-import it.unibo.CluedoLite.model.gameBoard.impl.GameBoardModelImpl;
+import it.unibo.CluedoLite.model.gameboard.api.Room;
+import it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 import it.unibo.CluedoLite.view.gameboard.api.Board;

@@ -1,9 +1,8 @@
-package it.unibo.CluedoLite.model.suspectNotes.api;
+package it.unibo.CluedoLite.model.suspectnotes.api;
 
 import java.util.List;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-
-
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.suspectnotes.impl.*;
 /*
  * Represents the suspect notes table, grouping all cards into Boxes
  * based on their type (characters, weapons, rooms).
@@ -24,7 +23,7 @@ public interface Table {
      * @param name the card whose type determines the list to return
      * @return a {@link List} of {@link Box} of the same type as the given card
      */
-    List<Box> searchType(Card name);
+    List<BoxImpl> searchType(Card name);
     
     /**
      * Checks whether the given card is already marked as EXCLUDED in the table.

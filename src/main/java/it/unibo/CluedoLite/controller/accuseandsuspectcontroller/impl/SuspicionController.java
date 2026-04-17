@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.*;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.*;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.impl.Player;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.view.suspicionview.SuspicionView;
 
 /**

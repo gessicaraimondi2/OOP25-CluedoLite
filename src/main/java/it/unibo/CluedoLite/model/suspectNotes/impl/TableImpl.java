@@ -1,22 +1,22 @@
-package it.unibo.CluedoLite.model.suspectNotes.impl;
+package it.unibo.CluedoLite.model.suspectnotes.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.*;
-import it.unibo.CluedoLite.model.gameSetUp.impl.*;
-import it.unibo.CluedoLite.model.suspectNotes.api.*;
+import it.unibo.CluedoLite.model.creationcards.impl.*;
+import it.unibo.CluedoLite.model.gamesetup.impl.*;
+import it.unibo.CluedoLite.model.suspectnotes.api.*;
 
 
 public class TableImpl implements Table{
-    private final List<Box> rooms = new ArrayList<>();
-    private final List<Box> characters = new ArrayList<>();
-    private final List<Box> weapons = new ArrayList<>();
+    private final List<BoxImpl> rooms = new ArrayList<>();
+    private final List<BoxImpl> characters = new ArrayList<>();
+    private final List<BoxImpl> weapons = new ArrayList<>();
 
     // Builds the suspect notes table by creating a Box for each card and grouping them by type
     public TableImpl(List<Card> hand){
         for (Card name : Deck.getAllCards()) {      
-            Box box = new BoxImpl(name);   
+            BoxImpl box = new BoxImpl(name);   
             searchType(name).add(box);
         }
         initializeTable(hand);
@@ -27,12 +27,12 @@ public class TableImpl implements Table{
         for(Card name : hand){           
             searchType(name).stream()
             .filter(box -> box.getCard().equals(name))
-            .forEach(Box::excludeCard);
+            .forEach(BoxImpl::excludeCard);
         }
     }
 
     // Returns the list corresponding to the card's type (characters, weapons, or rooms).
-    public List<Box> searchType(Card name){
+    public List<BoxImpl> searchType(Card name){
         if(name instanceof Characters){
             return characters;
         }else if(name instanceof Weapons){

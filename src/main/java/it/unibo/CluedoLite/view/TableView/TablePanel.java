@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.view.TableView;
+package it.unibo.CluedoLite.view.tableview;
 
-import it.unibo.CluedoLite.model.creationCards.impl.CardType;
-import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
-import it.unibo.CluedoLite.model.suspectNotes.api.Box;
-import it.unibo.CluedoLite.model.suspectNotes.api.Table;
+import it.unibo.CluedoLite.model.creationcards.impl.CardType;
+import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
+import it.unibo.CluedoLite.model.suspectnotes.impl.BoxImpl;
+import it.unibo.CluedoLite.model.suspectnotes.api.Table;
 
 import java.util.List;
 import javax.swing.*;
@@ -46,7 +46,7 @@ public class TablePanel extends JPanel {
     }
 
     // For each item in the list creates a CardPanel, fills it with information and adds it to the panel.
-    private void fillTable(List<Box> list, JPanel panel){
+    private void fillTable(List<BoxImpl> list, JPanel panel){
         list.stream().forEach(c -> {
                         CardPanel card = new CardPanel(c.getCard().getName(), c.getState());
                         panel.add(card);

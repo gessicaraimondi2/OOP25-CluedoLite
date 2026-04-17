@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.suspectNotes;
+package it.unibo.CluedoLite.model.suspectnotes.api;
 
 /*
  * Enum representing the possible states of a card in the suspect notes (POSSIBLE or EXCLUDED)

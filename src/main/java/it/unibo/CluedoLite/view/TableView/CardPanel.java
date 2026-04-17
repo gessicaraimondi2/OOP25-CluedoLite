@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.view.TableView;
+package it.unibo.CluedoLite.view.tableview;
 
 import javax.swing.*;
 
-import it.unibo.CluedoLite.model.suspectNotes.api.State;
+import it.unibo.CluedoLite.model.suspectnotes.api.State;
 
 import java.awt.*;
 

@@ -1,7 +1,8 @@
 package it.unibo.CluedoLite.model.player.api;
 
 import java.util.List;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 
 /**
  * Defines the contract for a player in the CluedoLite game
@@ -15,7 +16,7 @@ public interface Player {
      *
      * @param character the character chosen by the player
      */
-    void chooseCharacter(CreationCharacter character);
+    void chooseCharacter(CreationCharacterImpl character);
 
     /**
      * Returns the character chosen by this player

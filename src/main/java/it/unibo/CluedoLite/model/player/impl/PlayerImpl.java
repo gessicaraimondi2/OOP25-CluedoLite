@@ -3,10 +3,10 @@ package it.unibo.CluedoLite.model.player.impl;
 import java.util.List;
 import java.util.ArrayList;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.suspectNotes.*;
+import it.unibo.CluedoLite.model.suspectnotes.impl.*;
 
 /**
  * Represents a player in the game
@@ -18,17 +18,17 @@ public class PlayerImpl implements Player{
     private final String name;
     private CreationCharacter character; // chosen character
     private final List<Card> hand; // cards in the player's hand
-    private Table table;
+    private TableImpl table;
     private boolean eliminated;//true if the player made a wrong final accusation and can no longer take actions
 
     public PlayerImpl(String name) {
         this.name = name;
         this.hand = new ArrayList<>();
-        this.table = new Table(this.hand);
+        this.table = new TableImpl(this.hand);
         this.eliminated = false;
     }
     
-    public void chooseCharacter(CreationCharacter character) {
+    public void chooseCharacter(CreationCharacterImpl character) {
         this.character = character;
     }
 
