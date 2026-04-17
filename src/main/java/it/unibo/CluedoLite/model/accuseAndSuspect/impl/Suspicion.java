@@ -33,8 +33,8 @@ public final class Suspicion implements InterfaceSuspicion {
 
     @Override
     public String toString() {
-        return "Sospetto: " + suspectCharacter.getName() 
-             + " con " + suspectWeapon.getName() 
-             + " nella " + suspectRoom.getName();
+        return "Suspect: " + suspectCharacter.getName() 
+             + " with " + suspectWeapon.getName() 
+             + " in the " + suspectRoom.getName();
     }
 }

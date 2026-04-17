@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameTest {
@@ -65,7 +65,7 @@ public class GameTest {
         PlayerImpl p1 = new PlayerImpl("Anna");
         game.setPlayer(0, p1);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
         game.assignCharacterToPlayer(0, c);
 
         assertEquals(c, p1.getCharacter());
@@ -77,7 +77,7 @@ public class GameTest {
     @Test
     public void testAssignCharacterToNullPlayer() {
         GameImpl game = new GameImpl(3);
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         assertThrows(IllegalStateException.class, () -> game.assignCharacterToPlayer(0, c));
     }
@@ -95,7 +95,7 @@ public class GameTest {
         game.setPlayer(0, p1);
         game.setPlayer(1, p2);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         game.assignCharacterToPlayer(0, c);
 
@@ -112,7 +112,7 @@ public class GameTest {
         PlayerImpl p1 = new PlayerImpl("Anna");
         game.setPlayer(0, p1);
 
-        CreationCharacter c = game.getAvailableCharacters().get(0);
+        CreationCharacterImpl c = game.getAvailableCharacters().get(0);
 
         game.assignCharacterToPlayer(0, c);
 
@@ -135,7 +135,7 @@ public class GameTest {
         game.setPlayer(2, p3);
 
         // Make a copy of the original list before assignments
-        List<CreationCharacter> characters = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> characters = new ArrayList<>(game.getAvailableCharacters());
 
         game.assignCharacterToPlayer(0, characters.get(0)); 
         game.assignCharacterToPlayer(1, characters.get(1)); 

@@ -8,15 +8,16 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationcards.impl.*;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.CluedoLite.model.creationcards.impl.*;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
 
 public class TurnmanagerImplTest {
     private PlayerImpl p1, p2, p3, p4;
-    private List<PlayerImpl> players;
+    private List<Player> players;
     private Card character, weapon, room;
     private Suspicion suspect;
 	private TurnManager tm;
@@ -90,24 +91,24 @@ public class TurnmanagerImplTest {
         @Test
     void testSuggestionResponseFirstMatch() {
         p2.addCard(character);
-        assertEquals(character, tm.SuggestionResponse(suspect));
+        assertEquals(character, tm.suggestionResponse(suspect));
     }
 
     @Test
     void testSuggestionResponseSkipsNoMatch() {
         p3.addCard(weapon);
-        assertEquals(weapon, tm.SuggestionResponse(suspect));
+        assertEquals(weapon, tm.suggestionResponse(suspect));
     }
 
     @Test
     void testSuggestionResponseNoMatch() {
-        assertNull(tm.SuggestionResponse(suspect));
+        assertNull(tm.suggestionResponse(suspect));
     }
 
     @Test
     void testSuggestionResponseCircularOrder() {
         tm.nextTurn(); // currentPlayer = p2
         p1.addCard(room);
-        assertEquals(room, tm.SuggestionResponse(suspect));
+        assertEquals(room, tm.suggestionResponse(suspect));
     }
 }

@@ -1,8 +1,8 @@
 package it.unibo.CluedoLite.model.gameflow.api;
 
 import java.util.List;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 
 /**
  * Defines the contract for the game in CluedoLite
@@ -21,7 +21,7 @@ public interface Game {
      *
      * @return the list of available characters
      */
-    List<CreationCharacter> getAvailableCharacters();
+    List<CreationCharacterImpl> getAvailableCharacters();
 
     /**
      * Sets a player in the given position
@@ -37,7 +37,7 @@ public interface Game {
      * @param index     the player's position
      * @param character the character to assign
      */
-    void assignCharacterToPlayer(int index, CreationCharacter character);
+    void assignCharacterToPlayer(int index, CreationCharacterImpl character);
 
     /**
      * Returns the current state of the game

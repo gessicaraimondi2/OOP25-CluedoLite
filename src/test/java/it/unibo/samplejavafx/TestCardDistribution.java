@@ -8,6 +8,7 @@ import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.gamesetup.impl.CardDistribution;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 /*
@@ -23,7 +24,7 @@ public class TestCardDistribution {
         int totalCards = cards.size();
         assertEquals(18, totalCards, "The deck should have 18 cards after removing the secret solution cards");
 
-        List<PlayerImpl> players = Arrays.asList(
+        List<Player> players = Arrays.asList(
             new PlayerImpl("Alice"),
             new PlayerImpl("Bob"),
             new PlayerImpl("Charlie")
@@ -33,13 +34,13 @@ public class TestCardDistribution {
 
         if (players.size() == 3) {
             int expectedCardsPerPlayer = totalCards / 3;
-            for (PlayerImpl player : players) {
+            for (Player player : players) {
                 assertEquals(expectedCardsPerPlayer, player.getHand().size(), "Each player should receive the correct number of cards");
             }
         } else if (players.size() == 4) {
             int count4 = 0;
             int count5 = 0;
-            for (PlayerImpl p : players) {
+            for (Player p : players) {
                 int handSize = p.getHand().size();
                 if (handSize == 4) count4++;
                 else if (handSize == 5) count5++;
@@ -48,7 +49,7 @@ public class TestCardDistribution {
         } else if (players.size() == 5) {
             int count3 = 0;
             int count4 = 0;
-            for (PlayerImpl p : players) {
+            for (Player p : players) {
                 int handSize = p.getHand().size();
                 if (handSize == 3) count3++;
                 else if (handSize == 4) count4++;
@@ -56,7 +57,7 @@ public class TestCardDistribution {
             assertTrue(count3 == 2 && count4 == 3, "With 5 players, two should receive 3 cards and three should receive 4 cards");
         } else if (players.size() == 6) {
             int expectedCardsPerPlayer = totalCards / 6;
-            for (PlayerImpl player : players) {
+            for (Player player : players) {
                 assertEquals(expectedCardsPerPlayer, player.getHand().size(), "Each player should receive the correct number of cards");
             }
         }

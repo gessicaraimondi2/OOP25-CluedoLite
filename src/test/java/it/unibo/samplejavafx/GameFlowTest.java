@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameflow.api.GameState;
 import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.gameflow.api.GameState;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameFlowTest {
@@ -62,7 +62,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));
@@ -113,7 +113,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));
@@ -134,7 +134,7 @@ public class GameFlowTest {
         game.setPlayer(1, p2);
         game.setPlayer(2, p3);
 
-        List<CreationCharacter> chars = new ArrayList<>(game.getAvailableCharacters());
+        List<CreationCharacterImpl> chars = new ArrayList<>(game.getAvailableCharacters());
         game.assignCharacterToPlayer(0, chars.get(0));
         game.assignCharacterToPlayer(1, chars.get(1));
         game.assignCharacterToPlayer(2, chars.get(2));

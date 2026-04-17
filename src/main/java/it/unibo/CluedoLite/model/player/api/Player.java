@@ -1,8 +1,8 @@
 package it.unibo.CluedoLite.model.player.api;
 
 import java.util.List;
-
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 
 /**
  * Defines the contract for a player in the CluedoLite game
@@ -16,7 +16,7 @@ public interface Player {
      *
      * @param character the character chosen by the player
      */
-    void chooseCharacter(CreationCharacter character);
+    void chooseCharacter(CreationCharacterImpl character);
 
     /**
      * Returns the character chosen by this player
@@ -56,5 +56,19 @@ public interface Player {
      * @return the first matching non-excluded card, or {@code null} if none found
      */
     Card findMatchingCard(Card character, Card weapon, Card room);
+
+    /**
+    * Marks this player as eliminated after a wrong final accusation.
+    * An eliminated player can no longer take actions or move.
+    */
+    void eliminate();
+
+    /**
+     * Returns whether this player has been eliminated from the game.
+     *
+     * @return {@code true} if the player made a wrong final accusation, {@code false} otherwise
+     */
+    boolean isEliminated();
+
 }
 

@@ -6,7 +6,8 @@ import java.util.List;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.creationcards.impl.CardType;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.suspectnotes.*;
+import it.unibo.CluedoLite.model.suspectnotes.impl.*;
+import it.unibo.CluedoLite.model.suspectnotes.api.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,20 +44,20 @@ class TableTest {
 
     @Test
     void defaultState() {
-        Box box = new Box(missScarlett);
+        BoxImpl box = new BoxImpl(missScarlett);
         assertEquals(State.POSSIBLE, box.getState());
     }
 
     @Test
     void excludeCard() {
-        Box box = new Box(missScarlett);
+        BoxImpl box = new BoxImpl(missScarlett);
         box.excludeCard();
         assertEquals(State.EXCLUDED, box.getState());
     }
 
     @Test
     void tableCreation() {
-        Table table = new Table(new ArrayList<>());
+        TableImpl table = new TableImpl(new ArrayList<>());
         int deckSize = Deck.getAllCards().size(); // 21 cards
         int boxesNum = table.searchType(missScarlett).size() 
                      + table.searchType(candlestick).size() 
@@ -66,29 +67,29 @@ class TableTest {
 
     @Test
     void searchTypeCharacters() {
-        Table table = new Table(new ArrayList<>());
-        List<Box> characterList = table.searchType(missScarlett);
+        TableImpl table = new TableImpl(new ArrayList<>());
+        List<BoxImpl> characterList = table.searchType(missScarlett);
         assertTrue(characterList.stream().allMatch(b -> b.getCard().getType() == CardType.CHARACTER));
     }
 
     @Test
     void searchTypeWeapons() {
-        Table table = new Table(new ArrayList<>());
-        List<Box> weaponList = table.searchType(candlestick);
+        TableImpl table = new TableImpl(new ArrayList<>());
+        List<BoxImpl> weaponList = table.searchType(candlestick);
         assertTrue(weaponList.stream().allMatch(b -> b.getCard().getType() == CardType.WEAPON));
     }
 
     @Test
     void searchTypeRooms() {
-        Table table = new Table(new ArrayList<>());
-        List<Box> roomList = table.searchType(kitchen);
+        TableImpl table = new TableImpl(new ArrayList<>());
+        List<BoxImpl> roomList = table.searchType(kitchen);
         assertTrue(roomList.stream().allMatch(b -> b.getCard().getType() == CardType.ROOM));
     }
 
     @Test
     void initializeTableTwice() {
         List<Card> hand = List.of(missScarlett);
-        Table table = new Table(hand);
+        Table table = new TableImpl(hand);
 
         assertDoesNotThrow(() -> table.initializeTable(hand));
 

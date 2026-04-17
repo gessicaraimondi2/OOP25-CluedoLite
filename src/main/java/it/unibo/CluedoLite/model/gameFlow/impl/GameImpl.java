@@ -5,7 +5,6 @@ import java.util.List;
 
 import it.unibo.CluedoLite.model.gameflow.api.Game;
 import it.unibo.CluedoLite.model.gameflow.api.GameState;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 
@@ -13,10 +12,10 @@ import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 public class GameImpl implements Game{
 
     private final List<Player> players;
-    private final List<CreationCharacter> availableCharacters;
+    private final List<CreationCharacterImpl> availableCharacters;
     private GameState state;
 
-     private static final List<CreationCharacter> DEFAULT_CHARACTERS = List.of( 
+     private static final List<CreationCharacterImpl> DEFAULT_CHARACTERS = List.of( 
         new CreationCharacterImpl("Miss Scarlet", "RED"),
         new CreationCharacterImpl("Colonel Mustard", "YELLOW"),
         new CreationCharacterImpl("Mrs. White", "WHITE"),
@@ -48,7 +47,8 @@ public class GameImpl implements Game{
     /*
      * Returns the list of characters that are still available
      */
-    public List<CreationCharacter> getAvailableCharacters() {
+    @Override
+    public List<CreationCharacterImpl> getAvailableCharacters() {
         return availableCharacters;
     }
     /*
@@ -63,7 +63,7 @@ public class GameImpl implements Game{
      * 2. The character has not already been chosen by another player
      * 3. Removes the character from the available list
      */
-    public void assignCharacterToPlayer(int index, CreationCharacter character) {
+    public void assignCharacterToPlayer(int index, CreationCharacterImpl character) {
 
         if (players.get(index) == null) {
             throw new IllegalStateException("Player not initialized");
