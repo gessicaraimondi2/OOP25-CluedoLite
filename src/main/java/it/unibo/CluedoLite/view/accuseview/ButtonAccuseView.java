@@ -1,7 +1,7 @@
 package it.unibo.CluedoLite.view.accuseview;
 
 import javax.swing.*;
-
+import it.unibo.CluedoLite.view.AppColorFont;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.AccusationController;
 
 /**
@@ -18,28 +18,25 @@ import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.Accusation
  */
 public class ButtonAccuseView extends JPanel {
 
-    // The button that the player clicks to start the accusation phase
     private final JButton accusationButton;
 
     /**
      * Constructs the panel containing the accusation button.
-     * The button is immediately added to the panel and ready to be placed
-     * in the main game screen.
      *
      * @param controller the {@link AccusationController} that handles the accusation phase.
-     *                   When the button is clicked, {@link AccusationController#openAccusationView()}
-     *                   is called to create and display the accusation window.
      */
     public ButtonAccuseView(AccusationController controller) {
 
-        // Create the accusation button with a descriptive label
-        accusationButton = new JButton("Make an Accusation");
+        setBackground(AppColorFont.PANEL_BACKGROUND);
 
-        // When clicked, delegate entirely to the controller:
-        // the view does not handle any logic, it only triggers the controller
+        accusationButton = new JButton("Make an Accusation");
+        accusationButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
+        accusationButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
+        accusationButton.setFont(AppColorFont.FONT_BUTTON);
+        accusationButton.setFocusPainted(false);
+
         accusationButton.addActionListener(e -> controller.openAccusationView());
 
-        // Add the button to this panel so it can be embedded in the game screen
         add(accusationButton);
     }
 }

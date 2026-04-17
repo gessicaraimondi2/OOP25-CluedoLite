@@ -1,7 +1,7 @@
 package it.unibo.CluedoLite.view.suspicionview;
 
 import javax.swing.*;
-
+import it.unibo.CluedoLite.view.AppColorFont;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
 
 /**
@@ -18,28 +18,25 @@ import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionC
  */
 public class ButtonSuspicionView extends JPanel {
 
-    // The button that the player clicks to start the suspicion phase
     private final JButton suspicionButton;
 
     /**
      * Constructs the panel containing the suspicion button.
-     * The button is immediately added to the panel and ready to be placed
-     * in the main game screen.
      *
      * @param controller the {@link SuspicionController} that handles the suspicion phase.
-     *                   When the button is clicked, {@link SuspicionController#openSuspicionView()}
-     *                   is called to create and display the suspicion window.
      */
     public ButtonSuspicionView(SuspicionController controller) {
 
-        // Create the suspicion button with a descriptive label
-        suspicionButton = new JButton("Make a Suspicion");
+        setBackground(AppColorFont.PANEL_BACKGROUND);
 
-        // When clicked, delegate entirely to the controller:
-        // the view does not handle any logic, it only triggers the controller
+        suspicionButton = new JButton("Make a Suspicion");
+        suspicionButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
+        suspicionButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
+        suspicionButton.setFont(AppColorFont.FONT_BUTTON);
+        suspicionButton.setFocusPainted(false);
+
         suspicionButton.addActionListener(e -> controller.openSuspicionView());
 
-        // Add the button to this panel so it can be embedded in the game screen
         add(suspicionButton);
     }
 }

@@ -1,5 +1,9 @@
 package it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api;
 
-public class InterfaceAccusation {
-    
+public interface InterfaceAccusation {
+
+    /**
+     * Opens the accusation view and prepares the UI for user interaction.
+     */
+    void openAccusationView();
 }

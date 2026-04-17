@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 import javax.swing.JOptionPane;
 
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.*;
+import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.*;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.impl.Player;
 import it.unibo.CluedoLite.view.suspicionview.SuspicionView;
@@ -24,31 +25,25 @@ import it.unibo.CluedoLite.view.suspicionview.SuspicionView;
  * from the rest of the game flow: it does not know who will use the suspicion,
  * it simply delivers it when confirmed.
  */
-public class SuspicionController {
+public class SuspicionController implements InterfaceSuspicionController {
 
-    // Model component responsible for creating Suspicion objects
-    private SuspicionManager suspicionManager;
-    // The player who is making the suspicion
-    private Player player;
-    // Callback invoked when the suspicion is confirmed, delivering the result to the game flow
-    private Consumer<Suspicion> suspicionCallback;
-    // The suspicion view, created only when openSuspicionView() is called
-    private SuspicionView view;
-    // Data passed to the view when it is opened
-    private Card[] characters;
-    private Card[] weapons;
-    private Card room;
+    private final SuspicionManager suspicionManager;
+    private final Player player;
+    private final Consumer<Suspicion> suspicionCallback;
+    private final Card[] characters;
+    private final Card[] weapons;
+    private final Card room;
 
     /**
      * Constructs a {@link SuspicionController} with all the data needed for the suspicion phase.
      * The view is NOT created here: it is created lazily when {@link #openSuspicionView()} is called,
      * so that the window only appears when the player actually clicks the suspicion button.
      *
-     * @param suspicionManager the model component that creates {@link Suspicion} objects
-     * @param player           the player who is making the suspicion
-     * @param characters       array of available character cards to display in the view
-     * @param weapons          array of available weapon cards to display in the view
-     * @param room             the card representing the room where the player currently is
+     * @param suspicionManager  the model component that creates {@link Suspicion} objects
+     * @param player            the player who is making the suspicion
+     * @param characters        array of available character cards to display in the view
+     * @param weapons           array of available weapon cards to display in the view
+     * @param room              the card representing the room where the player currently is
      * @param suspicionCallback callback invoked with the created {@link Suspicion} when confirmed
      */
     public SuspicionController(
@@ -70,25 +65,24 @@ public class SuspicionController {
     /**
      * Creates and displays the {@link SuspicionView}.
      * Called externally by the suspicion button in the game screen.
-     * The view is created here (not in the constructor) so that it only appears
-     * when the player explicitly requests to make a suspicion.
+     * The view is a local variable: each call creates a fully independent instance,
+     * avoiding stale references if the window is opened more than once.
      */
+    @Override
     public void openSuspicionView() {
-        // Create the view with the available data
-        this.view = new SuspicionView(characters, weapons, room);
-        // Attach the confirm button listener before making the view visible
-        setupListeners();
-        // Show the view only after listeners are attached
+        SuspicionView view = new SuspicionView(characters, weapons, room);
+        setupListeners(view);
         view.setVisible(true);
     }
 
     /**
-     * Attaches the action listener to the confirm button of the view.
-     * Called internally after the view is created, ensuring the listener
-     * is always in place before the user can interact with the view.
+     * Attaches the action listener to the confirm button of the given view instance.
+     * The view is passed explicitly so there is no shared mutable state between calls.
+     *
+     * @param view the {@link SuspicionView} instance to attach the listener to
      */
-    private void setupListeners() {
-        view.getConfirmButton().addActionListener(e -> handleConfirm());
+    private void setupListeners(SuspicionView view) {
+        view.getConfirmButton().addActionListener(e -> handleConfirm(view));
     }
 
     /**
@@ -96,34 +90,36 @@ public class SuspicionController {
      * This method is triggered when the player clicks the confirm button in the view.
      *
      * Flow:
-     *  1. reads the selected character and weapon from the view
-     *  2. passes them together with the current room to the model
-     *  3. if the model returns null (player not in a room), shows an error dialog
-     *  4. otherwise, delivers the {@link Suspicion} to the game via the callback
-     *  5. closes the view
+     *  1. disables the confirm button immediately to prevent double-clicks
+     *  2. reads the selected character and weapon from the view
+     *  3. passes them together with the current room to the model
+     *  4. if the model returns null (player not in a room), re-enables the button and shows an error
+     *  5. otherwise, delivers the {@link Suspicion} to the game via the callback and closes the view
+     *
+     * @param view the {@link SuspicionView} instance that triggered the confirmation
      */
-    public void handleConfirm() {
-        // Read the player's choices from the view
-        Card selectedCharacter = view.getSelectedCharacter();
-        Card selectedWeapon = view.getSelectedWeapon();
+    private void handleConfirm(SuspicionView view) {
 
-        // Pass the room directly from the controller: no need to retrieve it from the board,
-        // since the controller already holds the current room of the player
+        // Point 5: disable the button immediately to prevent double-clicks
+        view.getConfirmButton().setEnabled(false);
+
+        Card selectedCharacter = view.getSelectedCharacter();
+        Card selectedWeapon    = view.getSelectedWeapon();
+
         Suspicion suspicion = suspicionManager.makeSuspicion(player, selectedCharacter, selectedWeapon, this.room);
 
-        // If the suspicion is null, the player is not in a room: show an error and stop
+        // If the suspicion is null, the player is not in a room: show an error and re-enable the button
         if (suspicion == null) {
             JOptionPane.showMessageDialog(view,
                     "You cannot make a suspicion because you are not in a room.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
+            // Re-enable the button so the player can try again
+            view.getConfirmButton().setEnabled(true);
             return;
         }
 
-        // Deliver the created Suspicion to the game flow via the callback
         suspicionCallback.accept(suspicion);
-
-        // Close the suspicion view after confirmation
         view.dispose();
     }
 }
