@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.gameBoard.impl;
+package it.unibo.CluedoLite.model.gameboard.impl;
 
 import java.util.*;
 
-import it.unibo.CluedoLite.model.gameBoard.api.*;
+import it.unibo.CluedoLite.model.gameboard.api.*;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameBoardModelImpl implements GameBoardModel{

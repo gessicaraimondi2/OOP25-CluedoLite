@@ -3,9 +3,9 @@ package it.unibo.CluedoLite.model.suspectnotes;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.creationCards.impl.CardType;
-import it.unibo.CluedoLite.model.gameSetUp.impl.Deck;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.CardType;
+import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 
 /*
  * Represents the suspect notes table, grouping all cards into Boxes

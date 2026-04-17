@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.accuseAndSuspect.impl;
+package it.unibo.CluedoLite.model.accuseandsuspect.impl;
 
-import it.unibo.CluedoLite.model.accuseAndSuspect.api.InterfaceSuspicionManager;
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
-import it.unibo.CluedoLite.model.gameBoard.impl.GameBoardModelImpl;
+import it.unibo.CluedoLite.model.accuseandsuspect.api.InterfaceSuspicionManager;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 /*

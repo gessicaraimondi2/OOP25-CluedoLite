@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameFlow.api.GameState;
-import it.unibo.CluedoLite.model.gameFlow.impl.GameImpl;
+import it.unibo.CluedoLite.model.gameflow.api.GameState;
+import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
 import it.unibo.CluedoLite.model.player.api.CreationCharacter;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 

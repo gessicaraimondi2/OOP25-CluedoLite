@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.gameSetUp.api;
+package it.unibo.CluedoLite.model.gamesetup.api;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationCards.impl.Card;
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 
 /**
  * Interface for the secret solution of the game.
