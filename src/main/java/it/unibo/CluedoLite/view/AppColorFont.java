@@ -29,7 +29,7 @@ public final class AppColorFont {
     // Accent
     // ----------------------------------------------------------------
     public static final Color ACCENT_PRIMARY     = new Color(180,  30,  30); // rosso Cluedo
-    public static final Color ACCENT_SECONDARY   = new Color(210, 160,  40); // oro
+    public static final Color ACCENT_SECONDARY   = new Color(255, 215,  0); // oro
     public static final Color ACCENT_HOVER       = new Color(220,  60,  60);
 
     // ----------------------------------------------------------------
