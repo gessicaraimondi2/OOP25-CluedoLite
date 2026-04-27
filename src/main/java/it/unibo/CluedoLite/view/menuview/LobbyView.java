@@ -1,6 +1,9 @@
 package it.unibo.CluedoLite.view.menuview;
 
 import javax.swing.*;
+
+import it.unibo.CluedoLite.view.AppColorFont;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class LobbyView extends JFrame {
         setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(160, 28, 28));
+        getContentPane().setBackground(AppColorFont.BACKGROUND_MEDIUM);
 
         characterBoxes = new ArrayList<>();
 
@@ -39,13 +42,14 @@ public class LobbyView extends JFrame {
 
         // Numero giocatori
         JPanel numPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        numPanel.setBackground(new Color(251, 234, 240));
+        numPanel.setBackground(AppColorFont.BACKGROUND_MEDIUM);
         JLabel numLabel = new JLabel("Select Players:");
-        numLabel.setFont(new Font("Serif", Font.BOLD, 35));
-        numLabel.setForeground(new Color(120,0,0));
+        numLabel.setFont(AppColorFont.FONT_LABEL);
+        numLabel.setForeground(AppColorFont.TEXT_PRIMARY);
         numPlayersBox = new JComboBox<>(new Integer[]{3, 4, 5, 6});
-        numPlayersBox.setBackground(Color.WHITE);
-        numPlayersBox.setForeground(Color.BLACK);
+        numPlayersBox.setBackground(AppColorFont.DROPDOWN_BACKGROUND);
+        numPlayersBox.setForeground(AppColorFont.DROPDOWN_FOREGROUND);
+        numPlayersBox.setFont(AppColorFont.FONT_DROPDOWN);
         numPanel.add(numLabel);
         numPanel.add(numPlayersBox);
         gbc.gridy = 1;
@@ -54,16 +58,16 @@ public class LobbyView extends JFrame {
         // Pannello giocatori
         playersPanel = new JPanel();
         playersPanel.setLayout(new BoxLayout(playersPanel, BoxLayout.Y_AXIS));
-        playersPanel.setBackground(new Color(168, 28, 28));
+        playersPanel.setBackground(AppColorFont.BACKGROUND_MEDIUM);
         gbc.gridy = 2;
         add(playersPanel, gbc);
 
         // Bottone AVVIA
         StartButton = new JButton("START PLAY");
-        StartButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        StartButton.setBackground(new Color(100 ,10 ,10));
-        StartButton.setForeground(Color.WHITE);
-        StartButton.setPreferredSize(new Dimension(200, 45));
+        StartButton.setFont(AppColorFont.FONT_BUTTON);
+        StartButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
+        StartButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
+        StartButton.setPreferredSize(new Dimension(300, 60));
         StartButton.setFocusPainted(false);
         StartButton.setBorderPainted(false);
         gbc.gridy = 3;
@@ -90,18 +94,18 @@ public class LobbyView extends JFrame {
 
         for (int i = 0; i < num; i++) {
             JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            row.setBackground(Color.WHITE);
-            row.setBorder(BorderFactory.createLineBorder(new Color(244, 192, 209), 1));
+            row.setBackground(AppColorFont.BACKGROUND_DARK);
+            row.setBorder(BorderFactory.createLineBorder(AppColorFont.BORDER, 1));
 
             JLabel playerLabel = new JLabel("Player " + (i + 1));
-            playerLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-            playerLabel.setForeground(new Color(120,0,0));
+            playerLabel.setFont(AppColorFont.FONT_BODY);
+            playerLabel.setForeground(AppColorFont.TEXT_PRIMARY);
             playerLabel.setPreferredSize(new Dimension(70, 20));
 
             JComboBox<String> characterBox = new JComboBox<>(CHARACTERS);
-            characterBox.setBackground(new Color(251, 234, 240));
-            characterBox.setForeground(new Color(114, 36, 62));
-            characterBox.setFont(new Font("SansSerif", Font.PLAIN, 15));
+            characterBox.setBackground(AppColorFont.DROPDOWN_BACKGROUND);
+            characterBox.setForeground(AppColorFont.DROPDOWN_FOREGROUND);
+            characterBox.setFont(AppColorFont.FONT_DROPDOWN);
 
             row.add(playerLabel);
             row.add(characterBox);

@@ -1,6 +1,7 @@
 package it.unibo.CluedoLite.model.gameflow.api;
 
 import java.util.List;
+
 import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 

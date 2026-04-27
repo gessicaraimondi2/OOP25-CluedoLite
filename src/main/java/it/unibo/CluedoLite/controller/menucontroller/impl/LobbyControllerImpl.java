@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import it.unibo.CluedoLite.controller.menucontroller.api.LobbyController;
 import it.unibo.CluedoLite.model.gameflow.api.Game;
 import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
+import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 import it.unibo.CluedoLite.view.menuview.LobbyView;
 
@@ -50,15 +50,13 @@ public class LobbyControllerImpl implements LobbyController{
     // assign players and characters
     for (int i = 0; i < numPlayers; i++) {
         String selectedName = view.getSelectedCharacter(i);
-        CreationCharacter character = game.getAvailableCharacters().stream()
+        CreationCharacterImpl character = game.getAvailableCharacters().stream()
                 .filter(c -> c.getName().equals(selectedName))
                 .findFirst()
                 .get();
 
         game.setPlayer(i, new PlayerImpl("Player " + (i + 1)));
         game.assignCharacterToPlayer(i, character);
-
-         System.out.println("Player " + (i + 1) + " : " + game.getPlayers().get(i).getCharacter().getName());
 
         }
     }
