@@ -1,75 +1,83 @@
 package it.unibo.CluedoLite.view.tableview;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import it.unibo.CluedoLite.view.AppColorFont;
 
 /*
 * Represents a scrollable notepad panel where the player can write personal notes.
 */
-
-
-
-
-
-
-// cancellare test 
-// sistemare commenti
-// committare
-// vedere cosa devo fare nel controller
-
-
-
-
-
-
-
-
 public class NotesPanel extends JPanel {
-    private JTextArea notes; 
+    private JTextArea textArea;
+    private JScrollPane scrollPane;
+    private JLabel titleLabel;
 
-    public NotesPanel(){
-        notes = new JTextArea();
+    // Builds the collapsible notepad with a title label and a scrollable text area.
+    public NotesPanel() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBackground(AppColorFont.BACKGROUND_LIGHT);
 
-        notes.setPreferredSize(null);
-        notes.setBackground(new Color(255, 255, 200));
-        notes.setLineWrap(true);       // wraps text automatically when the line is full
-        notes.setWrapStyleWord(true);  // wraps at word boundaries
-        notes.setForeground(new Color(139, 90, 43)); 
-
-        // Wraps the text area in a scroll pane
-        JScrollPane scrollPane = new JScrollPane(notes);
-        scrollPane.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createLineBorder(new Color(139, 90, 43)), "Notes", TitledBorder.LEFT, TitledBorder.TOP, null,  new Color(139, 90, 43)));
-        scrollPane.setBackground(new Color(255, 255, 200));
-        scrollPane.getViewport().setBackground(new Color(255, 255, 200));
-        scrollPane.setPreferredSize(new Dimension(450, 170));
-        add(scrollPane);
-
-        notes.setText("Clicca per digitare...");
-        notes.setForeground(Color.GRAY);
-
-        // Shows or hides the placeholder text based on focus.
-        notes.addFocusListener(new FocusAdapter() {
+        titleLabel = new JLabel("▶ Notes");
+        titleLabel.setFont(AppColorFont.FONT_BODY);
+        titleLabel.setForeground(AppColorFont.ACCENT_SECONDARY);
+        titleLabel.setBackground(AppColorFont.BACKGROUND_LIGHT);
+        titleLabel.setOpaque(true);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 0));
+        titleLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        titleLabel.addMouseListener(new MouseAdapter() {
             @Override
-            public void focusGained(FocusEvent e) {
-                if (notes.getText().equals("Clicca per digitare...")) {
-                    notes.setText("");
-                    notes.setForeground(new Color(139, 90, 43));
+            public void mouseClicked(MouseEvent e) {
+                scrollPane.setVisible(!scrollPane.isVisible());
+                titleLabel.setText((scrollPane.isVisible() ? "▼ " : "▶ ") + "Notes");
+                revalidate();
+                repaint();
+            }
+        });
+
+        textArea = new JTextArea();
+        textArea.setFont(AppColorFont.FONT_SMALL);
+        textArea.setBackground(AppColorFont.BACKGROUND_MEDIUM);
+        textArea.setForeground(AppColorFont.ACCENT_SECONDARY);
+        textArea.setCaretColor(AppColorFont.TEXT_PRIMARY);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setText("Click to write...");
+        textArea.setFocusable(false);
+        textArea.addMouseListener(new MouseAdapter() { // Enables focus and clears the placeholder text on first click
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                textArea.setFocusable(true);
+                textArea.requestFocusInWindow();
+                if (textArea.getText().equals("Click to write...")) { // removes placeholder if not yet edited
+                    textArea.setText("");
                 }
             }
-
+        });
+        textArea.addFocusListener(new FocusAdapter() { // Restores the placeholder text and disables focus when the text area is left empty
             @Override
             public void focusLost(FocusEvent e) {
-                if (notes.getText().isEmpty()) {
-                    notes.setText("Clicca per digitare...");
-                    notes.setForeground(Color.GRAY);
+                if (textArea.getText().isEmpty()) { // only if the user didn't write anything
+                    textArea.setText("Click to write...");
+                    textArea.setForeground(AppColorFont.ACCENT_SECONDARY);
+                    textArea.setFocusable(false);
                 }
             }
         });
 
+        // Wraps the text area in a scroll pane
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(480, 150));
+        scrollPane.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
+        scrollPane.setBorder(BorderFactory.createLineBorder(AppColorFont.ACCENT_SECONDARY, 1));
+        scrollPane.setViewportBorder(null);
+        scrollPane.setVisible(false);
+
+        add(titleLabel);
+        add(scrollPane);
     }
+
 }
