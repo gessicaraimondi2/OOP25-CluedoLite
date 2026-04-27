@@ -8,7 +8,6 @@ import it.unibo.CluedoLite.model.creationcards.impl.CardType;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.suspectnotes.impl.*;
 import it.unibo.CluedoLite.model.suspectnotes.api.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
