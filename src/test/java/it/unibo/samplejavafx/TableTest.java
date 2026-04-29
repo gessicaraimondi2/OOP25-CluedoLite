@@ -8,7 +8,6 @@ import it.unibo.CluedoLite.model.creationcards.impl.CardType;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.suspectnotes.impl.*;
 import it.unibo.CluedoLite.model.suspectnotes.api.*;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,5 +95,28 @@ class TableTest {
         long characterCount = Deck.getAllCards().stream()
                 .filter(c -> c.getType() == CardType.CHARACTER).count();
         assertEquals(characterCount, table.searchType(missScarlett).size());
+    }
+
+    @Test
+    void updateTable() {
+        TableImpl table = new TableImpl(new ArrayList<>());
+        assertFalse(table.alreadyExcluded(missScarlett));
+        table.updateTable(missScarlett);
+        assertTrue(table.alreadyExcluded(missScarlett));
+    }
+
+    @Test
+    void alreadyExcludedReturnsFalseByDefault() {
+        TableImpl table = new TableImpl(new ArrayList<>());
+        assertFalse(table.alreadyExcluded(missScarlett));
+    }
+
+    @Test
+    void initializeTableExcludesHandCards() {
+        List<Card> hand = List.of(missScarlett, candlestick, kitchen);
+        TableImpl table = new TableImpl(hand);
+        assertTrue(table.alreadyExcluded(missScarlett));
+        assertTrue(table.alreadyExcluded(candlestick));
+        assertTrue(table.alreadyExcluded(kitchen));
     }
 }

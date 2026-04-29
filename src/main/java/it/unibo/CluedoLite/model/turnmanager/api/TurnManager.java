@@ -47,5 +47,5 @@ import it.unibo.CluedoLite.model.player.api.Player;
      * @param suspicion the suspected cards
      * @return the card shown by the first player who can respond, or null if no one can
      */
-    Card suggestionResponse(Suspicion suspicion);
+    Card checkSuspicion(Suspicion suspicion);
 }
