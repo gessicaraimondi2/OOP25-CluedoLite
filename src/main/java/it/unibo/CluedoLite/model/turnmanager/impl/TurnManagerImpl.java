@@ -67,7 +67,7 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public Card suggestionResponse(Suspicion suspicion) {
+    public Card checkSuspicion(Suspicion suspicion) {
         int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
