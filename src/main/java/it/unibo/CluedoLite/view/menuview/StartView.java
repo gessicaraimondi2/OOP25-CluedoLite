@@ -1,6 +1,9 @@
 package it.unibo.CluedoLite.view.menuview;
 
 import javax.swing.*;
+
+import it.unibo.CluedoLite.view.AppColorFont;
+
 import java.awt.*;
 /*
  * Main menu screen
@@ -16,11 +19,11 @@ public class StartView extends JFrame {
     //Creates and displays the main menu screen
     public StartView() {
         setTitle("Cluedo Lite");
-        setSize(480, 520);
+        setSize(700, 720);
         setLocationRelativeTo(null); //center the window on screen
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(new Color(160, 28, 28));
+        getContentPane().setBackground(AppColorFont.BACKGROUND_MEDIUM);
 
         //Use to center components
         setLayout(new GridBagLayout());
@@ -30,18 +33,18 @@ public class StartView extends JFrame {
 
         // Title lable
         JLabel title = new JLabel("CLUEDO LITE", SwingConstants.CENTER);
-        title.setFont(new Font("Serif", Font.BOLD, 48));
-        title.setForeground(Color.WHITE);
+        title.setFont(AppColorFont.FONT_TITLE);
+        title.setForeground(AppColorFont.TEXT_PRIMARY);
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 0, 20, 0);
         add(title, gbc);
 
         // START Button 
         startButton = new JButton("NEW GAME");
-        startButton.setFont(new Font("SansSerif", Font.BOLD, 18));
-        startButton.setBackground(new Color(100 ,10 ,10));
-        startButton.setForeground(Color.WHITE);
-        startButton.setPreferredSize(new Dimension(200, 50));
+        startButton.setFont(AppColorFont.FONT_BUTTON);
+        startButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
+        startButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
+        startButton.setPreferredSize(new Dimension(350, 60));
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
         gbc.gridy = 2;
@@ -50,8 +53,8 @@ public class StartView extends JFrame {
 
         //Label showing the number of players allowed
         JLabel players = new JLabel("3 - 6 players", SwingConstants.CENTER);
-        players.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        players.setForeground(Color.WHITE);
+        players.setFont(AppColorFont.FONT_BODY);
+        players.setForeground(AppColorFont.TEXT_PRIMARY);
         gbc.gridy = 3;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(players, gbc);
