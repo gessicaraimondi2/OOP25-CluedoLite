@@ -3,9 +3,9 @@ package it.unibo.CluedoLite.model.turnmanager.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.player.api.Player;
 
 /**

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.view.gameboard.RoomView;
 import it.unibo.CluedoLite.view.gameboard.api.Board;
 
 
@@ -28,9 +27,8 @@ public class BoardImpl extends JPanel implements Board{
 
     public BoardImpl(List<Player> p, GameBoardController c){
         this.controller=c;
-
         try {
-            backgroundImg = ImageIO.read(new File("floor.png"));
+            backgroundImg = ImageIO.read(new File("src/main/resources/images/floor.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +73,7 @@ public class BoardImpl extends JPanel implements Board{
      *
      * @param g2 the 2D graphics context used for rendering
      */
-    public void drawRooms(Graphics2D g2){
+    private void drawRooms(Graphics2D g2){
         for(RoomView r : RoomView.values()){
             
             int x = (int)(r.x * getWidth());
