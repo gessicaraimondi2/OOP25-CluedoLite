@@ -89,4 +89,10 @@ public class CardPanel extends JPanel {
         }
     }
 
+    // Marks the card as excluded and repaints the component to reflect the new state
+    public void excludeCard() {
+        this.state = State.EXCLUDED;
+        repaint();
+    }
+    
 }

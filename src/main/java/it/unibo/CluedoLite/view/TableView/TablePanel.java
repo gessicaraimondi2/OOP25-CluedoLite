@@ -1,12 +1,16 @@
 package it.unibo.CluedoLite.view.tableview;
 
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.creationcards.impl.CardType;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.suspectnotes.impl.BoxImpl;
 import it.unibo.CluedoLite.view.AppColorFont;
 import it.unibo.CluedoLite.model.suspectnotes.api.Table;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.*;
 
 import java.awt.Dimension;
@@ -21,6 +25,7 @@ import java.awt.event.MouseEvent;
  */
 
 public class TablePanel extends JPanel {
+    private final Map<String, CardPanel> cardMap = new HashMap<>();
 
     /*
     *  Builds the table panel by creating three sections (characters, weapons, rooms)
@@ -66,6 +71,7 @@ public class TablePanel extends JPanel {
     private void fillTable(List<BoxImpl> list, JPanel panel){
         list.stream().forEach(c -> {
             CardPanel card = new CardPanel(c.getCard().getName(), c.getState());
+            cardMap.put(c.getCard().getName(), card);
             panel.add(card);
         });
     }
@@ -97,6 +103,14 @@ public class TablePanel extends JPanel {
         container.add(cardsPanel);
 
         return container;
+    }
+
+    // Finds the CardPanel corresponding to the given card and marks it as excluded
+    public void refresh(Card card) {
+        CardPanel panel = cardMap.get(card.getName());
+        if (panel != null) {
+            panel.excludeCard();
+        }
     }
 
 }

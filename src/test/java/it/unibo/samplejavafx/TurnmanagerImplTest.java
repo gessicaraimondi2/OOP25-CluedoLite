@@ -91,24 +91,24 @@ public class TurnmanagerImplTest {
         @Test
     void testSuggestionResponseFirstMatch() {
         p2.addCard(character);
-        assertEquals(character, tm.suggestionResponse(suspect));
+        assertEquals(character, tm.checkSuspicion(suspect));
     }
 
     @Test
     void testSuggestionResponseSkipsNoMatch() {
         p3.addCard(weapon);
-        assertEquals(weapon, tm.suggestionResponse(suspect));
+        assertEquals(weapon, tm.checkSuspicion(suspect));
     }
 
     @Test
     void testSuggestionResponseNoMatch() {
-        assertNull(tm.suggestionResponse(suspect));
+        assertNull(tm.checkSuspicion(suspect));
     }
 
     @Test
     void testSuggestionResponseCircularOrder() {
         tm.nextTurn(); // currentPlayer = p2
         p1.addCard(room);
-        assertEquals(room, tm.suggestionResponse(suspect));
+        assertEquals(room, tm.checkSuspicion(suspect));
     }
 }
