@@ -2,6 +2,7 @@ package it.unibo.CluedoLite.view.menuview;
 
 import javax.swing.*;
 
+import it.unibo.CluedoLite.controller.menucontroller.api.StartController;
 import it.unibo.CluedoLite.view.AppColorFont;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class StartView extends JFrame {
     private JButton startButton;
 
     //Creates and displays the main menu screen
-    public StartView() {
+    public StartView(final StartController controller) {
         setTitle("Cluedo Lite");
         setSize(700, 720);
         setLocationRelativeTo(null); //center the window on screen
@@ -39,7 +40,7 @@ public class StartView extends JFrame {
         gbc.insets = new Insets(0, 0, 20, 0);
         add(title, gbc);
 
-        // START Button 
+        // NEW GAME Button 
         startButton = new JButton("NEW GAME");
         startButton.setFont(AppColorFont.FONT_BUTTON);
         startButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
@@ -47,6 +48,7 @@ public class StartView extends JFrame {
         startButton.setPreferredSize(new Dimension(350, 60));
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
+        startButton.addActionListener(e -> controller.onStartClicked());
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 0, 15, 0);
         add(startButton, gbc);
@@ -60,11 +62,5 @@ public class StartView extends JFrame {
         add(players, gbc);
 
         setVisible(true);
-    }
-     /*
-     * Returns the start button (used by controller)
-     */
-    public JButton getStartButton() {
-        return startButton;
     }
 }

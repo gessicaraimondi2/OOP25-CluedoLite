@@ -17,7 +17,7 @@ public enum RoomView {
     public final String name;
     public final double x, y, width, height;
     public final String imagePath;
-
+    
     RoomView(String name, double x, double y, double width, double height, String imagePath) {
         this.name = name;
         this.x   = x;

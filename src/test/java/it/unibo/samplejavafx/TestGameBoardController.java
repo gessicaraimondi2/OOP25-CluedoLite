@@ -56,7 +56,8 @@ public class TestGameBoardController {
         boardModel = new GameBoardModelImpl();
         turnManager = new TurnManagerImpl(List.of(player1, player2));
         view = new BoardStub();
-        controller = new GameBoardControllerImpl(boardModel, turnManager, view);
+        controller = new GameBoardControllerImpl(boardModel, turnManager);
+        controller.setView(view);
     }
  
     // Test move()

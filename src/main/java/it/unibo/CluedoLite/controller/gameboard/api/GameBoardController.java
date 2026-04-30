@@ -2,8 +2,17 @@ package it.unibo.CluedoLite.controller.gameboard.api;
 
 import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.CluedoLite.view.gameboard.api.Board;
 
 public interface GameBoardController {
+
+    /**
+     * Sets the view for this controller.
+     * Must be called after construction to complete the MVC wiring.
+     *
+     * @param v the board view
+     */
+    void setView(Board v);
 
     /**
      * Moves the current player to the specified room if the move is valid.

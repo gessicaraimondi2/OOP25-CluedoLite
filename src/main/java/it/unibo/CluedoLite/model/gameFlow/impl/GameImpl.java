@@ -116,8 +116,6 @@ public class GameImpl implements Game{
     public void resetGame() {
         if (state != GameState.IN_PROGRESS)
             throw new IllegalStateException("Game is not in progress");
-        for (Player p : players)
-            if (p != null) p.chooseCharacter(null);
         availableCharacters.clear();
         availableCharacters.addAll(DEFAULT_CHARACTERS);
         this.state = GameState.WAITING;

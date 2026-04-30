@@ -27,9 +27,8 @@ public class BoardImpl extends JPanel implements Board{
 
     public BoardImpl(List<Player> p, GameBoardController c){
         this.controller=c;
-
         try {
-            backgroundImg = ImageIO.read(new File("floor.png"));
+            backgroundImg = ImageIO.read(new File("src/main/resources/images/floor.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,7 @@ public class BoardImpl extends JPanel implements Board{
      *
      * @param g2 the 2D graphics context used for rendering
      */
-    public void drawRooms(Graphics2D g2){
+    private void drawRooms(Graphics2D g2){
         for(RoomView r : RoomView.values()){
             
             int x = (int)(r.x * getWidth());

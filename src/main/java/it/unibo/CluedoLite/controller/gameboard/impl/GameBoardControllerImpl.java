@@ -12,10 +12,17 @@ public class GameBoardControllerImpl implements GameBoardController{
     TurnManager tm;
     Board view;
 
-    public GameBoardControllerImpl(GameBoardModel gb,TurnManager tm, Board v){
+    public GameBoardControllerImpl(GameBoardModel gb,TurnManager tm){
         this.gb=gb;
         this.tm=tm;
-        this.view=v;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setView(Board v) {
+        this.view = v;
     }
 
     /**
@@ -31,6 +38,9 @@ public class GameBoardControllerImpl implements GameBoardController{
         }else{
             view.wrongRoomSelected();
         }
+
+        System.out.println("Tentativo: " + r.getName() + " da " + gb.getPlayerPosition(currentplayer));
+        System.out.println("Adiacenti: " + r.getAdjacent().stream().map(Room::getName).toList());
     }
 
     /**
