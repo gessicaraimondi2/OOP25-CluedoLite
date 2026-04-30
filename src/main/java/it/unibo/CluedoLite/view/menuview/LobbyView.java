@@ -2,6 +2,7 @@ package it.unibo.CluedoLite.view.menuview;
 
 import javax.swing.*;
 
+import it.unibo.CluedoLite.controller.menucontroller.api.LobbyController;
 import it.unibo.CluedoLite.view.AppColorFont;
 
 import java.awt.*;
@@ -12,7 +13,6 @@ public class LobbyView extends JFrame {
 
     private JComboBox<Integer> numPlayersBox; // menu for the number of player
     private JPanel playersPanel;
-    private JButton StartButton;
     private List<JComboBox<String>> characterBoxes; //list of player 
 
     private static final String[] CHARACTERS = {
@@ -24,7 +24,7 @@ public class LobbyView extends JFrame {
         "Professor Plum"
     };
 
-    public LobbyView() {
+    public LobbyView(final LobbyController controller) {
         setTitle("Cluedo Lite - Lobby");
         setSize(500, 500);
         setLocationRelativeTo(null);
@@ -62,14 +62,15 @@ public class LobbyView extends JFrame {
         gbc.gridy = 2;
         add(playersPanel, gbc);
 
-        // Bottone AVVIA
-        StartButton = new JButton("START PLAY");
+        // Bottone START PLAY
+        final JButton StartButton = new JButton("START PLAY");
         StartButton.setFont(AppColorFont.FONT_BUTTON);
         StartButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
         StartButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
         StartButton.setPreferredSize(new Dimension(300, 60));
         StartButton.setFocusPainted(false);
         StartButton.setBorderPainted(false);
+        StartButton.addActionListener(e -> controller.onPlayClicked(this));
         gbc.gridy = 3;
         gbc.insets = new Insets(20, 20, 20, 20);
         add(StartButton, gbc);
@@ -126,11 +127,6 @@ public class LobbyView extends JFrame {
     /* Returns the selected character name for a given player index. */
     public String getSelectedCharacter(int index) {
         return (String) characterBoxes.get(index).getSelectedItem();
-    }
-
-    /* Returns the Start button so the controller can attach a listener. */
-    public JButton getStartButton() {
-        return StartButton;
     }
 
     /* Returns the number of players dropdown so the controller can attach a listener. */

@@ -15,25 +15,17 @@ import it.unibo.CluedoLite.view.menuview.LobbyView;
  */
 public class LobbyControllerImpl implements LobbyController{
 
-    // The lobby view
-    private final LobbyView view;
+   //private final Game game;
 
-    //Creates the controller and attaches listeners to the view
-    public LobbyControllerImpl(LobbyView view) {
-        this.view = view;
-        addListeners();
-    }
-
-    // Conction action to the Botton
-    public void addListeners() {
-        view.getStartButton().addActionListener(e -> onPlayClicked());
+    public LobbyControllerImpl() {
+        //this.game = game;
     }
 
     /*
      * Called when the user click "START PLAY"
      * Creates players, assigns characters and starts the game
      */
-    public void onPlayClicked() {
+    public void onPlayClicked(final LobbyView view) {
     int numPlayers = view.getNumPlayers();
     Game game = new GameImpl(numPlayers);
 
