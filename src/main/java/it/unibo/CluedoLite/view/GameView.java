@@ -9,12 +9,13 @@ import java.awt.Toolkit;
 import java.util.List;
 
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.suspectnotes.api.Table;
 import it.unibo.CluedoLite.model.gameflow.api.Game;
 import it.unibo.CluedoLite.view.gamebutton.ButtonGamePanel;
 import it.unibo.CluedoLite.view.gameboard.impl.BoardImpl;
 import it.unibo.CluedoLite.view.tableview.TablePanel;
 import it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionStartView;
+import it.unibo.CluedoLite.view.endgameview.VictoryView;
+import it.unibo.CluedoLite.view.endgameview.DefeatView;
 import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
@@ -28,15 +29,18 @@ import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonControl
  */
 public class GameView extends JPanel {
 
+    private final ResetButtonController resetController;
+    private final QuitButtonController quitController;
+
     /**
-     * @param game                 the game model
-     * @param boardController      controller for the board
-     * @param suspicionController  controller for the suspicion action
-     * @param accuseController     controller for the accusation action
-     * @param resetController      controller for the reset action
-     * @param quitController       controller for the quit action
-     * @param table                the suspect notes model
-     * @param solution             the three secret solution cards to display on startup
+     * @param game                the game model
+     * @param boardController     controller for the board
+     * @param suspicionController controller for the suspicion action
+     * @param accuseController    controller for the accusation action
+     * @param resetController     controller for the reset action
+     * @param quitController      controller for the quit action
+     * @param tablePanel          the suspect notes panel
+     * @param solution            the three secret solution cards to display on startup
      */
     public GameView(final Game game,
                     final GameBoardController boardController,
@@ -46,6 +50,9 @@ public class GameView extends JPanel {
                     final QuitButtonController quitController,
                     final TablePanel tablePanel,
                     final List<Card> solution) {
+
+        this.resetController = resetController;
+        this.quitController = quitController;
 
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLayout(new BorderLayout());
@@ -62,7 +69,7 @@ public class GameView extends JPanel {
         // --- tabellone (centro) ---
         final BoardImpl board = new BoardImpl(game.getPlayers(), boardController);
         boardController.setView(board);
-        final int boardSize = (int)(screen.height * 0.95);
+        final int boardSize = (int) (screen.height * 0.95);
         board.setPreferredSize(new Dimension(boardSize, boardSize));
         board.setMinimumSize(new Dimension(boardSize, boardSize));
         add(board, BorderLayout.CENTER);
@@ -76,5 +83,19 @@ public class GameView extends JPanel {
 
         // --- schermata soluzione segreta (si apre appena il pannello è visibile) ---
         SwingUtilities.invokeLater(() -> new SecretSolutionStartView(solution));
+    }
+
+    /**
+     * Opens the victory window. Call this when the accusation is correct.
+     */
+    public void showVictory() {
+        SwingUtilities.invokeLater(() -> new VictoryView(resetController, quitController));
+    }
+
+    /**
+     * Opens the defeat window. Call this when the accusation is wrong.
+     */
+    public void showDefeat() {
+        SwingUtilities.invokeLater(() -> new DefeatView(resetController, quitController));
     }
 }

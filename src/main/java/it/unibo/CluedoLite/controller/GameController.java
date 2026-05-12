@@ -51,6 +51,7 @@ public class GameController {
     // Rebuilt on each reset
     private JFrame gameFrame;
     private GameBoardControllerImpl boardController;
+    private GameView gameView;
 
     public GameController(final Game game) {
         this.game = game;
@@ -135,6 +136,7 @@ public class GameController {
                     tablePanel,
                     secretSolution.getSolution()
             );
+            this.gameView = gameView;
 
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -158,15 +160,10 @@ public class GameController {
 
     public void handleAccusationResult(final boolean result) {
         if (result) {
-            JOptionPane.showMessageDialog(null,
-                    "Congratulazioni! Accusa corretta. Hai vinto!",
-                    "Vittoria!", JOptionPane.INFORMATION_MESSAGE);
-            handleQuit();
+            gameView.showVictory();
         } else {
-            JOptionPane.showMessageDialog(null,
-                    "Accusa sbagliata! Sei eliminato.",
-                    "Eliminato", JOptionPane.WARNING_MESSAGE);
-            game.getTurnManager().getCurrentPlayer().eliminate(); // ← elimina prima
+            gameView.showDefeat();
+            game.getTurnManager().getCurrentPlayer().eliminate();
             advanceTurn();
         }
     }
