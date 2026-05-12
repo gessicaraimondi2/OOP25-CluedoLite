@@ -11,6 +11,7 @@ import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.Accusation
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
+import it.unibo.CluedoLite.controller.endturnbutton.impl.EndTurnControllerImpl;
 import it.unibo.CluedoLite.controller.gameboard.impl.GameBoardControllerImpl;
 import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
 import it.unibo.CluedoLite.controller.tablecontroller.impl.TableControllerImpl;
@@ -95,7 +96,6 @@ public class GameController {
                     this::getCurrentPlayerRoom,
                     suspicion -> {
                         tableController.handleSuspicion(suspicion);
-                        advanceTurn();
                     },
                     game.getTurnManager()::getCurrentPlayer
             );
@@ -103,6 +103,9 @@ public class GameController {
             final AccusationController accusationController = new AccusationController(
                     accuseManager, characters, weapons, rooms,
                     this::handleAccusationResult);
+
+            final EndTurnControllerImpl endTurnController =
+                    new EndTurnControllerImpl(this::advanceTurn);
 
             final ResetButtonControllerImpl resetController =
                     new ResetButtonControllerImpl(game) {
@@ -140,6 +143,7 @@ public class GameController {
                     accusationController,
                     resetController,
                     quitController,
+                    endTurnController,
                     tablePanel,
                     secretSolution.getSolution()
             );
