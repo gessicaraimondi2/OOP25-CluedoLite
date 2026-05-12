@@ -29,17 +29,18 @@ public class QuitButtonControllerImpl implements QuitButtonController {
      */
     @Override
     public void onQuitClicked() {
+        System.out.println("onQuitClicked called");
         final int confirm = JOptionPane.showConfirmDialog(
-            null,
+            gameFrame,
             "Are you sure you want to quit to the main menu?",
             "Quit",
             JOptionPane.YES_NO_OPTION
         );
         if (confirm == JOptionPane.YES_OPTION) {
-            game.quitToMenu();
-            gameFrame.dispose();
-            final StartControllerImpl startController = new StartControllerImpl();
-            new StartView(startController);
+        game.quitToMenu();
+        final StartControllerImpl startController = new StartControllerImpl();
+        new StartView(startController);  
+        gameFrame.dispose();
         }
     }
 }

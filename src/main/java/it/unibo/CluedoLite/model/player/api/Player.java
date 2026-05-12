@@ -70,5 +70,11 @@ public interface Player {
      */
     boolean isEliminated();
 
+    /**
+     * Restores this player to an active state after being eliminated.
+     * A restored player can take actions and move again.
+     */
+    void restore();
+
 }
 

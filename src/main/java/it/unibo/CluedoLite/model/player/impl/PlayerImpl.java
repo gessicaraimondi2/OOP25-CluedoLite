@@ -73,4 +73,8 @@ public class PlayerImpl implements Player{
     public boolean isEliminated() {
         return this.eliminated;
     }
+
+    public void restore() {
+        this.eliminated = false;
+    }
 }

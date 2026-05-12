@@ -122,7 +122,14 @@ public class GameController {
                     new QuitButtonControllerImpl(game, gameFrame) {
                         @Override
                         public void onQuitClicked() {
-                            handleQuit();
+                            final int confirm = JOptionPane.showConfirmDialog(
+                                gameFrame,
+                                "Are you sure you want to quit to the main menu?",
+                                "Quit",
+                                JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                handleQuit();
+                            }
                         }
                     };
 

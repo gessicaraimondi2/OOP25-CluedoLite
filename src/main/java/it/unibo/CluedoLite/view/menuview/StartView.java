@@ -48,7 +48,7 @@ public class StartView extends JFrame {
         startButton.setPreferredSize(new Dimension(350, 60));
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
-        startButton.addActionListener(e -> controller.onStartClicked());
+        startButton.addActionListener(e -> controller.onStartClicked(this));
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 0, 15, 0);
         add(startButton, gbc);
