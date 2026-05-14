@@ -12,9 +12,11 @@ import javax.swing.Box;
 import it.unibo.CluedoLite.view.AppColorFont;
 import it.unibo.CluedoLite.view.buttonflowview.QuitButtonView;
 import it.unibo.CluedoLite.view.buttonflowview.ResetButtonView;
+import it.unibo.CluedoLite.view.endturnbutton.EndTurnButtonView;
 import it.unibo.CluedoLite.view.suspicionview.ButtonSuspicionView;
 import it.unibo.CluedoLite.view.accuseview.ButtonAccuseView;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
@@ -39,7 +41,8 @@ public class ButtonGamePanel extends JPanel {
     public ButtonGamePanel(final InterfaceSuspicionController suspicionController,
                            final InterfaceAccusation accuseController,
                            final ResetButtonController resetController,
-                           final QuitButtonController quitController) {
+                           final QuitButtonController quitController,
+                           final EndTurnController endTurnController) {
 
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int panelWidth = screen.width / 5;
@@ -74,6 +77,11 @@ public class ButtonGamePanel extends JPanel {
         add(Box.createVerticalGlue());
 
         // --- bottoni in basso ---
+        final EndTurnButtonView endTurnButton = new EndTurnButtonView(endTurnController);
+        endTurnButton.setMaximumSize(new Dimension(150, 40));
+        endTurnButton.setPreferredSize(new Dimension(150, 40));
+        endTurnButton.setFont(AppColorFont.FONT_BUTTON.deriveFont(13f));
+
         final ResetButtonView resetButton = new ResetButtonView(resetController);
         resetButton.setMaximumSize(new Dimension(150, 40));
         resetButton.setPreferredSize(new Dimension(150, 40));
@@ -84,6 +92,8 @@ public class ButtonGamePanel extends JPanel {
         quitButton.setPreferredSize(new Dimension(150, 40));
         quitButton.setFont(AppColorFont.FONT_BUTTON.deriveFont(13f));
 
+        add(endTurnButton);
+        add(Box.createVerticalStrut(10));
         add(resetButton);
         add(Box.createVerticalStrut(10));
         add(quitButton);

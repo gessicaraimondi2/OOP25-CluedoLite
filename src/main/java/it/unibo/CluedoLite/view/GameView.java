@@ -21,6 +21,7 @@ import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 
 /**
@@ -50,6 +51,7 @@ public class GameView extends JPanel {
                     final InterfaceAccusation accuseController,
                     final ResetButtonController resetController,
                     final QuitButtonController quitController,
+                    final EndTurnController endTurnController,
                     final TablePanel tablePanel,
                     final List<Card> solution) {
 
@@ -67,7 +69,8 @@ public class GameView extends JPanel {
                 suspicionController,
                 accuseController,
                 resetController,
-                quitController);
+                quitController,
+                endTurnController);
         add(buttonPanel, BorderLayout.WEST);
 
         // --- tabellone (centro) ---

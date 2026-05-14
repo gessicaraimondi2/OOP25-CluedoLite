@@ -11,6 +11,7 @@ import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.Accusation
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
+import it.unibo.CluedoLite.controller.endturnbutton.impl.EndTurnControllerImpl;
 import it.unibo.CluedoLite.controller.gameboard.impl.GameBoardControllerImpl;
 import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
 import it.unibo.CluedoLite.controller.tablecontroller.impl.TableControllerImpl;
@@ -31,11 +32,9 @@ import it.unibo.CluedoLite.view.tableview.TablePanel;
  *
  * <p>Turn flow:
  * <ol>
- *   <li>Player moves on the board.</li>
- *   <li>Player makes a suspicion or accusation (mandatory).</li>
- *   <li>Suspicion → table updates, turn advances.</li>
- *   <li>Accusation correct → player wins, returns to main menu.</li>
- *   <li>Accusation wrong → player eliminated, turn advances.</li>
+ *   <li>Player moves on the board (once per turn).</li>
+ *   <li>Player makes a suspicion or accusation (mandatory before ending turn).</li>
+ *   <li>Player clicks "Fine turno" to advance.</li>
  * </ol>
  */
 public class GameController {
@@ -52,6 +51,9 @@ public class GameController {
     private JFrame gameFrame;
     private GameBoardControllerImpl boardController;
     private GameView gameView;
+
+    // Turn state: true after suspicion or accusation, reset on advanceTurn()
+    private boolean actionDoneThisTurn = false;
 
     public GameController(final Game game) {
         this.game = game;
@@ -74,6 +76,7 @@ public class GameController {
 
     public void openGameWindow(final JFrame previousWindow) {
         final JFrame oldFrame = gameFrame;
+        actionDoneThisTurn = false;
 
         try {
             boardController = new GameBoardControllerImpl(
@@ -86,16 +89,25 @@ public class GameController {
             final TableControllerImpl tableController = new TableControllerImpl(
                     game.getTurnManager(), table, tablePanel);
 
-            // Ordine parametri allineato al costruttore di SuspicionController:
-            // (SuspicionManager, Card[], Card[], Supplier<Card>, Consumer<Suspicion>, Supplier<Player>)
             final SuspicionController suspicionController = new SuspicionController(
                     new SuspicionManager(),
                     characters,
                     weapons,
                     this::getCurrentPlayerRoom,
                     suspicion -> {
+                        // mostra la carta confutatrice se esiste
+                        final Card refutation = game.getTurnManager().checkSuspicion(suspicion);
+                        if (refutation != null) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Un giocatore mostra la carta: " + refutation.getName(),
+                                    "Sospetto confutato", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Nessun giocatore può confutare il sospetto!",
+                                    "Sospetto non confutato", JOptionPane.WARNING_MESSAGE);
+                        }
                         tableController.handleSuspicion(suspicion);
-                        advanceTurn();
+                        actionDoneThisTurn = true;  // sblocca il fine turno
                     },
                     game.getTurnManager()::getCurrentPlayer
             );
@@ -103,6 +115,18 @@ public class GameController {
             final AccusationController accusationController = new AccusationController(
                     accuseManager, characters, weapons, rooms,
                     this::handleAccusationResult);
+
+            // fine turno: bloccato se partita finita o azione non ancora eseguita
+            final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
+                if (game.getTurnManager().isGameOver()) return;
+                if (!actionDoneThisTurn) {
+                    JOptionPane.showMessageDialog(null,
+                            "Devi fare un sospetto o un'accusa prima di finire il turno!",
+                            "Azione richiesta", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                advanceTurn();
+            });
 
             final ResetButtonControllerImpl resetController =
                     new ResetButtonControllerImpl(game) {
@@ -122,21 +146,28 @@ public class GameController {
                     new QuitButtonControllerImpl(game, gameFrame) {
                         @Override
                         public void onQuitClicked() {
-                            handleQuit();
+                            final int confirm = JOptionPane.showConfirmDialog(
+                                gameFrame,
+                                "Are you sure you want to quit to the main menu?",
+                                "Quit",
+                                JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                handleQuit();
+                            }
                         }
                     };
 
-            final GameView gameView = new GameView(
+            gameView = new GameView(
                     game,
                     boardController,
                     suspicionController,
                     accusationController,
                     resetController,
                     quitController,
+                    endTurnController,
                     tablePanel,
                     secretSolution.getSolution()
             );
-            this.gameView = gameView;
 
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -160,11 +191,12 @@ public class GameController {
 
     public void handleAccusationResult(final boolean result) {
         if (result) {
+            game.getTurnManager().endGame();  // segna la partita come finita
             gameView.showVictory();
         } else {
             gameView.showDefeat();
             game.getTurnManager().getCurrentPlayer().eliminate();
-            advanceTurn();
+            actionDoneThisTurn = true;  // l'accusa conta come azione del turno
         }
     }
 
@@ -191,13 +223,10 @@ public class GameController {
     // -----------------------------------------------------------------------
 
     private void advanceTurn() {
+        actionDoneThisTurn = false;
         boardController.endTurn();
     }
 
-    /**
-     * Restituisce la Card corrispondente alla stanza corrente del giocatore attivo.
-     * Usato come Supplier, quindi eseguito nel momento in cui serve.
-     */
     private Card getCurrentPlayerRoom() {
         if (boardController == null) return rooms[0];
 

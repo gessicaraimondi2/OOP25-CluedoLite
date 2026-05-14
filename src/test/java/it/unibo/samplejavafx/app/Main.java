@@ -19,7 +19,6 @@ public final class Main {
         SwingUtilities.invokeLater(() -> {
             final StartControllerImpl startController = new StartControllerImpl();
             final StartView startView = new StartView(startController);
-            startController.setView(startView);
             startView.setVisible(true);
         });
     }

@@ -104,6 +104,9 @@ public class GameImpl implements Game {
     public void resetGame() {
         if (state != GameState.IN_PROGRESS)
             throw new IllegalStateException("Game is not in progress");
+        for (final Player p : players) {
+            if (p != null) p.restore();
+        }
         availableCharacters.clear();
         availableCharacters.addAll(DEFAULT_CHARACTERS);
         this.gameBoard   = new GameBoardModelImpl();

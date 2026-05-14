@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
 import it.unibo.CluedoLite.model.gameflow.api.Game;
 
+
 /**
  * Controller for the RESET button
  * Restarts the game with the same players
@@ -33,7 +34,6 @@ public class ResetButtonControllerImpl implements ResetButtonController {
         if (confirm == JOptionPane.YES_OPTION){   
             game.resetGame();
             game.startGame();
-            //new GameView(game);
         }
     }
 }
