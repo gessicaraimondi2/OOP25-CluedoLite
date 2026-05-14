@@ -133,7 +133,7 @@ public class GameController {
                         @Override
                         public void onResetClicked() {
                             final int confirm = JOptionPane.showConfirmDialog(
-                                null, "Sei sicuro di voler ricominciare?",
+                                null, "Are you sure you want to restart?",
                                 "Reset", JOptionPane.YES_NO_OPTION);
                             if (confirm == JOptionPane.YES_OPTION) {
                                 handleReset();

@@ -20,25 +20,59 @@ public class StartView extends JFrame {
     //Creates and displays the main menu screen
     public StartView(final StartController controller) {
         setTitle("Cluedo Lite");
-        setSize(700, 720);
         setLocationRelativeTo(null); //center the window on screen
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(AppColorFont.BACKGROUND_MEDIUM);
 
         //Use to center components
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0; //same column
-        gbc.insets = new Insets(80, 0, 10, 0);
+        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Title lable
         JLabel title = new JLabel("CLUEDO LITE", SwingConstants.CENTER);
         title.setFont(AppColorFont.FONT_TITLE);
         title.setForeground(AppColorFont.TEXT_PRIMARY);
         gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.insets = new Insets(0, 0, 10, 0);
         add(title, gbc);
+
+        final JButton rulesButton = new JButton("RULES");
+        rulesButton.setFont(AppColorFont.FONT_BUTTON);
+        rulesButton.setBackground(AppColorFont.BUTTON_BACKGROUND);
+        rulesButton.setForeground(AppColorFont.BUTTON_FOREGROUND);
+        rulesButton.setFocusPainted(false);
+        rulesButton.setBorderPainted(false);
+       rulesButton.addActionListener(e -> JOptionPane.showMessageDialog(
+            null,
+            "CLUEDO LITE RULES:\n\n" +
+            "OBJECTIVE:\n" +
+            "Find out who committed the crime, with which weapon and in which room\n\n" +
+            "TURN:\n" +
+            "1. Move to an adjacent room\n" +
+            "2. Make a suspicion OR a final accusation\n" +
+            "3. Click 'End Turn' to pass to the next player\n\n" +
+            "PLAYERS:\n" +
+            "- A game can be played by 3 to 6 players\n" +
+            "- A player can choose only one character\n" +
+            "- A character can be chosen by only one player\n\n" +
+            "SUSPICION:\n" +
+            "- You can only suspect in the room where you are\n" +
+            "- Choose a character and a weapon\n" +
+            "- Other players show a card to disprove if they have one\n\n" +
+            "ACCUSATION:\n" +
+            "- Choose character, weapon AND room\n" +
+            "- Correct: you win!\n" +
+            "- Wrong: you are eliminated!\n\n" +
+            "NOTE:\n" +
+            "You must make a suspicion or accusation before ending your turn",
+            "Rules",
+            JOptionPane.INFORMATION_MESSAGE
+        ));
+        gbc.gridy = 1;
+        gbc.insets = new Insets(20, 0, 30, 0);
+        add(rulesButton, gbc);
 
         // NEW GAME Button 
         startButton = new JButton("NEW GAME");
@@ -49,7 +83,7 @@ public class StartView extends JFrame {
         startButton.setFocusPainted(false);
         startButton.setBorderPainted(false);
         startButton.addActionListener(e -> controller.onStartClicked(this));
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.insets = new Insets(0, 0, 15, 0);
         add(startButton, gbc);
 
@@ -57,7 +91,7 @@ public class StartView extends JFrame {
         JLabel players = new JLabel("3 - 6 players", SwingConstants.CENTER);
         players.setFont(AppColorFont.FONT_BODY);
         players.setForeground(AppColorFont.TEXT_PRIMARY);
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.insets = new Insets(0, 0, 0, 0);
         add(players, gbc);
 

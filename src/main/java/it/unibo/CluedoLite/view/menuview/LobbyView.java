@@ -26,11 +26,11 @@ public class LobbyView extends JFrame {
 
     public LobbyView(final LobbyController controller) {
         setTitle("Cluedo Lite - Lobby");
-        setSize(500, 500);
-        setLocationRelativeTo(null);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(AppColorFont.BACKGROUND_MEDIUM);
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         characterBoxes = new ArrayList<>();
 
