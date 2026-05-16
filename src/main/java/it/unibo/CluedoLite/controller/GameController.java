@@ -1,6 +1,7 @@
 package it.unibo.CluedoLite.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -68,6 +69,12 @@ public class GameController {
         allCards.addAll(List.of(rooms));
         this.secretSolution = new SecretSolution(allCards);
         this.accuseManager  = new AccuseManager(secretSolution);
+
+        Collections.shuffle(allCards);
+        int numPlayers = game.getPlayers().size();
+        for (int i = 0; i < allCards.size(); i++) {
+            game.getPlayers().get(i % numPlayers).addCard(allCards.get(i));
+        }
     }
 
     // -----------------------------------------------------------------------
@@ -82,6 +89,7 @@ public class GameController {
             boardController = new GameBoardControllerImpl(
                     game.getGameBoard(), game.getTurnManager());
 
+            System.out.println("[DEBUG] Mano giocatore: " + game.getTurnManager().getCurrentPlayer().getHand());
             final TableImpl table = new TableImpl(
                     game.getTurnManager().getCurrentPlayer().getHand());
             final TablePanel tablePanel = new TablePanel(table);

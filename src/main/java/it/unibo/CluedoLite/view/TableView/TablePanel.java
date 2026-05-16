@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Toolkit;
 
 /*
  * Represents the suspect notes table, organized into three sections:
@@ -26,6 +27,10 @@ import java.awt.event.MouseEvent;
 
 public class TablePanel extends JPanel {
     private final Map<String, CardPanel> cardMap = new HashMap<>();
+
+    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+    private final int panelWidth = (int)(screen.width * 0.25);  // 25% dello schermo
+    
 
     /*
     *  Builds the table panel by creating three sections (characters, weapons, rooms)
@@ -38,9 +43,15 @@ public class TablePanel extends JPanel {
         setMaximumSize(new Dimension(500, Integer.MAX_VALUE));
         setMinimumSize(new Dimension(500, 600));
 
-        JPanel characters = createCardsPanel(110);
-        JPanel rooms = createCardsPanel(220);
-        JPanel weapons = createCardsPanel(110);
+        int panelHeight = screen.height;
+
+        setPreferredSize(new Dimension(panelWidth, panelHeight));
+        setMaximumSize(new Dimension(panelWidth, Integer.MAX_VALUE));
+        setMinimumSize(new Dimension(panelWidth, panelHeight));
+
+        JPanel characters = createCardsPanel(0.12);
+        JPanel rooms = createCardsPanel(0.25);
+        JPanel weapons = createCardsPanel(0.12);
         fillTable(table.searchType(Deck.getCardsByType(CardType.CHARACTER).get(0)), characters);
         fillTable(table.searchType(Deck.getCardsByType(CardType.WEAPON).get(0)), weapons);
         fillTable(table.searchType(Deck.getCardsByType(CardType.ROOM).get(0)), rooms);
@@ -53,16 +64,19 @@ public class TablePanel extends JPanel {
     }
 
     // Creates an empty panel to hold card panels, hidden by default until the section is expanded.
-    private JPanel createCardsPanel(int height){
-        JPanel panel = new JPanel();
+    private JPanel createCardsPanel(double heightPercent){
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int)(screen.height * heightPercent);
         
+        
+        JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panel.setBackground(AppColorFont.BACKGROUND_MEDIUM); 
+        panel.setBackground(AppColorFont.BACKGROUND_MEDIUM);
         panel.setBorder(BorderFactory.createLineBorder(AppColorFont.BORDER, 1));
         panel.setVisible(false);
-        panel.setPreferredSize(new Dimension(480, height));
+        panel.setPreferredSize(new Dimension(panelWidth, height));
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, height));
-        panel.setMinimumSize(new Dimension(480, height));
+        panel.setMinimumSize(new Dimension(panelWidth, height));
 
         return panel;
     }

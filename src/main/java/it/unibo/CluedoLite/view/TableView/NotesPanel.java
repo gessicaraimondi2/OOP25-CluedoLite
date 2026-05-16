@@ -1,11 +1,19 @@
 package it.unibo.CluedoLite.view.tableview;
 
-import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.Toolkit;
+
 import it.unibo.CluedoLite.view.AppColorFont;
 
 /*
@@ -75,6 +83,8 @@ public class NotesPanel extends JPanel {
         scrollPane.setBorder(BorderFactory.createLineBorder(AppColorFont.ACCENT_SECONDARY, 1));
         scrollPane.setViewportBorder(null);
         scrollPane.setVisible(false);
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        scrollPane.setPreferredSize(new Dimension((int)(screen.width * 0.25), (int)(screen.height * 0.15)));
 
         add(titleLabel);
         add(scrollPane);
