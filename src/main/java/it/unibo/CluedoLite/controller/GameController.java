@@ -3,6 +3,7 @@ package it.unibo.CluedoLite.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,6 +11,7 @@ import javax.swing.SwingUtilities;
 
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.AccusationController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
+import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
 import it.unibo.CluedoLite.controller.endturnbutton.impl.EndTurnControllerImpl;
@@ -46,13 +48,14 @@ public class GameController {
     private final Card[] characters;
     private final Card[] weapons;
     private final Card[] rooms;
-    private final SecretSolution secretSolution;
-    private final AccuseManager accuseManager;
+    private SecretSolution secretSolution;
+    private AccuseManager accuseManager;
 
     // Rebuilt on each reset
     private JFrame gameFrame;
     private GameBoardControllerImpl boardController;
     private GameView gameView;
+    private AccusationController accusationController;
 
     public GameController(final Game game) {
         this.game = game;
@@ -61,15 +64,7 @@ public class GameController {
         this.weapons    = Deck.getCardsByType(CardType.WEAPON).toArray(new Card[0]);
         this.rooms      = Deck.getCardsByType(CardType.ROOM).toArray(new Card[0]);
 
-        final List<Card> allCards = new ArrayList<>();
-        allCards.addAll(List.of(characters));
-        allCards.addAll(List.of(weapons));
-        allCards.addAll(List.of(rooms));
-        this.secretSolution = new SecretSolution(allCards);
-        this.accuseManager  = new AccuseManager(secretSolution);
-
-        Collections.shuffle(allCards);
-        new CardDistribution(allCards, game.getPlayers());
+        initSession();
     }
 
     // -----------------------------------------------------------------------
@@ -114,11 +109,11 @@ public class GameController {
                     game.getTurnManager()::getCurrentPlayer
             );
 
-            final AccusationController accusationController = new AccusationController(
+            this.accusationController = new AccusationController(
                     accuseManager, characters, weapons, rooms,
                     this::handleAccusationResult);
 
-            // fine turno: bloccato se partita finita o azione non ancora eseguita
+            // Fine turno: bloccato se la partita è finita o se l'azione non è ancora stata eseguita
             final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
                 if (game.getTurnManager().isGameOver()) return;
                 advanceTurn();
@@ -138,34 +133,45 @@ public class GameController {
                     };
 
             gameFrame = new JFrame("Cluedo Lite");
-            final QuitButtonControllerImpl quitController =
-                    new QuitButtonControllerImpl(game, gameFrame) {
-                        @Override
-                        public void onQuitClicked() {
-                            final int confirm = JOptionPane.showConfirmDialog(
-                                gameFrame,
-                                "Are you sure you want to quit to the main menu?",
-                                "Quit",
-                                JOptionPane.YES_NO_OPTION);
-                            if (confirm == JOptionPane.YES_OPTION) {
-                                handleQuit();
-                            }
-                        }
-                    };
 
+            /*
+             * Controller del bottone "Quit" per la schermata di gioco principale.
+             * Usa gameFrame come parent del dialogo di conferma.
+             */
+            final QuitButtonControllerImpl quitController =
+                new QuitButtonControllerImpl(game, () -> gameFrame) {
+                    @Override
+                    public void onQuitClicked() {
+                        final int confirm = JOptionPane.showConfirmDialog(
+                            gameFrame,
+                            "Are you sure you want to quit to the main menu?",
+                            "Quit",
+                            JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            handleQuit();
+                        }
+                    }
+                };
+
+            /*
+             * Passa a GameView anche la factory quitControllerFor, in modo che
+             * VictoryView e FinalDefeatView possano costruire un QuitButtonController
+             * legato al proprio JFrame (non a gameFrame, che sarà già stato disposto).
+             */
             gameView = new GameView(
-                    game,
-                    boardController,
-                    suspicionController,
-                    accusationController,
-                    resetController,
-                    quitController,
-                    endTurnController,
-                    tablePanel,
-                    secretSolution.getSolution()
+                game,
+                boardController,
+                suspicionController,
+                accusationController,
+                resetController,
+                quitController,
+                endTurnController,
+                tablePanel,
+                secretSolution.getSolution(),
+                this::quitControllerFor   // factory per le end-game views
             );
 
-            gameView.resetForNewTurn(); //disabilita/abilita i pulsanti giusti
+            gameView.resetForNewTurn(); // disabilita/abilita i pulsanti giusti
 
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -189,18 +195,37 @@ public class GameController {
 
     public void handleAccusationResult(final boolean result) {
         if (result) {
-            game.getTurnManager().endGame();  // segna la partita come finita
+            game.getTurnManager().endGame();
             gameView.showVictory();
         } else {
-            gameView.showDefeat();
             game.getTurnManager().getCurrentPlayer().eliminate();
-            advanceTurn();
+
+            if (countActivePlayers() == 1) {
+                // Chiude il gioco, passa all'ultimo giocatore e apre l'accusa finale
+                game.getTurnManager().nextTurn();
+                gameFrame.dispose();
+                accusationController.openAccusationView();
+            } else if (countActivePlayers() == 0) {
+                game.getTurnManager().endGame();
+                gameView.showFinalDefeat();
+            } else {
+                // Sconfitta normale: mostra il timer e avanza il turno
+                gameView.showDefeat();
+                advanceTurn();
+            }
         }
+    }
+
+    private long countActivePlayers() {
+        return game.getPlayers().stream()
+                .filter(p -> !p.isEliminated())
+                .count();
     }
 
     public void handleReset() {
         game.resetGame();
         game.startGame();
+        initSession();
         openGameWindow(null);
     }
 
@@ -220,22 +245,74 @@ public class GameController {
     // Private helpers
     // -----------------------------------------------------------------------
 
+    /**
+     * Factory che crea un {@link QuitButtonController} legato a un frame specifico.
+     *
+     * <p>Viene passata a {@link GameView} come method reference ({@code this::quitControllerFor})
+     * in modo che {@code VictoryView} e {@code FinalDefeatView} possano costruire
+     * il proprio controller con il supplier del loro frame, invece di usare
+     * {@code gameFrame} che a quel punto è già stato disposto.
+     *
+     * @param frameSupplier supplier che restituisce il JFrame della view chiamante
+     * @return un QuitButtonController con dialogo di conferma centrato sul frame corretto
+     */
+    private QuitButtonController quitControllerFor(final Supplier<JFrame> frameSupplier) {
+    return new QuitButtonControllerImpl(game, frameSupplier) {
+        @Override
+        public void onQuitClicked() {
+            final int confirm = JOptionPane.showConfirmDialog(
+                frameSupplier.get(),
+                "Are you sure you want to quit to the main menu?",
+                "Quit",
+                JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Salva il riferimento PRIMA di handleQuit(),
+                // perché dopo il supplier potrebbe non essere più valido
+                final JFrame endGameFrame = frameSupplier.get();
+                handleQuit(); // apre il menu e azzera gameFrame
+                // Chiude VictoryView / FinalDefeatView, che handleQuit() non conosce
+                if (endGameFrame != null) {
+                    endGameFrame.dispose();
+                }
+            }
+        }
+    };
+}
+
     private void advanceTurn() {
         gameView.resetForNewTurn();
         boardController.endTurn();
     }
 
     private Card getCurrentPlayerRoom() {
-        if (boardController == null) return null; 
+        if (boardController == null) return null;
 
         final var currentRoom = boardController.getCurrentRoomOf(
                 game.getTurnManager().getCurrentPlayer());
 
-        if (currentRoom == null) return null; 
+        if (currentRoom == null) return null;
 
         for (final Card card : rooms) {
             if (card.getName().equals(currentRoom.getName())) return card;
         }
-        return null; 
+        return null;
+    }
+
+    /**
+     * Reinizializza soluzione segreta, accuse e distribuzione carte.
+     * Chiamato sia alla costruzione che ad ogni reset, per garantire
+     * che ogni partita abbia una soluzione diversa.
+     */
+    private void initSession() {
+        final List<Card> allCards = new ArrayList<>();
+        allCards.addAll(List.of(characters));
+        allCards.addAll(List.of(weapons));
+        allCards.addAll(List.of(rooms));
+
+        this.secretSolution = new SecretSolution(allCards);
+        this.accuseManager  = new AccuseManager(secretSolution);
+
+        Collections.shuffle(allCards);
+        new CardDistribution(allCards, game.getPlayers());
     }
 }

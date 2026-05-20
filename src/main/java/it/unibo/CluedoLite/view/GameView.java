@@ -1,5 +1,6 @@
 package it.unibo.CluedoLite.view;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
@@ -8,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.gameflow.api.Game;
@@ -17,12 +20,13 @@ import it.unibo.CluedoLite.view.tableview.TablePanel;
 import it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionStartView;
 import it.unibo.CluedoLite.view.endgameview.VictoryView;
 import it.unibo.CluedoLite.view.endgameview.DefeatView;
+import it.unibo.CluedoLite.view.endgameview.FinalDefeatView;
 import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
+import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
 import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 
 /**
  * Main game view.
@@ -32,7 +36,17 @@ import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonControl
 public class GameView extends JPanel {
 
     private final ResetButtonController resetController;
-    private final QuitButtonController quitController;
+
+    /*
+     * Factory che crea un QuitButtonController legato a un JFrame specifico.
+     * Viene usata da showVictory() e showFinalDefeat() per ottenere un controller
+     * il cui dialogo di conferma è centrato sul frame della end-game view,
+     * e non su gameFrame (già disposto a quel punto).
+     *
+     * Firma: Supplier<JFrame> -> QuitButtonController
+     */
+    private final Function<Supplier<JFrame>, QuitButtonController> quitFactory;
+
     private final ButtonGamePanel buttonPanel;
     private final List<Card> solution;
 
@@ -42,9 +56,13 @@ public class GameView extends JPanel {
      * @param suspicionController controller for the suspicion action
      * @param accuseController    controller for the accusation action
      * @param resetController     controller for the reset action
-     * @param quitController      controller for the quit action
+     * @param quitController      controller for the quit button in the main game screen
+     * @param endTurnController   controller for the end-turn action
      * @param tablePanel          the suspect notes panel
      * @param solution            the three secret solution cards to display on startup
+     * @param quitFactory         factory che produce un QuitButtonController dato il supplier
+     *                            del JFrame della view chiamante; usata da VictoryView e
+     *                            FinalDefeatView per avere il frame corretto nel dialogo
      */
     public GameView(final Game game,
                     final GameBoardController boardController,
@@ -54,10 +72,11 @@ public class GameView extends JPanel {
                     final QuitButtonController quitController,
                     final EndTurnController endTurnController,
                     final TablePanel tablePanel,
-                    final List<Card> solution) {
+                    final List<Card> solution,
+                    final Function<Supplier<JFrame>, QuitButtonController> quitFactory) {
 
         this.resetController = resetController;
-        this.quitController = quitController;
+        this.quitFactory = quitFactory;
         this.solution = solution;
         System.out.println("[DEBUG] Soluzione segreta: " + solution);
 
@@ -93,21 +112,35 @@ public class GameView extends JPanel {
         SwingUtilities.invokeLater(() -> new SecretSolutionStartView(solution));
     }
 
-    /** Disables suspicion + accusation, enables end turn. */
+    /** Disabilita suspicion + accusation, abilita fine turno. */
     public void disableActionButtons() {
         buttonPanel.disableActionButtons();
     }
- 
-    /** Re-enables suspicion + accusation, disables end turn. */
+
+    /** Riabilita suspicion + accusation, disabilita fine turno. */
     public void resetForNewTurn() {
         buttonPanel.resetForNewTurn();
     }
 
     /**
-     * Opens the victory window. Call this when the accusation is correct.
+     * Apre la schermata di vittoria e chiude la finestra di gioco.
+     *
+     * <p>Usa {@code quitFactory} per creare un QuitButtonController legato
+     * al JFrame di VictoryView tramite il pattern dell'array di riferimento:
+     * il supplier {@code () -> ref[0]} è valutato in modo lazy, quindi quando
+     * l'utente clicca il bottone quit, {@code ref[0]} è già stato assegnato
+     * alla finestra corretta.
      */
     public void showVictory() {
-        SwingUtilities.invokeLater(() -> new VictoryView(resetController, quitController));
+        SwingUtilities.invokeLater(() -> {
+            // ref[0] verrà assegnato dopo la creazione di VictoryView;
+            // il supplier lo legge solo al momento del click, quindi è già valorizzato.
+            final JFrame[] ref = {null};
+            final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
+            ref[0] = new VictoryView(resetController, vc);
+        });
+
+        // Chiude la finestra di gioco principale
         final Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {
             window.dispose();
@@ -115,10 +148,31 @@ public class GameView extends JPanel {
     }
 
     /**
-     * Opens the defeat window. Call this when the accusation is wrong.
+     * Apre la schermata di sconfitta temporanea (con timer).
+     * Non chiude la finestra di gioco principale.
      */
     public void showDefeat() {
-        SwingUtilities.invokeLater(() -> new DefeatView());
+        SwingUtilities.invokeLater(DefeatView::new);
     }
 
+    /**
+     * Apre la schermata di sconfitta definitiva (tutti eliminati) e chiude la finestra di gioco.
+     *
+     * <p>Stesso pattern lazy di {@link #showVictory()} per il frame corretto.
+     */
+    public void showFinalDefeat() {
+        SwingUtilities.invokeLater(() -> {
+            // ref[0] verrà assegnato dopo la creazione di FinalDefeatView;
+            // il supplier lo legge solo al momento del click, quindi è già valorizzato.
+            final JFrame[] ref = {null};
+            final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
+            ref[0] = new FinalDefeatView(resetController, vc);
+        });
+
+        // Chiude la finestra di gioco principale
+        final Window window = SwingUtilities.getWindowAncestor(this);
+        if (window != null) {
+            window.dispose();
+        }
+    }
 }

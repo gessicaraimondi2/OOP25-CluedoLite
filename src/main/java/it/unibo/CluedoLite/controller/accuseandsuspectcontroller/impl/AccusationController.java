@@ -2,6 +2,8 @@ package it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl;
 
 import java.util.function.Consumer;
 
+import javax.swing.JFrame;
+
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.*;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.view.accuseview.AccuseView;
@@ -41,6 +43,13 @@ public class AccusationController implements InterfaceAccusation {
         view.setVisible(true);
     }
 
+    // aprire la finestra in modalità forzata
+    public void openForcedAccusationView() {
+        AccuseView view = new AccuseView(characters, weapons, rooms);
+        view.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // non si può chiudere
+        setupListeners(view);
+        view.setVisible(true);
+    }
     /**
      * Attaches the confirm button listener to the given view instance.
      * The view is passed explicitly so there is no shared mutable state.

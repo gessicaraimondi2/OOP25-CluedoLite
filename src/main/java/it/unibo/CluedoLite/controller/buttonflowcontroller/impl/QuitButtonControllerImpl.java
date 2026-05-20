@@ -1,5 +1,7 @@
 package it.unibo.CluedoLite.controller.buttonflowcontroller.impl;
 
+import java.util.function.Supplier;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
@@ -14,14 +16,14 @@ import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
 public class QuitButtonControllerImpl implements QuitButtonController {
 
     private final Game game;
-    private final JFrame gameFrame;
+    private final Supplier<JFrame> frameSupplier;
 
     /**
      * Creates the controller with the game model and the game window reference.
      */
-    public QuitButtonControllerImpl(final Game game, final JFrame gameFrame) {
+    public QuitButtonControllerImpl(final Game game, final Supplier<JFrame> frameSupplier) {
         this.game = game;
-        this.gameFrame = gameFrame;
+        this.frameSupplier = frameSupplier;
     }
 
     /**
@@ -29,18 +31,17 @@ public class QuitButtonControllerImpl implements QuitButtonController {
      */
     @Override
     public void onQuitClicked() {
-        System.out.println("onQuitClicked called");
+        final JFrame currentFrame = frameSupplier.get();
         final int confirm = JOptionPane.showConfirmDialog(
-            gameFrame,
+            currentFrame,
             "Are you sure you want to quit to the main menu?",
             "Quit",
             JOptionPane.YES_NO_OPTION
         );
         if (confirm == JOptionPane.YES_OPTION) {
-        game.quitToMenu();
-        final StartControllerImpl startController = new StartControllerImpl();
-        new StartView(startController);  
-        gameFrame.dispose();
+            game.quitToMenu();
+            new StartView(new StartControllerImpl());
+            currentFrame.dispose();
         }
     }
 }
