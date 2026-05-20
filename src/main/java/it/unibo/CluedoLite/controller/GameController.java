@@ -104,6 +104,7 @@ public class GameController {
                                     "Unrefuted suspect", JOptionPane.WARNING_MESSAGE);
                         }
                         tableController.handleSuspicion(suspicion);
+                        boardController.lockMovement(); 
                         gameView.disableActionButtons();
                     },
                     game.getTurnManager()::getCurrentPlayer

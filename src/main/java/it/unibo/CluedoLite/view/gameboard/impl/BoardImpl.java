@@ -190,9 +190,6 @@ public class BoardImpl extends JPanel implements Board{
      * @param p the point clicked by the user
      */
     private void handleClick(Point p) {
-        if(controller.currentPlayer().hasmoved()){
-            return;
-        }
 
         for (RoomView r : RoomView.values()) {
              if (r.toRect(getWidth(), getHeight()).contains(p)) {
@@ -237,8 +234,28 @@ public class BoardImpl extends JPanel implements Board{
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(3f));
         g2.drawOval(x, y, size, size);
+
+        g2.setFont(new Font("Serif", Font.BOLD, 14));
+        FontMetrics fm = g2.getFontMetrics();
+        String label = "Player " + (players.indexOf(p) + 1);
+        int lw = fm.stringWidth(label) + 8;
+        int lh = fm.getHeight() + 4;
+        int lx = x + (size - lw) / 2;
+        int ly = y - lh - 4;
+
+        // sfondo scuro
+        g2.setColor(new Color(0, 0, 0, 180));
+        g2.fillRoundRect(lx, ly, lw, lh, 6, 6);
+
+        // bordo bianco
+        g2.setColor(Color.WHITE);
+        g2.setStroke(new BasicStroke(1f));
+        g2.drawRoundRect(lx, ly, lw, lh, 6, 6);
+
+        // testo
+        g2.drawString(label, lx + 4, ly + fm.getAscent() + 2);
     }
-    }
+}
 
     private Color parseNamedColor(final String name) {
         return switch (name.toUpperCase()) {
