@@ -26,6 +26,7 @@ import it.unibo.CluedoLite.model.gameflow.api.Game;
 import it.unibo.CluedoLite.model.gamesetup.impl.CardDistribution;
 import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
 import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
+import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.suspectnotes.impl.TableImpl;
 import it.unibo.CluedoLite.view.GameView;
 import it.unibo.CluedoLite.view.menuview.StartView;
@@ -314,6 +315,9 @@ public class GameController {
         allCards.addAll(List.of(characters));
         allCards.addAll(List.of(weapons));
         allCards.addAll(List.of(rooms));
+
+        // ← Aggiunta: pulisce le mani di tutti i giocatori prima di redistribuire
+        game.getPlayers().forEach(Player::clearHand);
 
         this.secretSolution = new SecretSolution(allCards);
         this.accuseManager  = new AccuseManager(secretSolution);

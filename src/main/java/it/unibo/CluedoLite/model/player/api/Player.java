@@ -76,5 +76,7 @@ public interface Player {
      */
     void restore();
 
+    void clearHand();
+
 }
 

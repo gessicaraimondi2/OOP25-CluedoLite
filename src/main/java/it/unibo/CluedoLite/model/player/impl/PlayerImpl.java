@@ -74,4 +74,8 @@ public class PlayerImpl implements Player{
     public void restore() {
         this.eliminated = false;
     }
+
+    public void clearHand() {
+        hand.clear();
+    }
 }

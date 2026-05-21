@@ -14,7 +14,6 @@ import it.unibo.CluedoLite.view.menuview.StartView;
 public final class Main {
 
     private Main() { }
-
     public static void main(final String[] args) {
         SwingUtilities.invokeLater(() -> {
             final StartControllerImpl startController = new StartControllerImpl();
