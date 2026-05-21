@@ -57,7 +57,6 @@ public class TurnManagerImpl implements TurnManager{
         }
         
         do {
-            getCurrentPlayer().setMoved(false);
             this.currentIndex = (this.currentIndex + 1) % this.players.size();
         } while (this.players.get(this.currentIndex).isEliminated());
 

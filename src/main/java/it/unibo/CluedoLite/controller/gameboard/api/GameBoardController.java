@@ -23,6 +23,12 @@ public interface GameBoardController {
     void move(Room r);
 
     /**
+     * Blocca il movimento del giocatore corrente per il resto del turno.
+     * Chiamato da {@code GameController} dopo sospetto o accusa.
+     */
+    void lockMovement();
+
+    /**
      * Returns the player whose turn it currently is.
      *
      * @return the current player
