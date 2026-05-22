@@ -5,32 +5,36 @@ import java.util.function.Supplier;
 
 import javax.swing.JOptionPane;
 
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.*;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.*;
+import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.CluedoLite.model.accuseandsuspect.impl.SuspicionManager;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.view.suspicionview.SuspicionView;
 
 /**
  * Controller for the suspicion phase of the CluedoLite game.
- * This class acts as the bridge between the VIEW ({@link SuspicionView})
- * and the MODEL ({@link SuspicionManager}), following the MVC pattern.
  *
- * Responsibilities:
- *  - stores the data needed to open the suspicion view (characters, weapons, room)
- *  - creates the {@link SuspicionView} only when the player clicks the suspicion button
- *  - attaches the confirm button listener to the view
- *  - reads the player's choices from the view and passes them to the model
- *  - delivers the resulting {@link Suspicion} to the rest of the game via a callback
+ * <p>Acts as the bridge between {@link SuspicionView} and {@link SuspicionManager},
+ * following the MVC pattern. Responsibilities:
+ * <ul>
+ *   <li>Stores the data needed to open the suspicion view.</li>
+ *   <li>Creates {@link SuspicionView} lazily when the player clicks the suspicion button.</li>
+ *   <li>Attaches the confirm listener to the view.</li>
+ *   <li>Reads the player's selections and passes them to the model.</li>
+ *   <li>Delivers the resulting {@link Suspicion} via a callback.</li>
+ *   <li>Notifies the game that an action has been confirmed via a second callback,
+ *       so that the action buttons can be disabled immediately.</li>
+ * </ul>
  *
- * The use of a {@link Consumer} callback keeps this controller fully decoupled
- * from the rest of the game flow: it does not know who will use the suspicion,
- * it simply delivers it when confirmed.
+ * <p>The use of {@link Consumer} and {@link Runnable} callbacks keeps this controller
+ * fully decoupled from the rest of the game flow.
  */
 public class SuspicionController implements InterfaceSuspicionController {
 
     private final SuspicionManager suspicionManager;
     private final Consumer<Suspicion> suspicionCallback;
+    private final Runnable onConfirmed;
     private final Card[] characters;
     private final Card[] weapons;
     private final Supplier<Card> roomSupplier;
@@ -38,26 +42,29 @@ public class SuspicionController implements InterfaceSuspicionController {
 
     /**
      * Constructs a {@link SuspicionController} with all the data needed for the suspicion phase.
-     * The view is NOT created here: it is created lazily when {@link #openSuspicionView()} is called,
-     * so that the window only appears when the player actually clicks the suspicion button.
+     * The view is NOT created here: it is created lazily when {@link #openSuspicionView()}
+     * is called, so the window appears only when the player clicks the suspicion button.
      *
      * @param suspicionManager  the model component that creates {@link Suspicion} objects
-     * @param player            the player who is making the suspicion
-     * @param characters        array of available character cards to display in the view
-     * @param weapons           array of available weapon cards to display in the view
-     * @param room              the card representing the room where the player currently is
-     * @param suspicionCallback callback invoked with the created {@link Suspicion} when confirmed
+     * @param characters        array of available character cards shown in the view
+     * @param weapons           array of available weapon cards shown in the view
+     * @param roomSupplier      supplier returning the card for the player's current room
+     * @param suspicionCallback callback invoked with the created {@link Suspicion} on confirm
+     * @param playerSupplier    supplier returning the current {@link Player}
+     * @param onConfirmed       callback invoked immediately when the suspicion is confirmed,
+     *                          used to disable action buttons in the game view
      */
     public SuspicionController(
-            SuspicionManager suspicionManager,
-            Card[] characters,
-            Card[] weapons,
-            Supplier<Card> roomSupplier,
-            Consumer<Suspicion> suspicionCallback,
-            Supplier<Player> playerSupplier
-    ) {
+            final SuspicionManager suspicionManager,
+            final Card[] characters,
+            final Card[] weapons,
+            final Supplier<Card> roomSupplier,
+            final Consumer<Suspicion> suspicionCallback,
+            final Supplier<Player> playerSupplier,
+            final Runnable onConfirmed) {
         this.suspicionManager = suspicionManager;
         this.suspicionCallback = suspicionCallback;
+        this.onConfirmed = onConfirmed;
         this.characters = characters;
         this.weapons = weapons;
         this.roomSupplier = roomSupplier;
@@ -67,20 +74,20 @@ public class SuspicionController implements InterfaceSuspicionController {
     /**
      * Creates and displays the {@link SuspicionView}.
      * Called externally by the suspicion button in the game screen.
-     * The view is a local variable: each call creates a fully independent instance,
-     * avoiding stale references if the window is opened more than once.
+     * Each call creates a fully independent view instance, avoiding stale references
+     * if the window is opened more than once per session.
      */
     @Override
     public void openSuspicionView() {
-        // Blocca subito se il giocatore non è in una stanza
         if (roomSupplier.get() == null) {
-            JOptionPane.showMessageDialog(null,
+            JOptionPane.showMessageDialog(
+                    null,
                     "You cannot make a suspicion because you are not in a room.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        SuspicionView view = new SuspicionView(characters, weapons, roomSupplier.get());
+        final SuspicionView view = new SuspicionView(characters, weapons, roomSupplier.get());
         setupListeners(view);
         view.setVisible(true);
     }
@@ -91,40 +98,42 @@ public class SuspicionController implements InterfaceSuspicionController {
      *
      * @param view the {@link SuspicionView} instance to attach the listener to
      */
-    private void setupListeners(SuspicionView view) {
+    private void setupListeners(final SuspicionView view) {
         view.getConfirmButton().addActionListener(e -> handleConfirm(view));
     }
 
     /**
      * Handles the confirmation of the suspicion.
-     * This method is triggered when the player clicks the confirm button in the view.
      *
-     * Flow:
-     *  1. disables the confirm button immediately to prevent double-clicks
-     *  2. reads the selected character and weapon from the view
-     *  3. passes them together with the current room to the model
-     *  4. if the model returns null (player not in a room), re-enables the button and shows an error
-     *  5. otherwise, delivers the {@link Suspicion} to the game via the callback and closes the view
+     * <p>Flow:
+     * <ol>
+     *   <li>Disables the confirm button immediately to prevent double-clicks.</li>
+     *   <li>Notifies the game view via {@code onConfirmed} to disable action buttons.</li>
+     *   <li>Reads the selected character and weapon from the view.</li>
+     *   <li>Passes them together with the current room to the model.</li>
+     *   <li>If the model returns {@code null} (player not in a room), re-enables
+     *       the button and shows an error dialog.</li>
+     *   <li>Otherwise, delivers the {@link Suspicion} via the callback and closes the view.</li>
+     * </ol>
      *
      * @param view the {@link SuspicionView} instance that triggered the confirmation
      */
-    private void handleConfirm(SuspicionView view) {
-
-        // Point 5: disable the button immediately to prevent double-clicks
+    private void handleConfirm(final SuspicionView view) {
         view.getConfirmButton().setEnabled(false);
+        onConfirmed.run();
 
-        Card selectedCharacter = view.getSelectedCharacter();
-        Card selectedWeapon    = view.getSelectedWeapon();
+        final Card selectedCharacter = view.getSelectedCharacter();
+        final Card selectedWeapon    = view.getSelectedWeapon();
 
-        Suspicion suspicion = suspicionManager.makeSuspicion(playerSupplier.get(), selectedCharacter, selectedWeapon, roomSupplier.get());
+        final Suspicion suspicion = suspicionManager.makeSuspicion(
+                playerSupplier.get(), selectedCharacter, selectedWeapon, roomSupplier.get());
 
-        // If the suspicion is null, the player is not in a room: show an error and re-enable the button
         if (suspicion == null) {
-            JOptionPane.showMessageDialog(view,
+            JOptionPane.showMessageDialog(
+                    view,
                     "You cannot make a suspicion because you are not in a room.",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-            // Re-enable the button so the player can try again
             view.getConfirmButton().setEnabled(true);
             return;
         }

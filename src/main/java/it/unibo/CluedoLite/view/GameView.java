@@ -84,13 +84,30 @@ public class GameView extends JPanel {
         setLayout(new BorderLayout());
         setPreferredSize(screen);
 
+        /*
+         * Wrapping dei controller di sospetto e accusa:
+         * disabilita i bottoni immediatamente al click, PRIMA di aprire la finestra,
+         * cosi' e' impossibile aprire due istanze della stessa view.
+         */
+        final ButtonGamePanel[] panelRef = {null};
+        final InterfaceSuspicionController wrappedSuspicion = () -> {
+            panelRef[0].disableActionButtons();
+            suspicionController.openSuspicionView();
+        };
+
+        final InterfaceAccusation wrappedAccuse = () -> {
+            panelRef[0].disableActionButtons();
+            accuseController.openAccusationView();
+        };
+
         // --- pannello bottoni (sinistra) ---
         buttonPanel = new ButtonGamePanel(
-                suspicionController,
-                accuseController,
+                wrappedSuspicion,
+                wrappedAccuse,
                 resetController,
                 quitController,
                 endTurnController);
+        panelRef[0] = buttonPanel; 
         add(buttonPanel, BorderLayout.WEST);
 
         // --- tabellone (centro) ---
@@ -108,7 +125,7 @@ public class GameView extends JPanel {
         scrollTable.setPreferredSize(new Dimension(520, screen.height));
         add(scrollTable, BorderLayout.EAST);
 
-        // --- schermata soluzione segreta (si apre appena il pannello è visibile) ---
+        // --- schermata soluzione segreta (si apre appena il pannello e' visibile) ---
         SwingUtilities.invokeLater(() -> new SecretSolutionStartView(solution));
     }
 
@@ -127,28 +144,27 @@ public class GameView extends JPanel {
      *
      * <p>Usa {@code quitFactory} per creare un QuitButtonController legato
      * al JFrame di VictoryView tramite il pattern dell'array di riferimento:
-     * il supplier {@code () -> ref[0]} è valutato in modo lazy, quindi quando
-     * l'utente clicca il bottone quit, {@code ref[0]} è già stato assegnato
+     * il supplier {@code () -> ref[0]} e' valutato in modo lazy, quindi quando
+     * l'utente clicca il bottone quit, {@code ref[0]} e' gia' stato assegnato
      * alla finestra corretta.
      */
     public void showVictory() {
-    SwingUtilities.invokeLater(() -> {
-        final JFrame[] ref = {null};
-        final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
-        ref[0] = new VictoryView(resetController, vc);
+        SwingUtilities.invokeLater(() -> {
+            final JFrame[] ref = {null};
+            final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
+            ref[0] = new VictoryView(resetController, vc);
 
-        // Dopo 1 secondo apre la schermata della soluzione segreta
-        final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
-            new it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionEndView(solution));
-        timer.setRepeats(false);
-        timer.start();
-    });
+            final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
+                new it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionEndView(solution));
+            timer.setRepeats(false);
+            timer.start();
+        });
 
-    final Window window = SwingUtilities.getWindowAncestor(this);
-    if (window != null) {
-        window.dispose();
+        final Window window = SwingUtilities.getWindowAncestor(this);
+        if (window != null) {
+            window.dispose();
+        }
     }
-}
 
     /**
      * Apre la schermata di sconfitta temporanea (con timer).
@@ -169,7 +185,6 @@ public class GameView extends JPanel {
             final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
             ref[0] = new FinalDefeatView(resetController, vc);
 
-            // Dopo 1 secondo apre la schermata della soluzione segreta
             final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
                 new it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionEndView(solution));
             timer.setRepeats(false);
@@ -182,7 +197,12 @@ public class GameView extends JPanel {
         }
     }
 
-    public void updateTablePanel(TablePanel newTablePanel) {
+    /**
+     * Replaces the suspect notes panel in the east scroll pane.
+     *
+     * @param newTablePanel the new panel to display
+     */
+    public void updateTablePanel(final TablePanel newTablePanel) {
         ((JScrollPane) ((BorderLayout) getLayout()).getLayoutComponent(BorderLayout.EAST))
             .setViewportView(newTablePanel);
         revalidate();

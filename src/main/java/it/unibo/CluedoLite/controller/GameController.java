@@ -59,6 +59,11 @@ public class GameController {
     private AccusationController accusationController;
     private TableControllerImpl tableController;
 
+    /**
+     * Constructs a {@link GameController} for the given game session.
+     *
+     * @param game the game model to control
+     */
     public GameController(final Game game) {
         this.game = game;
 
@@ -73,6 +78,12 @@ public class GameController {
     // Public API
     // -----------------------------------------------------------------------
 
+    /**
+     * Builds and displays the main game window.
+     *
+     * @param previousWindow the window to dispose after opening the game window,
+     *                       or {@code null} if there is none
+     */
     public void openGameWindow(final JFrame previousWindow) {
         final JFrame oldFrame = gameFrame;
 
@@ -80,7 +91,9 @@ public class GameController {
             boardController = new GameBoardControllerImpl(
                     game.getGameBoard(), game.getTurnManager());
 
-            System.out.println("[DEBUG] Mano giocatore: " + game.getTurnManager().getCurrentPlayer().getHand());
+            System.out.println("[DEBUG] Mano giocatore: "
+                    + game.getTurnManager().getCurrentPlayer().getHand());
+
             final TableImpl table = new TableImpl(
                     game.getTurnManager().getCurrentPlayer().getHand());
             final TablePanel tablePanel = new TablePanel(table);
@@ -94,7 +107,6 @@ public class GameController {
                     weapons,
                     this::getCurrentPlayerRoom,
                     suspicion -> {
-                        // mostra la carta confutatrice se esiste
                         final Card refutation = game.getTurnManager().checkSuspicion(suspicion);
                         if (refutation != null) {
                             JOptionPane.showMessageDialog(null,
@@ -106,19 +118,26 @@ public class GameController {
                                     "Unrefuted suspect", JOptionPane.WARNING_MESSAGE);
                         }
                         tableController.handleSuspicion(suspicion);
-                        boardController.lockMovement(); 
+                        boardController.lockMovement();
                         gameView.disableActionButtons();
                     },
-                    game.getTurnManager()::getCurrentPlayer
+                    game.getTurnManager()::getCurrentPlayer,
+                    () -> gameView.disableActionButtons()
             );
 
             this.accusationController = new AccusationController(
-                    accuseManager, characters, weapons, rooms,
-                    this::handleAccusationResult);
+                    accuseManager,
+                    characters,
+                    weapons,
+                    rooms,
+                    this::handleAccusationResult,
+                    () -> gameView.disableActionButtons()
+            );
 
-            // Fine turno: bloccato se la partita è finita o se l'azione non è ancora stata eseguita
             final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
-                if (game.getTurnManager().isGameOver()) return;
+                if (game.getTurnManager().isGameOver()) {
+                    return;
+                }
                 advanceTurn();
             });
 
@@ -127,8 +146,10 @@ public class GameController {
                         @Override
                         public boolean onResetClicked() {
                             final int confirm = JOptionPane.showConfirmDialog(
-                                null, "Are you sure you want to restart?",
-                                "Reset", JOptionPane.YES_NO_OPTION);
+                                    null,
+                                    "Are you sure you want to restart?",
+                                    "Reset",
+                                    JOptionPane.YES_NO_OPTION);
                             if (confirm == JOptionPane.YES_OPTION) {
                                 handleReset();
                                 return true;
@@ -139,52 +160,47 @@ public class GameController {
 
             gameFrame = new JFrame("Cluedo Lite");
 
-            /*
-             * Controller del bottone "Quit" per la schermata di gioco principale.
-             * Usa gameFrame come parent del dialogo di conferma.
-             */
             final QuitButtonControllerImpl quitController =
-                new QuitButtonControllerImpl(game, () -> gameFrame) {
-                    @Override
-                    public void onQuitClicked() {
-                        final int confirm = JOptionPane.showConfirmDialog(
-                            gameFrame,
-                            "Are you sure you want to quit to the main menu?",
-                            "Quit",
-                            JOptionPane.YES_NO_OPTION);
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            handleQuit();
+                    new QuitButtonControllerImpl(game, () -> gameFrame) {
+                        @Override
+                        public void onQuitClicked() {
+                            final int confirm = JOptionPane.showConfirmDialog(
+                                    gameFrame,
+                                    "Are you sure you want to quit to the main menu?",
+                                    "Quit",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (confirm == JOptionPane.YES_OPTION) {
+                                handleQuit();
+                            }
                         }
-                    }
-                };
+                    };
 
-            /*
-             * Passa a GameView anche la factory quitControllerFor, in modo che
-             * VictoryView e FinalDefeatView possano costruire un QuitButtonController
-             * legato al proprio JFrame (non a gameFrame, che sarà già stato disposto).
-             */
             gameView = new GameView(
-                game,
-                boardController,
-                suspicionController,
-                accusationController,
-                resetController,
-                quitController,
-                endTurnController,
-                tablePanel,
-                secretSolution.getSolution(),
-                this::quitControllerFor   // factory per le end-game views
+                    game,
+                    boardController,
+                    suspicionController,
+                    accusationController,
+                    resetController,
+                    quitController,
+                    endTurnController,
+                    tablePanel,
+                    secretSolution.getSolution(),
+                    this::quitControllerFor
             );
 
-            gameView.resetForNewTurn(); // disabilita/abilita i pulsanti giusti
+            gameView.resetForNewTurn();
 
             gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             gameFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             gameFrame.add(gameView);
             gameFrame.setVisible(true);
 
-            if (previousWindow != null) previousWindow.dispose();
-            if (oldFrame != null && oldFrame != previousWindow) oldFrame.dispose();
+            if (previousWindow != null) {
+                previousWindow.dispose();
+            }
+            if (oldFrame != null && oldFrame != previousWindow) {
+                oldFrame.dispose();
+            }
 
         } catch (final Exception e) {
             e.printStackTrace();
@@ -198,6 +214,11 @@ public class GameController {
     // Game-event handlers
     // -----------------------------------------------------------------------
 
+    /**
+     * Handles the result of an accusation.
+     *
+     * @param result {@code true} if the accusation was correct, {@code false} otherwise
+     */
     public void handleAccusationResult(final boolean result) {
         if (result) {
             game.getTurnManager().endGame();
@@ -206,7 +227,6 @@ public class GameController {
             game.getTurnManager().getCurrentPlayer().eliminate();
 
             if (countActivePlayers() == 1) {
-                // Chiude il gioco, passa all'ultimo giocatore e apre l'accusa finale
                 game.getTurnManager().nextTurn();
                 gameFrame.dispose();
                 accusationController.openAccusationView();
@@ -214,19 +234,15 @@ public class GameController {
                 game.getTurnManager().endGame();
                 gameView.showFinalDefeat();
             } else {
-                // Sconfitta normale: mostra il timer e avanza il turno
                 gameView.showDefeat();
                 advanceTurn();
             }
         }
     }
 
-    private long countActivePlayers() {
-        return game.getPlayers().stream()
-                .filter(p -> !p.isEliminated())
-                .count();
-    }
-
+    /**
+     * Resets the game to its initial state and reopens the game window.
+     */
     public void handleReset() {
         game.resetGame();
         game.startGame();
@@ -234,6 +250,9 @@ public class GameController {
         openGameWindow(null);
     }
 
+    /**
+     * Quits the current game session and returns to the main menu.
+     */
     public void handleQuit() {
         game.quitToMenu();
         if (gameFrame != null) {
@@ -251,64 +270,74 @@ public class GameController {
     // -----------------------------------------------------------------------
 
     /**
-     * Factory che crea un {@link QuitButtonController} legato a un frame specifico.
+     * Factory that creates a {@link QuitButtonController} bound to a specific frame.
      *
-     * <p>Viene passata a {@link GameView} come method reference ({@code this::quitControllerFor})
-     * in modo che {@code VictoryView} e {@code FinalDefeatView} possano costruire
-     * il proprio controller con il supplier del loro frame, invece di usare
-     * {@code gameFrame} che a quel punto è già stato disposto.
+     * <p>Passed to {@link GameView} as a method reference ({@code this::quitControllerFor})
+     * so that {@code VictoryView} and {@code FinalDefeatView} can build their own controller
+     * with a supplier for their own frame, instead of using {@code gameFrame} which will
+     * already have been disposed at that point.
      *
-     * @param frameSupplier supplier che restituisce il JFrame della view chiamante
-     * @return un QuitButtonController con dialogo di conferma centrato sul frame corretto
+     * @param frameSupplier supplier returning the JFrame of the calling view
+     * @return a {@link QuitButtonController} with a confirmation dialog centred on the
+     *         correct frame
      */
     private QuitButtonController quitControllerFor(final Supplier<JFrame> frameSupplier) {
-    return new QuitButtonControllerImpl(game, frameSupplier) {
-        @Override
-        public void onQuitClicked() {
-            final int confirm = JOptionPane.showConfirmDialog(
-                frameSupplier.get(),
-                "Are you sure you want to quit to the main menu?",
-                "Quit",
-                JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                // Salva il riferimento PRIMA di handleQuit(),
-                // perché dopo il supplier potrebbe non essere più valido
-                final JFrame endGameFrame = frameSupplier.get();
-                handleQuit(); // apre il menu e azzera gameFrame
-                // Chiude VictoryView / FinalDefeatView, che handleQuit() non conosce
-                if (endGameFrame != null) {
-                    endGameFrame.dispose();
+        return new QuitButtonControllerImpl(game, frameSupplier) {
+            @Override
+            public void onQuitClicked() {
+                final int confirm = JOptionPane.showConfirmDialog(
+                        frameSupplier.get(),
+                        "Are you sure you want to quit to the main menu?",
+                        "Quit",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    final JFrame endGameFrame = frameSupplier.get();
+                    handleQuit();
+                    if (endGameFrame != null) {
+                        endGameFrame.dispose();
+                    }
                 }
             }
-        }
-    };
-}
+        };
+    }
 
     private void advanceTurn() {
         boardController.endTurn();
-        TablePanel newPanel = tableController.refreshForPlayer();
+        final TablePanel newPanel = tableController.refreshForPlayer();
         gameView.updateTablePanel(newPanel);
         gameView.resetForNewTurn();
     }
 
     private Card getCurrentPlayerRoom() {
-        if (boardController == null) return null;
+        if (boardController == null) {
+            return null;
+        }
 
         final var currentRoom = boardController.getCurrentRoomOf(
                 game.getTurnManager().getCurrentPlayer());
 
-        if (currentRoom == null) return null;
+        if (currentRoom == null) {
+            return null;
+        }
 
         for (final Card card : rooms) {
-            if (card.getName().equals(currentRoom.getName())) return card;
+            if (card.getName().equals(currentRoom.getName())) {
+                return card;
+            }
         }
         return null;
     }
 
+    private long countActivePlayers() {
+        return game.getPlayers().stream()
+                .filter(p -> !p.isEliminated())
+                .count();
+    }
+
     /**
-     * Reinizializza soluzione segreta, accuse e distribuzione carte.
-     * Chiamato sia alla costruzione che ad ogni reset, per garantire
-     * che ogni partita abbia una soluzione diversa.
+     * Re-initialises the secret solution, accusation manager, and card distribution.
+     * Called both at construction time and on every reset, to ensure each game
+     * has a different solution.
      */
     private void initSession() {
         final List<Card> allCards = new ArrayList<>();
@@ -316,7 +345,6 @@ public class GameController {
         allCards.addAll(List.of(weapons));
         allCards.addAll(List.of(rooms));
 
-        // ← Aggiunta: pulisce le mani di tutti i giocatori prima di redistribuire
         game.getPlayers().forEach(Player::clearHand);
 
         this.secretSolution = new SecretSolution(allCards);

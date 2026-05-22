@@ -58,6 +58,7 @@ public class PlayerImpl implements Player{
             if (card.getName().equals(character.getName()) ||
                 card.getName().equals(weapon.getName())    ||
                 card.getName().equals(room.getName())) {
+                return card;
             }
         }
         return null;
