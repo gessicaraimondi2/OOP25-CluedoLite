@@ -87,6 +87,7 @@ public class SuspicionController implements InterfaceSuspicionController {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
+        onConfirmed.run();
         final SuspicionView view = new SuspicionView(characters, weapons, roomSupplier.get());
         setupListeners(view);
         view.setVisible(true);
@@ -120,7 +121,6 @@ public class SuspicionController implements InterfaceSuspicionController {
      */
     private void handleConfirm(final SuspicionView view) {
         view.getConfirmButton().setEnabled(false);
-        onConfirmed.run();
 
         final Card selectedCharacter = view.getSelectedCharacter();
         final Card selectedWeapon    = view.getSelectedWeapon();
@@ -137,7 +137,8 @@ public class SuspicionController implements InterfaceSuspicionController {
             view.getConfirmButton().setEnabled(true);
             return;
         }
-
+        
+        onConfirmed.run();
         suspicionCallback.accept(suspicion);
         view.dispose();
     }

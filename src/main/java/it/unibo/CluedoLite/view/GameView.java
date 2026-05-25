@@ -91,7 +91,6 @@ public class GameView extends JPanel {
          */
         final ButtonGamePanel[] panelRef = {null};
         final InterfaceSuspicionController wrappedSuspicion = () -> {
-            panelRef[0].disableActionButtons();
             suspicionController.openSuspicionView();
         };
 

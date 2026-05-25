@@ -7,7 +7,7 @@ public enum RoomView {
     KITCHEN  ("Kitchen",        0.02, 0.02, 0.23, 0.22, "src/main/resources/images/kitchen.png"),
     DINING   ("Dining Room",    0.02, 0.38, 0.23, 0.24, "src/main/resources/images/diningroom.png"),
     LOUNGE   ("Lounge",         0.02, 0.76, 0.23, 0.22,  "src/main/resources/images/lounge.png"),
-    BALLROOM ("Ball Room",      0.29, 0.02, 0.22, 0.22, "src/main/resources/images/ballroom.png"),
+    BALLROOM ("BallRoom",      0.29, 0.02, 0.22, 0.22, "src/main/resources/images/ballroom.png"),
     HALL     ("Hall",           0.39, 0.76, 0.22, 0.22, "src/main/resources/images/hall.png"),
     CONSERV  ("Conservatory",   0.55, 0.02, 0.16, 0.22, "src/main/resources/images/conservatory.png"),
     BILLIARD ("Billiard Room",  0.75, 0.02, 0.23, 0.22, "src/main/resources/images/billiardroom.png"),
