@@ -48,4 +48,11 @@ import it.unibo.CluedoLite.model.player.api.Player;
      * @return the card shown by the first player who can respond, or null if no one can
      */
     Card checkSuspicion(Suspicion suspicion);
+
+    /**
+     * Returns the number of the player who has shown a card in response to the suspicion.
+     *
+     * @return the number of the player who showed the card
+     */
+    int getShownBay();
 }

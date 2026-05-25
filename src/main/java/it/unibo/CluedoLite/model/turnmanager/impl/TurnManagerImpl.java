@@ -17,6 +17,7 @@ public class TurnManagerImpl implements TurnManager{
     private final List<Player> players;
     private int currentIndex;
     private boolean gameOver = false;
+    private int shownBy;
 
     public TurnManagerImpl(List<Player> players){
             this.players=new ArrayList<>(players);
@@ -71,13 +72,22 @@ public class TurnManagerImpl implements TurnManager{
         int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
-            Player respondent = players.get((suspectIndex + i) % players.size());
-            Card cardToShow = respondent.findMatchingCard(suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
+            Player p = players.get((suspectIndex + i) % players.size());
+            Card cardToShow = p.findMatchingCard(suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
 
             if (cardToShow != null) {
+                this.shownBy=players.indexOf(p)+1;
                 return cardToShow;
             }
         }
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getShownBay(){
+        return this.shownBy;
     }
 } 
