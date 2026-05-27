@@ -1,5 +1,8 @@
 package it.unibo.CluedoLite.controller.tablecontroller.api;
 
+import java.util.Optional;
+
+import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.view.tableview.TablePanel;
 
@@ -11,7 +14,7 @@ public interface TableController {
      *
      * @param suspicion the suspicion made by the current player
      */
-    void handleSuspicion(Suspicion suspicion);
+    void handleSuspicion(Suspicion suspicion, Optional<Card> shownCard);
 
     public TablePanel refreshForPlayer();
 

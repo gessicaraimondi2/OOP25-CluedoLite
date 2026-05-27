@@ -9,6 +9,7 @@ import it.unibo.CluedoLite.view.tableview.TablePanel;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import it.unibo.CluedoLite.controller.tablecontroller.api.TableController;
 
@@ -35,12 +36,11 @@ import it.unibo.CluedoLite.controller.tablecontroller.api.TableController;
      * {@inheritDoc}
      */
     @Override
-    public void handleSuspicion(Suspicion suspicion) {
-        Card card = turnManager.checkSuspicion(suspicion);
-        if (card != null) {
-            table.updateTable(card);
-            tablePanel.refresh(card);
-        }
+    public void handleSuspicion(Suspicion suspicion, Optional<Card> shownCard) {
+        shownCard.ifPresent(c -> {
+            table.updateTable(c);
+            tablePanel.refresh(c);
+        });
     }
 
     /**

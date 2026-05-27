@@ -1,6 +1,6 @@
 package it.unibo.CluedoLite.model.turnmanager.api;
 
-
+import java.util.Optional;
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.Player;
@@ -41,18 +41,19 @@ import it.unibo.CluedoLite.model.player.api.Player;
 
     /**
      * Handles the response to the current player's suggestion.
-     * The other players, in circular order, show the first card in their hand
-     * that matches the suggestion and has not yet been excluded from the notebook.
+     * The other players, in circular order, show a randomly selected card
+     * from those matching the suggestion.
      *
      * @param suspicion the suspected cards
-     * @return the card shown by the first player who can respond, or null if no one can
+     * @return an Optional containing the card shown by the first player who
+     *         can respond, or empty if no one can refute the suspicion
      */
-    Card checkSuspicion(Suspicion suspicion);
+    Optional<Card> checkSuspicion(Suspicion suspicion);
 
     /**
      * Returns the number of the player who has shown a card in response to the suspicion.
      *
      * @return the number of the player who showed the card
      */
-    int getShownBay();
+    int getShownBy();
 }

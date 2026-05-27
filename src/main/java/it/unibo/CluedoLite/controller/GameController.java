@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.Optional;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -101,45 +102,50 @@ public class GameController {
             this.tableController = new TableControllerImpl(
                     game.getTurnManager(), table, tablePanel);
 
-            final SuspicionController suspicionController = new SuspicionController(
-                    new SuspicionManager(),
-                    characters,
-                    weapons,
-                    this::getCurrentPlayerRoom,
-                    suspicion -> {
-                        final Card refutation = game.getTurnManager().checkSuspicion(suspicion);
-                        if (refutation != null) {
-                            JOptionPane.showMessageDialog(null,
-                                    "A player show the card: " + refutation.getName(),
-                                    "Sospect refuted", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null,
-                                    "No player can refute the suspicion!",
-                                    "Unrefuted suspect", JOptionPane.WARNING_MESSAGE);
-                        }
-                        tableController.handleSuspicion(suspicion);
-                        boardController.lockMovement();
-                        gameView.disableActionButtons();
+        final SuspicionController suspicionController = new SuspicionController(
+            new SuspicionManager(),
+            characters,
+            weapons,
+            this::getCurrentPlayerRoom,
+            suspicion -> {
+                final Optional<Card> refutation = game.getTurnManager().checkSuspicion(suspicion);
+                if (refutation.isPresent()) {
+                    JOptionPane.showMessageDialog(null,
+                            "A player show the card: " + refutation.get().getName(),
+                            "Sospect refuted", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "No player can refute the suspicion!",
+                            "Unrefuted suspect", JOptionPane.WARNING_MESSAGE);
+                }
+                tableController.handleSuspicion(suspicion, refutation);
+                boardController.lockMovement();
+                gameView.disableActionButtons();
 
-                        final String suspect = game.getTurnManager().getCurrentPlayer().getName();
-                        if (refutation != null) {
-                            gameView.addHistoryEntry(suspect + " made a suspicion: ["+ suspicion.getCharacters()+", "+suspicion.getWeapon()+", "+suspicion.getRoom() + "] — player "+ game.getTurnManager().getShownBay() +" showed a card");
-                        } else {
-                            gameView.addHistoryEntry(suspect + " made a suspicion: ["+ suspicion.getCharacters()+", "+suspicion.getWeapon()+", "+suspicion.getRoom() + "] — no player could refute it");
-                        }
-                    },
-                    game.getTurnManager()::getCurrentPlayer,
-                    () -> gameView.disableActionButtons()
-            );
+                final String suspect = game.getTurnManager().getCurrentPlayer().getName();
+                if (refutation.isPresent()) {
+                    gameView.addHistoryEntry(suspect + " made a suspicion: ["
+                        + suspicion.getCharacters() + ", " + suspicion.getWeapon()
+                        + ", " + suspicion.getRoom() + "] — player "
+                        + game.getTurnManager().getShownBy() + " showed a card");
+                } else {
+                    gameView.addHistoryEntry(suspect + " made a suspicion: ["
+                        + suspicion.getCharacters() + ", " + suspicion.getWeapon()
+                        + ", " + suspicion.getRoom() + "] — no player could refute it");
+                }
+            },
+            game.getTurnManager()::getCurrentPlayer,
+            () -> gameView.disableActionButtons()
+        );
 
-            this.accusationController = new AccusationController(
-                    accuseManager,
-                    characters,
-                    weapons,
-                    rooms,
-                    this::handleAccusationResult,
-                    () -> gameView.disableActionButtons()
-            );
+        this.accusationController = new AccusationController(
+            accuseManager,
+            characters,
+            weapons,
+            rooms,
+            this::handleAccusationResult,
+            () -> gameView.disableActionButtons()
+        );
 
             final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
                 if (game.getTurnManager().isGameOver()) {

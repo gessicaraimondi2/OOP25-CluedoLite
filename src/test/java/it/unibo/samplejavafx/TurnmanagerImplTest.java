@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.player.api.Player;
@@ -88,27 +89,27 @@ public class TurnmanagerImplTest {
         assertEquals(p2, tm.getCurrentPlayer());
     }
 
-        @Test
+    @Test
     void testSuggestionResponseFirstMatch() {
         p2.addCard(character);
-        assertEquals(character, tm.checkSuspicion(suspect));
+        assertEquals(Optional.of(character), tm.checkSuspicion(suspect));
     }
 
     @Test
     void testSuggestionResponseSkipsNoMatch() {
         p3.addCard(weapon);
-        assertEquals(weapon, tm.checkSuspicion(suspect));
+        assertEquals(Optional.of(weapon), tm.checkSuspicion(suspect));
     }
 
     @Test
     void testSuggestionResponseNoMatch() {
-        assertNull(tm.checkSuspicion(suspect));
+        assertTrue(tm.checkSuspicion(suspect).isEmpty());
     }
 
     @Test
     void testSuggestionResponseCircularOrder() {
         tm.nextTurn(); // currentPlayer = p2
         p1.addCard(room);
-        assertEquals(room, tm.checkSuspicion(suspect));
+        assertEquals(Optional.of(room), tm.checkSuspicion(suspect));
     }
 }

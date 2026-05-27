@@ -2,6 +2,7 @@ package it.unibo.CluedoLite.model.turnmanager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
@@ -68,26 +69,27 @@ public class TurnManagerImpl implements TurnManager{
      * {@inheritDoc}
      */
     @Override
-    public Card checkSuspicion(Suspicion suspicion) {
-        int suspectIndex = currentIndex;
+    public Optional<Card> checkSuspicion(Suspicion suspicion) {
+        final int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
-            Player p = players.get((suspectIndex + i) % players.size());
-            Card cardToShow = p.findMatchingCard(suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
+            final Player p = players.get((suspectIndex + i) % players.size());
+            final Optional<Card> cardToShow = p.findMatchingCard(
+                suspicion.getCharacters(), suspicion.getWeapon(), suspicion.getRoom());
 
-            if (cardToShow != null) {
-                this.shownBy=players.indexOf(p)+1;
+            if (cardToShow.isPresent()) {
+                this.shownBy = players.indexOf(p) + 1;
                 return cardToShow;
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getShownBay(){
+    public int getShownBy(){
         return this.shownBy;
     }
 } 

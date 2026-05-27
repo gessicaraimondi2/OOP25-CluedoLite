@@ -2,6 +2,8 @@ package it.unibo.CluedoLite.model.player.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
 
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.api.CreationCharacter;
@@ -53,15 +55,15 @@ public class PlayerImpl implements Player{
         return hand;
     }
 
-        public Card findMatchingCard(Card character, Card weapon, Card room) {
-        for (Card card : getHand()) {
-            if (card.getName().equals(character.getName()) ||
-                card.getName().equals(weapon.getName())    ||
-                card.getName().equals(room.getName())) {
-                return card;
-            }
-        }
-        return null;
+    @Override
+    public Optional<Card> findMatchingCard(Card character, Card weapon, Card room) {
+        final List<Card> shuffled = new ArrayList<>(hand);
+        Collections.shuffle(shuffled);   // evita di rivelare sempre la stessa carta
+        return shuffled.stream()
+            .filter(c -> c.getName().equals(character.getName())
+                    || c.getName().equals(weapon.getName())
+                    || c.getName().equals(room.getName()))
+            .findFirst();
     }
 
     public void eliminate() {

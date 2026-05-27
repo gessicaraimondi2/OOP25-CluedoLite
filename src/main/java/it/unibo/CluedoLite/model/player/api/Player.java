@@ -1,6 +1,7 @@
 package it.unibo.CluedoLite.model.player.api;
 
 import java.util.List;
+import java.util.Optional;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
 
@@ -48,14 +49,12 @@ public interface Player {
 
     /**
      * Searches the player's hand for a card matching any of the three suspect
-     * components (character, weapon, room) that has not already been excluded
+     * components. The hand is shuffled before searching so that when a player
+     * has multiple matching cards they are not always revealed in insertion order.
      *
-     * @param character the suspect character card
-     * @param weapon    the suspect weapon card
-     * @param room      the suspect room card
-     * @return the first matching non-excluded card, or {@code null} if none found
+     * @return an Optional containing the matching card, or empty if none found
      */
-    Card findMatchingCard(Card character, Card weapon, Card room);
+    Optional<Card> findMatchingCard(Card character, Card weapon, Card room);
 
     /**
     * Marks this player as eliminated after a wrong final accusation.
