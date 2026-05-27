@@ -90,4 +90,8 @@ public class NotesPanel extends JPanel {
         add(scrollPane);
     }
 
+    public void reset() {
+        scrollPane.setVisible(false);
+        titleLabel.setText("▶ Notes");
+    }
 }

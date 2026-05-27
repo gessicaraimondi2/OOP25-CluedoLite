@@ -31,7 +31,6 @@ import it.unibo.CluedoLite.model.suspectnotes.impl.TableImpl;
 import it.unibo.CluedoLite.view.GameView;
 import it.unibo.CluedoLite.view.menuview.StartView;
 import it.unibo.CluedoLite.view.tableview.TablePanel;
-import javafx.stage.Window;
 
 /**
  * Central controller for a CluedoLite game session.

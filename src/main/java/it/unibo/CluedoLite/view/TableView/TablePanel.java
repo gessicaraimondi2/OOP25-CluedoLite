@@ -18,6 +18,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
+import java.awt.Component;
 
 /*
  * Represents the suspect notes table, organized into three sections:
@@ -27,9 +28,9 @@ import java.awt.Toolkit;
 
 public class TablePanel extends JPanel {
     private final Map<String, CardPanel> cardMap = new HashMap<>();
-
+    private final NotesPanel notesPanel;
     Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int panelWidth = (int)(screen.width * 0.25);  // 25% dello schermo
+    private final int panelWidth = (int)(screen.width * 0.25);
     
 
     /*
@@ -60,7 +61,8 @@ public class TablePanel extends JPanel {
         add(createContainer("Characters", characters));
         add(createContainer("Rooms", rooms));
         add(createContainer("Weapons", weapons));
-        add(new NotesPanel());
+        notesPanel = new NotesPanel();
+        add(notesPanel);    
     }
 
     // Creates an empty panel to hold card panels, hidden by default until the section is expanded.
@@ -125,6 +127,21 @@ public class TablePanel extends JPanel {
         if (panel != null) {
             panel.excludeCard();
         }
+    }
+
+    public void resetSections() {
+        for (Component c : getComponents()) {
+            if (c instanceof JPanel section) {
+                for (Component inner : ((JPanel) c).getComponents()) {
+                    if (inner instanceof JPanel cards) {
+                        cards.setVisible(false);
+                    }
+                }
+            }
+        }
+        revalidate();
+        repaint();
+        notesPanel.reset();
     }
 
 }

@@ -53,6 +53,7 @@ import it.unibo.CluedoLite.controller.tablecontroller.api.TableController;
             k -> new TableImpl(turnManager.getCurrentPlayer().getHand()));
         tablePanel = playerPanels.computeIfAbsent(name,
             k -> new TablePanel(table));
+        tablePanel.resetSections();
         return tablePanel;
     }
 }
