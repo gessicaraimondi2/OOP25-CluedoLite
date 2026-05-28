@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.view.gameboard.api;
+package it.unibo.CluedoLite.view.gameboardview.api;
 
-public interface Board {
+public interface BoardView {
     /**
      * Requests a repaint of the board panel to reflect the current game state.
      * Called by the controller after a successful move or turn change.

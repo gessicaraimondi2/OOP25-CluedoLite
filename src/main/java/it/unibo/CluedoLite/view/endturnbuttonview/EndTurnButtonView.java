@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.view.endturnbutton;
+package it.unibo.CluedoLite.view.endturnbuttonview;
 
 import javax.swing.JButton;
 
-import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
+import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
 import it.unibo.CluedoLite.view.AppColorFont;
  
 /**

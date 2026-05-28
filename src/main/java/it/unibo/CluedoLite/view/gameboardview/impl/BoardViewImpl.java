@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.gameboard.impl;
+package it.unibo.CluedoLite.view.gameboardview.impl;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,19 +13,19 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
+import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
 import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.view.gameboard.api.Board;
+import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
 
 
-public class BoardImpl extends JPanel implements Board{
+public class BoardViewImpl extends JPanel implements BoardView{
     private List<Player> players = new ArrayList<>();
     private Image backgroundImg;
     private Map<RoomView, Image> roomImages = new HashMap<>();
     private GameBoardController controller;
 
-    public BoardImpl(List<Player> p, GameBoardController c){
+    public BoardViewImpl(List<Player> p, GameBoardController c){
         this.controller=c;
         try {
             backgroundImg = ImageIO.read(new File("src/main/resources/images/floor.png"));

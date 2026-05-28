@@ -15,18 +15,18 @@ import java.util.function.Supplier;
 import it.unibo.CluedoLite.model.creationcards.impl.Card;
 import it.unibo.CluedoLite.model.gameflow.api.Game;
 import it.unibo.CluedoLite.view.gamebutton.ButtonGamePanel;
-import it.unibo.CluedoLite.view.gameboard.impl.BoardImpl;
 import it.unibo.CluedoLite.view.tableview.TablePanel;
 import it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionStartView;
 import it.unibo.CluedoLite.view.endgameview.VictoryView;
+import it.unibo.CluedoLite.view.gameboardview.impl.BoardViewImpl;
 import it.unibo.CluedoLite.view.endgameview.DefeatView;
 import it.unibo.CluedoLite.view.endgameview.FinalDefeatView;
-import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
 import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
-import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
+import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
+import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
 
 /**
  * Main game view.
@@ -110,7 +110,7 @@ public class GameView extends JPanel {
         add(buttonPanel, BorderLayout.WEST);
 
         // --- tabellone (centro) ---
-        final BoardImpl board = new BoardImpl(game.getPlayers(), boardController);
+        final BoardViewImpl board = new BoardViewImpl(game.getPlayers(), boardController);
         boardController.setView(board);
         final int boardSize = (int) (screen.height * 0.95);
         board.setPreferredSize(new Dimension(boardSize, boardSize));

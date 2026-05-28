@@ -15,8 +15,8 @@ import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionC
 import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
 import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
-import it.unibo.CluedoLite.controller.endturnbutton.impl.EndTurnControllerImpl;
-import it.unibo.CluedoLite.controller.gameboard.impl.GameBoardControllerImpl;
+import it.unibo.CluedoLite.controller.endturnbuttoncontroller.impl.EndTurnControllerImpl;
+import it.unibo.CluedoLite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
 import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
 import it.unibo.CluedoLite.controller.tablecontroller.impl.TableControllerImpl;
 import it.unibo.CluedoLite.model.accuseandsuspect.impl.AccuseManager;

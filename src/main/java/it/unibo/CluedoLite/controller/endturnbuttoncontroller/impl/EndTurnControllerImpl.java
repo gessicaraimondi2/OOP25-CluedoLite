@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.controller.endturnbutton.impl;
+package it.unibo.CluedoLite.controller.endturnbuttoncontroller.impl;
 
 import java.util.Objects;
 
-import it.unibo.CluedoLite.controller.endturnbutton.api.EndTurnController;
+import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
 
 /**
  * Implementation of {@link EndTurnController}.

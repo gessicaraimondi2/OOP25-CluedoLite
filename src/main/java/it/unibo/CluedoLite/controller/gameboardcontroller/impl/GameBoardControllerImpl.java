@@ -1,13 +1,13 @@
-package it.unibo.CluedoLite.controller.gameboard.impl;
+package it.unibo.CluedoLite.controller.gameboardcontroller.impl;
 
 import java.util.Objects;
 
-import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
+import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
 import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
 import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
 import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.view.gameboard.api.Board;
+import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
 
 /**
  * Implementation of {@link GameBoardController}.
@@ -18,7 +18,7 @@ public final class GameBoardControllerImpl implements GameBoardController {
 
     private final GameBoardModel gb;
     private final TurnManager tm;
-    private Board view;
+    private BoardView view;
 
     /** Room the current player occupied at the start of their turn. Null on the very first turn. */
     private Room turnStartRoom;
@@ -43,7 +43,7 @@ public final class GameBoardControllerImpl implements GameBoardController {
      * {@inheritDoc}
      */
     @Override
-    public void setView(final Board v) {
+    public void setView(final BoardView v) {
         this.view = Objects.requireNonNull(v, "view must not be null");
     }
 

@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.controller.endturnbutton.api;
+package it.unibo.CluedoLite.controller.endturnbuttoncontroller.api;
 
 /**
  * Controller for the end turn action.

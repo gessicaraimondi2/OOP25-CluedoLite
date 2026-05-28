@@ -6,20 +6,20 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
  
 import static org.junit.jupiter.api.Assertions.*;
- 
-import it.unibo.CluedoLite.controller.gameboard.impl.GameBoardControllerImpl;
-import it.unibo.CluedoLite.controller.gameboard.api.GameBoardController;
+
+import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
+import it.unibo.CluedoLite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
 import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl;
 import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
-import it.unibo.CluedoLite.view.gameboard.api.Board;
+import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
 
  
 public class TestGameBoardController {
  
     // Stub della view: non usa Swing, registra solo le chiamate 
-    private static class BoardStub implements Board {
+    private static class BoardStub implements BoardView {
         boolean repaintCalled = false;
         boolean wrongRoomCalled = false;
  
