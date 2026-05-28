@@ -1,16 +1,30 @@
 package it.unibo.CluedoLite.model.gameboard.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import it.unibo.CluedoLite.model.gameboard.api.*;
+import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
+import it.unibo.CluedoLite.model.gameboard.api.Room;
 import it.unibo.CluedoLite.model.player.api.Player;
 
-public class GameBoardModelImpl implements GameBoardModel{
-    private final Map<Player,Room> playersposition=new HashMap<>();
-    private final List<Room> rooms=new ArrayList<>();
+/**
+ * Implementation of {@link GameBoardModel}.
+ * Initialises the nine classic Cluedo rooms and wires their adjacencies
+ * in a circular order.
+ */
+public final class GameBoardModelImpl implements GameBoardModel {
 
-    public GameBoardModelImpl(){
+    private final Map<Player, Room> playerPositions = new HashMap<>();
+    private final List<Room> rooms = new ArrayList<>();
 
+    /**
+     * Creates a new {@code GameBoardModelImpl}.
+     * Populates the board with the nine standard Cluedo rooms and
+     * automatically generates circular adjacencies between them.
+     */
+    public GameBoardModelImpl() {
         rooms.add(new RoomImpl("Kitchen"));
         rooms.add(new RoomImpl("Ballroom"));
         rooms.add(new RoomImpl("Conservatory"));
@@ -21,7 +35,7 @@ public class GameBoardModelImpl implements GameBoardModel{
         rooms.add(new RoomImpl("Lounge"));
         rooms.add(new RoomImpl("Dining Room"));
 
-        // automatically generates adjacencies in a circular order
+        // Automatically generates adjacencies in a circular order
         for (int i = 0; i < rooms.size(); i++) {
             rooms.get(i).addAdjacent(rooms.get((i + 1) % rooms.size()));
             rooms.get(i).addAdjacent(rooms.get((i - 1 + rooms.size()) % rooms.size()));
@@ -40,9 +54,11 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public Room getRoomByName(String name) {
-        for (Room r : rooms) {
-            if (r.getName().equalsIgnoreCase(name)) return r;
+    public Room getRoomByName(final String name) {
+        for (final Room r : rooms) {
+            if (r.getName().equalsIgnoreCase(name)) {
+                return r;
+            }
         }
         return null;
     }
@@ -51,23 +67,23 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public Room getPlayerPosition(Player p) {
-        return playersposition.get(p);
+    public Room getPlayerPosition(final Player p) {
+        return playerPositions.get(p);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setPlayerPosition(Player p,Room r){
-        playersposition.put(p,r);
+    public void setPlayerPosition(final Player p, final Room r) {
+        playerPositions.put(p, r);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean areAdjacent(Room r1, Room r2){
+    public boolean areAdjacent(final Room r1, final Room r2) {
         return r1.getAdjacent().contains(r2);
     }
 
@@ -75,10 +91,10 @@ public class GameBoardModelImpl implements GameBoardModel{
      * {@inheritDoc}
      */
     @Override
-    public boolean canMoveTo(Player p, Room target) {
-        Room current = playersposition.get(p);
+    public boolean canMoveTo(final Player p, final Room target) {
+        final Room current = playerPositions.get(p);
         if (current == null) {
-            // all'inizio il giocatore può scegliere qualsiasi stanza
+            // At game start the player may choose any room
             return true;
         }
         return current.getAdjacent().contains(target);

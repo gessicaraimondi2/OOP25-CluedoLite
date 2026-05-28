@@ -1,8 +1,13 @@
 package it.unibo.CluedoLite.model.gameboard.api;
-import java.util.*;
+
+import java.util.List;
 
 import it.unibo.CluedoLite.model.player.api.Player;
 
+/**
+ * Model for the game board.
+ * Tracks room layout, adjacency, and player positions.
+ */
 public interface GameBoardModel {
 
     /**
@@ -13,19 +18,19 @@ public interface GameBoardModel {
     List<Room> getRooms();
 
     /**
-     * Returns the room with the given name, or null if not found
+     * Returns the room with the given name, or {@code null} if not found.
      *
      * @param name the name of the room to search for
-     * @return the matching room, or null if no room has that name
+     * @return the matching room, or {@code null} if no room has that name
      */
     Room getRoomByName(String name);
 
     /**
      * Returns the current room of the given player.
-     * Returns null if the player has no position yet (start of the game).
+     * Returns {@code null} if the player has no position yet (start of the game).
      *
      * @param p the player whose position is requested
-     * @return the room where the player is located, or null if not yet placed
+     * @return the room where the player is located, or {@code null} if not yet placed
      */
     Room getPlayerPosition(Player p);
 
@@ -35,15 +40,14 @@ public interface GameBoardModel {
      * @param p the player whose position is to be set
      * @param r the room where the player will be placed
      */
-    void setPlayerPosition(Player p,Room r);
+    void setPlayerPosition(Player p, Room r);
 
-    
     /**
      * Checks whether two rooms are adjacent to each other.
      *
      * @param r1 the first room
      * @param r2 the second room
-     * @return true if r1 and r2 are adjacent, false otherwise
+     * @return {@code true} if {@code r1} and {@code r2} are adjacent, {@code false} otherwise
      */
     boolean areAdjacent(Room r1, Room r2);
 
@@ -52,9 +56,9 @@ public interface GameBoardModel {
      * A player with no current position (start of the game) can move to any room.
      * Otherwise, the target room must be adjacent to the player's current position.
      *
-     * @param p the player who wants to move
+     * @param p      the player who wants to move
      * @param target the room the player wants to move to
-     * @return true if the move is allowed, false otherwise
+     * @return {@code true} if the move is allowed, {@code false} otherwise
      */
-    boolean canMoveTo(Player p, Room target) ;
+    boolean canMoveTo(Player p, Room target);
 }
