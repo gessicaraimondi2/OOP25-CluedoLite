@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.view.menuview;
+package it.unibo.cluedolite.view.menuview;
 
 import javax.swing.*;
 
-import it.unibo.CluedoLite.controller.menucontroller.api.LobbyController;
-import it.unibo.CluedoLite.view.AppColorFont;
+import it.unibo.cluedolite.controller.menucontroller.api.LobbyController;
+import it.unibo.cluedolite.view.AppColorFont;
 
 import java.awt.*;
 import java.util.ArrayList;

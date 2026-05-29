@@ -2,8 +2,8 @@ package it.unibo.samplejavafx.app;
 
 import javax.swing.SwingUtilities;
 
-import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
-import it.unibo.CluedoLite.view.menuview.StartView;
+import it.unibo.cluedolite.controller.menucontroller.impl.StartControllerImpl;
+import it.unibo.cluedolite.view.menuview.StartView;
 
 /**
  * Entry point of CluedoLite.

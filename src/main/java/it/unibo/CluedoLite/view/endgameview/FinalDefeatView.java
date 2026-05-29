@@ -1,12 +1,14 @@
-package it.unibo.CluedoLite.view.endgameview;
+package it.unibo.cluedolite.view.endgameview;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.cluedolite.view.AppColorFont;
+import it.unibo.cluedolite.view.buttonflowview.QuitButtonView;
+import it.unibo.cluedolite.view.buttonflowview.ResetButtonView;
+
 import java.awt.*;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.view.buttonflowview.QuitButtonView;
-import it.unibo.CluedoLite.view.buttonflowview.ResetButtonView;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
 
 public class FinalDefeatView extends JFrame {
 

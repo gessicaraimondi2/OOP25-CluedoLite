@@ -1,12 +1,9 @@
-package it.unibo.CluedoLite.model.suspectnotes.api;
+package it.unibo.cluedolite.model.suspectnotes.api;
 
 import java.util.List;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.suspectnotes.impl.*;
-/*
- * Represents the suspect notes table, grouping all cards into Boxes
- * based on their type (characters, weapons, rooms).
- */
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.suspectnotes.impl.*;
 
 public interface Table {
     

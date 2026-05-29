@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api;
+package it.unibo.cluedolite.controller.accuseandsuspectcontroller.api;
 
 public interface InterfaceAccusation {
 

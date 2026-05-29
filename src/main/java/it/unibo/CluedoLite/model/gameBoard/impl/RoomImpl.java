@@ -1,10 +1,10 @@
-package it.unibo.CluedoLite.model.gameboard.impl;
+package it.unibo.cluedolite.model.gameboard.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import it.unibo.CluedoLite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.gameboard.api.Room;
 
 /**
  * Implementation of {@link Room}.

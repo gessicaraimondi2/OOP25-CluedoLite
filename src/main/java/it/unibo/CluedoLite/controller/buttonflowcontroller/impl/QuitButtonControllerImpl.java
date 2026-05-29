@@ -1,13 +1,14 @@
-package it.unibo.CluedoLite.controller.buttonflowcontroller.impl;
+package it.unibo.cluedolite.controller.buttonflowcontroller.impl;
 
 import java.util.function.Supplier;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
-import it.unibo.CluedoLite.model.gameflow.api.Game;
-import it.unibo.CluedoLite.view.menuview.StartView;
-import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
+
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonController;
+import it.unibo.cluedolite.controller.menucontroller.impl.StartControllerImpl;
+import it.unibo.cluedolite.model.gameflow.api.Game;
+import it.unibo.cluedolite.view.menuview.StartView;
 
 /**
  * Controller for the QUIT button.

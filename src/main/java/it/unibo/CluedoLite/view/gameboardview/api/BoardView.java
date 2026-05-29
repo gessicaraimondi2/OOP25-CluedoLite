@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.gameboardview.api;
+package it.unibo.cluedolite.view.gameboardview.api;
 
 public interface BoardView {
     /**

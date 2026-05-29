@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.model.gamesetup.impl;
+package it.unibo.cluedolite.model.gamesetup.impl;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.api.Player;
 
 /**
  * Responsible for distributing cards to players at the beginning of the game.

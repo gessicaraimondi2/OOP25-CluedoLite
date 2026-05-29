@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.controller.menucontroller.api;
+package it.unibo.cluedolite.controller.menucontroller.api;
 
-import it.unibo.CluedoLite.view.menuview.StartView;
+import it.unibo.cluedolite.view.menuview.StartView;
 
 /*
  * Defines the contract for the StartController

@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api;
+package it.unibo.cluedolite.controller.accuseandsuspectcontroller.api;
 /**
  * Defines the contract for the controller that manages the suspicion phase.
  *

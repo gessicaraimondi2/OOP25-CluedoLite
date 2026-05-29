@@ -1,17 +1,17 @@
-package it.unibo.CluedoLite.view.tableview;
-
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.creationcards.impl.CardType;
-import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.suspectnotes.impl.BoxImpl;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.model.suspectnotes.api.Table;
+package it.unibo.cluedolite.view.tableview;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.CardType;
+import it.unibo.cluedolite.model.gamesetup.impl.Deck;
+import it.unibo.cluedolite.model.suspectnotes.api.Table;
+import it.unibo.cluedolite.model.suspectnotes.impl.BoxImpl;
+import it.unibo.cluedolite.view.AppColorFont;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

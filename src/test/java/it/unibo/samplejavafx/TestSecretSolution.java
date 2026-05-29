@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.creationcards.impl.CardType;
-import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.CardType;
+import it.unibo.cluedolite.model.gamesetup.impl.Deck;
+import it.unibo.cluedolite.model.gamesetup.impl.SecretSolution;
 
 public class TestSecretSolution {
 

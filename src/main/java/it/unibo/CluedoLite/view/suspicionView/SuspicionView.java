@@ -1,9 +1,11 @@
-package it.unibo.CluedoLite.view.suspicionview;
+package it.unibo.cluedolite.view.suspicionview;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.view.AppColorFont;
+
 import java.awt.*;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
 
 /**
  * This class represents the Swing VIEW for the suspicion phase of the CluedoLite game.

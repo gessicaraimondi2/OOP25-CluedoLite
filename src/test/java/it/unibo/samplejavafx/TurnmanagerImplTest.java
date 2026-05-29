@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.creationcards.impl.*;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.player.impl.PlayerImpl;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
+import it.unibo.cluedolite.model.turnmanager.impl.TurnManagerImpl;
+
 import java.util.List;
 import java.util.Optional;
-
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
-import it.unibo.CluedoLite.model.creationcards.impl.*;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
 
 
 public class TurnmanagerImplTest {

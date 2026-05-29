@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.model.creationcards.api;
+package it.unibo.cluedolite.model.creationcards.api;
 
-import it.unibo.CluedoLite.model.creationcards.impl.CardType;
+import it.unibo.cluedolite.model.creationcards.impl.CardType;
 /**
  * Represents the contract for a generic card in the game.
  * Any object that can be used as a card must implement this interface.

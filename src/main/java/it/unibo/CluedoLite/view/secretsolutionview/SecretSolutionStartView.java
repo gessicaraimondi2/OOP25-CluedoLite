@@ -1,10 +1,12 @@
-package it.unibo.CluedoLite.view.secretsolutionview;
+package it.unibo.cluedolite.view.secretsolutionview;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.view.AppColorFont;
+
 import java.awt.*;
 import java.util.List;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.view.AppColorFont;
 
 /**
  * Swing view displayed when the secret solution is created.

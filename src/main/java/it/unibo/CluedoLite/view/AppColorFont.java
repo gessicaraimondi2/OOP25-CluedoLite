@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view;
+package it.unibo.cluedolite.view;
 
 import java.awt.Color;
 import java.awt.Font;

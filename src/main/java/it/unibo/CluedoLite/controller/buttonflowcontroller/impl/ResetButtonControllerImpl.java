@@ -1,8 +1,9 @@
-package it.unibo.CluedoLite.controller.buttonflowcontroller.impl;
+package it.unibo.cluedolite.controller.buttonflowcontroller.impl;
 
 import javax.swing.JOptionPane;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
-import it.unibo.CluedoLite.model.gameflow.api.Game;
+
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.cluedolite.model.gameflow.api.Game;
 
 
 /**

@@ -1,11 +1,11 @@
-package it.unibo.CluedoLite.model.suspectnotes.impl;
+package it.unibo.cluedolite.model.suspectnotes.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationcards.impl.*;
-import it.unibo.CluedoLite.model.gamesetup.impl.*;
-import it.unibo.CluedoLite.model.suspectnotes.api.*;
+import it.unibo.cluedolite.model.creationcards.impl.*;
+import it.unibo.cluedolite.model.gamesetup.impl.*;
+import it.unibo.cluedolite.model.suspectnotes.api.*;
 
 
 public class TableImpl implements Table{

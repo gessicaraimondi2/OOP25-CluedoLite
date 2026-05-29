@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.controller;
+package it.unibo.cluedolite.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,28 +10,28 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.AccusationController;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
-import it.unibo.CluedoLite.controller.endturnbuttoncontroller.impl.EndTurnControllerImpl;
-import it.unibo.CluedoLite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
-import it.unibo.CluedoLite.controller.menucontroller.impl.StartControllerImpl;
-import it.unibo.CluedoLite.controller.tablecontroller.impl.TableControllerImpl;
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.AccuseManager;
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.SuspicionManager;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.creationcards.impl.CardType;
-import it.unibo.CluedoLite.model.gameflow.api.Game;
-import it.unibo.CluedoLite.model.gamesetup.impl.CardDistribution;
-import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.suspectnotes.impl.TableImpl;
-import it.unibo.CluedoLite.view.GameView;
-import it.unibo.CluedoLite.view.menuview.StartView;
-import it.unibo.CluedoLite.view.tableview.TablePanel;
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.impl.AccusationController;
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.impl.SuspicionController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.impl.QuitButtonControllerImpl;
+import it.unibo.cluedolite.controller.buttonflowcontroller.impl.ResetButtonControllerImpl;
+import it.unibo.cluedolite.controller.endturnbuttoncontroller.impl.EndTurnControllerImpl;
+import it.unibo.cluedolite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
+import it.unibo.cluedolite.controller.menucontroller.impl.StartControllerImpl;
+import it.unibo.cluedolite.controller.tablecontroller.impl.TableControllerImpl;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.AccuseManager;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.SuspicionManager;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.CardType;
+import it.unibo.cluedolite.model.gameflow.api.Game;
+import it.unibo.cluedolite.model.gamesetup.impl.CardDistribution;
+import it.unibo.cluedolite.model.gamesetup.impl.Deck;
+import it.unibo.cluedolite.model.gamesetup.impl.SecretSolution;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.suspectnotes.impl.TableImpl;
+import it.unibo.cluedolite.view.GameView;
+import it.unibo.cluedolite.view.menuview.StartView;
+import it.unibo.cluedolite.view.tableview.TablePanel;
 
 /**
  * Central controller for a CluedoLite game session.

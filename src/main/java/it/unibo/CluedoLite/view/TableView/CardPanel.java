@@ -1,10 +1,10 @@
-package it.unibo.CluedoLite.view.tableview;
+package it.unibo.cluedolite.view.tableview;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import it.unibo.CluedoLite.model.suspectnotes.api.State;
-import it.unibo.CluedoLite.view.AppColorFont;
+import it.unibo.cluedolite.model.suspectnotes.api.State;
+import it.unibo.cluedolite.view.AppColorFont;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.gameboardview.impl;
+package it.unibo.cluedolite.view.gameboardview.impl;
 
 import java.awt.Rectangle;
 

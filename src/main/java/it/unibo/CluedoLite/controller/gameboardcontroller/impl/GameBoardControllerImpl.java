@@ -1,13 +1,13 @@
-package it.unibo.CluedoLite.controller.gameboardcontroller.impl;
+package it.unibo.cluedolite.controller.gameboardcontroller.impl;
 
 import java.util.Objects;
 
-import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
-import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
-import it.unibo.CluedoLite.model.gameboard.api.Room;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
+import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
+import it.unibo.cluedolite.model.gameboard.api.GameBoardModel;
+import it.unibo.cluedolite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
+import it.unibo.cluedolite.view.gameboardview.api.BoardView;
 
 /**
  * Implementation of {@link GameBoardController}.

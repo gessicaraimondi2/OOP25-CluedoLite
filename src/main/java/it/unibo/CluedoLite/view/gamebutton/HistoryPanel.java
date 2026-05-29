@@ -1,8 +1,10 @@
-package it.unibo.CluedoLite.view.gamebutton;
+package it.unibo.cluedolite.view.gamebutton;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.view.AppColorFont;
+
 import java.awt.*;
-import it.unibo.CluedoLite.view.AppColorFont;
 
 /**
  * Scrollable panel displaying the history of game actions.

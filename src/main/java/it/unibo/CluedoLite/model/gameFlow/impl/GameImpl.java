@@ -1,16 +1,16 @@
-package it.unibo.CluedoLite.model.gameflow.impl;
+package it.unibo.cluedolite.model.gameflow.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameflow.api.Game;
-import it.unibo.CluedoLite.model.gameflow.api.GameState;
-import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
-import it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedolite.model.gameboard.api.GameBoardModel;
+import it.unibo.cluedolite.model.gameboard.impl.GameBoardModelImpl;
+import it.unibo.cluedolite.model.gameflow.api.Game;
+import it.unibo.cluedolite.model.gameflow.api.GameState;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.player.impl.CreationCharacterImpl;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
+import it.unibo.cluedolite.model.turnmanager.impl.TurnManagerImpl;
 
 public class GameImpl implements Game {
 

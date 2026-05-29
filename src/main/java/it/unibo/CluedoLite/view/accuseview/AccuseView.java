@@ -1,8 +1,10 @@
-package it.unibo.CluedoLite.view.accuseview;
+package it.unibo.cluedolite.view.accuseview;
 
 import javax.swing.*;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.view.AppColorFont;
+
 import java.awt.*;
 
 public class AccuseView extends JFrame {

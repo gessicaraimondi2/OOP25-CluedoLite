@@ -1,8 +1,9 @@
-package it.unibo.CluedoLite.view.buttonflowview;
+package it.unibo.cluedolite.view.buttonflowview;
 
 import javax.swing.JButton;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
+
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.cluedolite.view.AppColorFont;
 
 /**
  * Button that resets the game with the same players

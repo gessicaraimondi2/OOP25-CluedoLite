@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.cardview;
+package it.unibo.cluedolite.view.cardview;
 
 import javax.swing.*;
 import java.awt.*;

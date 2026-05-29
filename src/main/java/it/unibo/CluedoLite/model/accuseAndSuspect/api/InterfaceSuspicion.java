@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.model.accuseandsuspect.api;
+package it.unibo.cluedolite.model.accuseandsuspect.api;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
 
 /**
  * Interface for a suspicion made by a player in the CluedoLite game.

@@ -1,9 +1,10 @@
-package it.unibo.CluedoLite.view.suspicionview;
+package it.unibo.cluedolite.view.suspicionview;
 
 import javax.swing.*;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.impl.SuspicionController;
+
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.impl.SuspicionController;
+import it.unibo.cluedolite.view.AppColorFont;
 
 /**
  * This class represents the button that triggers the suspicion phase in the game screen.

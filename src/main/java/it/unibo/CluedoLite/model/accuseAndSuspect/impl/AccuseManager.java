@@ -1,10 +1,10 @@
-package it.unibo.CluedoLite.model.accuseandsuspect.impl;
-
-import it.unibo.CluedoLite.model.accuseandsuspect.api.InterfaceAccuseManager;
-import it.unibo.CluedoLite.model.creationcards.impl.*;
-import it.unibo.CluedoLite.model.gamesetup.impl.*;
+package it.unibo.cluedolite.model.accuseandsuspect.impl;
 
 import java.util.List;
+
+import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceAccuseManager;
+import it.unibo.cluedolite.model.creationcards.impl.*;
+import it.unibo.cluedolite.model.gamesetup.impl.*;
 
 /*
 * This class manages the logic for formal accusations in the Cluedo game.

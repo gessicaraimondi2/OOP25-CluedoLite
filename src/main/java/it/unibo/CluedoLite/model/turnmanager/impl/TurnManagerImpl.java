@@ -1,13 +1,13 @@
-package it.unibo.CluedoLite.model.turnmanager.impl;
+package it.unibo.cluedolite.model.turnmanager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
 
 /**
  * Implementation of the {@link TurnManager} interface.

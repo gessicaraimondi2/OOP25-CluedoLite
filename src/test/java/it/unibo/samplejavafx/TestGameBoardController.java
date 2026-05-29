@@ -2,18 +2,18 @@ package it.unibo.samplejavafx;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
- 
+
+import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
+import it.unibo.cluedolite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
+import it.unibo.cluedolite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.gameboard.impl.GameBoardModelImpl;
+import it.unibo.cluedolite.model.player.impl.PlayerImpl;
+import it.unibo.cluedolite.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedolite.view.gameboardview.api.BoardView;
+
 import java.util.List;
  
 import static org.junit.jupiter.api.Assertions.*;
-
-import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
-import it.unibo.CluedoLite.controller.gameboardcontroller.impl.GameBoardControllerImpl;
-import it.unibo.CluedoLite.model.gameboard.api.Room;
-import it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
-import it.unibo.CluedoLite.model.turnmanager.impl.TurnManagerImpl;
-import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
 
  
 public class TestGameBoardController {

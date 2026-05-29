@@ -1,14 +1,14 @@
-package it.unibo.CluedoLite.model.player.impl;
+package it.unibo.cluedolite.model.player.impl;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.api.CreationCharacter;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.suspectnotes.impl.*;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.api.CreationCharacter;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.suspectnotes.impl.*;
 
 /**
  * Represents a player in the game

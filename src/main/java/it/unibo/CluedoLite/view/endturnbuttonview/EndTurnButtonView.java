@@ -1,9 +1,9 @@
-package it.unibo.CluedoLite.view.endturnbuttonview;
+package it.unibo.cluedolite.view.endturnbuttonview;
 
 import javax.swing.JButton;
 
-import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
-import it.unibo.CluedoLite.view.AppColorFont;
+import it.unibo.cluedolite.controller.endturnbuttoncontroller.api.EndTurnController;
+import it.unibo.cluedolite.view.AppColorFont;
  
 /**
  * Button that ends the current player's turn.

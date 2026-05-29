@@ -1,9 +1,26 @@
-package it.unibo.CluedoLite.view;
+package it.unibo.cluedolite.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.cluedolite.controller.endturnbuttoncontroller.api.EndTurnController;
+import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.gameflow.api.Game;
+import it.unibo.cluedolite.view.endgameview.DefeatView;
+import it.unibo.cluedolite.view.endgameview.FinalDefeatView;
+import it.unibo.cluedolite.view.endgameview.VictoryView;
+import it.unibo.cluedolite.view.gameboardview.impl.BoardViewImpl;
+import it.unibo.cluedolite.view.gamebutton.ButtonGamePanel;
+import it.unibo.cluedolite.view.secretsolutionview.SecretSolutionStartView;
+import it.unibo.cluedolite.view.tableview.TablePanel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,22 +28,6 @@ import java.awt.Window;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.gameflow.api.Game;
-import it.unibo.CluedoLite.view.gamebutton.ButtonGamePanel;
-import it.unibo.CluedoLite.view.tableview.TablePanel;
-import it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionStartView;
-import it.unibo.CluedoLite.view.endgameview.VictoryView;
-import it.unibo.CluedoLite.view.gameboardview.impl.BoardViewImpl;
-import it.unibo.CluedoLite.view.endgameview.DefeatView;
-import it.unibo.CluedoLite.view.endgameview.FinalDefeatView;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
-import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
-import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
 
 /**
  * Main game view.
@@ -154,7 +155,7 @@ public class GameView extends JPanel {
             ref[0] = new VictoryView(resetController, vc);
 
             final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
-                new it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionEndView(solution));
+                new it.unibo.cluedolite.view.secretsolutionview.SecretSolutionEndView(solution));
             timer.setRepeats(false);
             timer.start();
         });
@@ -185,7 +186,7 @@ public class GameView extends JPanel {
             ref[0] = new FinalDefeatView(resetController, vc);
 
             final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
-                new it.unibo.CluedoLite.view.secretsolutionview.SecretSolutionEndView(solution));
+                new it.unibo.cluedolite.view.secretsolutionview.SecretSolutionEndView(solution));
             timer.setRepeats(false);
             timer.start();
         });

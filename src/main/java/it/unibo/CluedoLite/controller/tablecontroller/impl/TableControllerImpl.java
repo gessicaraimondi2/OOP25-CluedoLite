@@ -1,17 +1,16 @@
-package it.unibo.CluedoLite.controller.tablecontroller.impl;
-
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.suspectnotes.api.Table;
-import it.unibo.CluedoLite.model.suspectnotes.impl.TableImpl;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
-import it.unibo.CluedoLite.view.tableview.TablePanel;
+package it.unibo.cluedolite.controller.tablecontroller.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import it.unibo.CluedoLite.controller.tablecontroller.api.TableController;
+import it.unibo.cluedolite.controller.tablecontroller.api.TableController;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.suspectnotes.api.Table;
+import it.unibo.cluedolite.model.suspectnotes.impl.TableImpl;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
+import it.unibo.cluedolite.view.tableview.TablePanel;
 
 /*
  * Controller responsible for managing the suspicion phase.

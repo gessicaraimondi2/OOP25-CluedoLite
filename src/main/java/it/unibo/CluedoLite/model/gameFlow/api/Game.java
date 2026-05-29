@@ -1,11 +1,11 @@
-package it.unibo.CluedoLite.model.gameflow.api;
+package it.unibo.cluedolite.model.gameflow.api;
 
 import java.util.List;
 
-import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
-import it.unibo.CluedoLite.model.turnmanager.api.TurnManager;
+import it.unibo.cluedolite.model.gameboard.api.GameBoardModel;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.player.impl.CreationCharacterImpl;
+import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
 
 /**
  * Defines the contract for the game in CluedoLite

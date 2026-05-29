@@ -1,6 +1,6 @@
-package it.unibo.CluedoLite.model.accuseandsuspect.api;
+package it.unibo.cluedolite.model.accuseandsuspect.api;
 
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
 
 /**
  * Interface for the accusation manager in CluedoLite.

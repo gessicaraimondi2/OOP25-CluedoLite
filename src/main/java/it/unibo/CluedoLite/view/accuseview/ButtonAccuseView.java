@@ -1,8 +1,9 @@
-package it.unibo.CluedoLite.view.accuseview;
+package it.unibo.cluedolite.view.accuseview;
 
 import javax.swing.*;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
+
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
+import it.unibo.cluedolite.view.AppColorFont;
 
 /**
  * This class represents the button that triggers the accusation phase in the game screen.

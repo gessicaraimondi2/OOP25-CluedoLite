@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.tableview;
+package it.unibo.cluedolite.view.tableview;
 
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
@@ -12,9 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.awt.Toolkit;
 
-import it.unibo.CluedoLite.view.AppColorFont;
+import it.unibo.cluedolite.view.AppColorFont;
+
+import java.awt.Toolkit;
 
 /*
 * Represents a scrollable notepad panel where the player can write personal notes.

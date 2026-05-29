@@ -3,13 +3,14 @@ package it.unibo.samplejavafx;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.creationcards.impl.CardType;
-import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.suspectnotes.impl.*;
-import it.unibo.CluedoLite.model.suspectnotes.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.CardType;
+import it.unibo.cluedolite.model.gamesetup.impl.Deck;
+import it.unibo.cluedolite.model.suspectnotes.api.*;
+import it.unibo.cluedolite.model.suspectnotes.impl.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

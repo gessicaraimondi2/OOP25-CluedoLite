@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.model.player.api;
+package it.unibo.cluedolite.model.player.api;
 
 
 /**

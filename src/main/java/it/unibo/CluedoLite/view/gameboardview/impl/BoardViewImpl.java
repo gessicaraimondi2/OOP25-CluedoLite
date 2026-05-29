@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.view.gameboardview.impl;
+package it.unibo.cluedolite.view.gameboardview.impl;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -8,15 +8,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
+import it.unibo.cluedolite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.view.gameboardview.api.BoardView;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
-import it.unibo.CluedoLite.controller.gameboardcontroller.api.GameBoardController;
-import it.unibo.CluedoLite.model.gameboard.api.Room;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
 
 
 public class BoardViewImpl extends JPanel implements BoardView{

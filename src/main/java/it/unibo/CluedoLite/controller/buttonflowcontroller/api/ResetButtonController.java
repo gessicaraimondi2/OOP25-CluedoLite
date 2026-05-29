@@ -1,4 +1,4 @@
-package it.unibo.CluedoLite.controller.buttonflowcontroller.api;
+package it.unibo.cluedolite.controller.buttonflowcontroller.api;
 
 /**
  * Defines the contract for the ResetButton controller

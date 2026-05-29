@@ -1,0 +1,109 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 14
+skinparam classBorderColor #333
+skinparam classBackgroundColor #f9f9f9
+skinparam shadowing false
+
+' ============================
+'        CLASSI PRINCIPALI
+' ============================
+
+class Partita {
+    +getTabellone() : Tabellone
+    +getGiocatori() : List<Giocatore>
+    +getGestoreTurni() : GestoreTurni
+    +getSoluzioneSegreta() : SoluzioneSegreta
+}
+
+class GestoreTurni {
+    +getGiocatoreAttivo() : Giocatore
+    +avanzaTurno() : void
+    +puoFormulareSospetto() : boolean
+    +puoAccusare() : boolean
+}
+
+class Tabellone {
+    +getStanze() : List<Stanza>
+}
+
+class Stanza {
+    +getNome() : String
+    +getAdiacenti() : List<Stanza>
+}
+
+class Giocatore {
+    +getNome() : String
+    +getPersonaggio() : Personaggio
+    +getCarte() : List<Carta>
+    +getPosizione() : Stanza
+}
+
+class Personaggio {
+    +getNome() : String
+}
+
+class Carta {
+    +getNome() : String
+}
+
+class CartaPersonaggio {
+}
+
+class CartaArma {
+}
+
+class CartaStanza {
+}
+
+class SoluzioneSegreta {
+    +getSospettato() : CartaPersonaggio
+    +getArma() : CartaArma
+    +getStanza() : CartaStanza
+}
+
+class Sospetto {
+    +getPersonaggio() : CartaPersonaggio
+    +getArma() : CartaArma
+    +getStanza() : CartaStanza
+}
+
+class Accusa {
+    +getPersonaggio() : CartaPersonaggio
+    +getArma() : CartaArma
+    +getStanza() : CartaStanza
+}
+
+' ============================
+'        EREDITARIETÀ
+' ============================
+
+Carta <|-- CartaPersonaggio
+Carta <|-- CartaArma
+Carta <|-- CartaStanza
+
+' ============================
+'        RELAZIONI
+' ============================
+
+Partita --> GestoreTurni : usa
+Partita --> Tabellone : contiene
+Partita --> SoluzioneSegreta : definisce
+Partita --> Giocatore : include *
+
+Tabellone --> Stanza : contiene *
+Stanza --> Stanza : adiacente
+
+Giocatore --> Personaggio : controlla
+Giocatore --> Carta : possiede *
+Giocatore --> Stanza : si trova in
+
+Sospetto --> Giocatore : formulato da
+Sospetto --> CartaPersonaggio
+Sospetto --> CartaArma
+Sospetto --> CartaStanza
+
+Accusa --> Giocatore : formulata da
+Accusa --> SoluzioneSegreta : confronta
+
+@enduml

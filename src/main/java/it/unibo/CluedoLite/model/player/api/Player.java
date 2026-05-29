@@ -1,9 +1,10 @@
-package it.unibo.CluedoLite.model.player.api;
+package it.unibo.cluedolite.model.player.api;
 
 import java.util.List;
 import java.util.Optional;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
+
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.impl.CreationCharacterImpl;
 
 /**
  * Defines the contract for a player in the CluedoLite game

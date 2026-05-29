@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.cluedolite.model.gameflow.api.GameState;
+import it.unibo.cluedolite.model.gameflow.impl.GameImpl;
+import it.unibo.cluedolite.model.player.impl.CreationCharacterImpl;
+import it.unibo.cluedolite.model.player.impl.PlayerImpl;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
-import it.unibo.CluedoLite.model.gameflow.api.GameState;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
 
 public class GameFlowTest {
 

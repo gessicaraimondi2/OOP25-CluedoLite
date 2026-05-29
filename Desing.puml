@@ -1,0 +1,107 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam classFontSize 14
+skinparam classBorderColor #333
+skinparam classBackgroundColor #f9f9f9
+skinparam shadowing false
+
+title Architettura MVC – Cluedo Lite
+
+package "Controller" {
+    class MenuController {
+        +startNewGame()
+        +loadGame()
+        +switchToGameBoard()
+    }
+
+    class ButtonFlowController {
+        +onEndTurn()
+        +onAccuse()
+        +onSuspect()
+    }
+
+    class GameBoardController {
+        +onPlayerMove()
+        +updateBoard()
+    }
+
+    class AccuseAndSuspectController {
+        +formulateSuspicion()
+        +makeAccusation()
+    }
+}
+
+package "Model" {
+    class GameFlow {
+        +advanceTurn()
+        +canAccuse()
+        +canSuspect()
+    }
+
+    class TurnManager {
+        +getActivePlayer()
+        +nextTurn()
+    }
+
+    class GameBoard {
+        +getStanze()
+        +getAdiacenze()
+    }
+
+    class Suspicion {
+        +getPersonaggio()
+        +getArma()
+        +getStanza()
+    }
+
+    class Accusation {
+        +getPersonaggio()
+        +getArma()
+        +getStanza()
+    }
+
+    class SoluzioneSegreta {
+        +getSospettato()
+        +getArma()
+        +getStanza()
+    }
+}
+
+package "View" {
+    class ViewFactory {
+        +showMenu()
+        +showGameBoard()
+        +showSuspicion()
+        +showAccusation()
+    }
+
+    class GameBoardView
+    class MenuView
+    class SuspicionView
+    class AccusationView
+    class TableView
+}
+
+' RELAZIONI MVC
+MenuController --> ViewFactory : gestisce scene
+ButtonFlowController --> ViewFactory
+GameBoardController --> ViewFactory
+AccuseAndSuspectController --> ViewFactory
+
+MenuController --> GameFlow : inizializza flusso
+ButtonFlowController --> GameFlow : controlla stato
+GameBoardController --> GameBoard : aggiorna board
+AccuseAndSuspectController --> Suspicion : crea
+AccuseAndSuspectController --> Accusation : crea
+
+GameFlow --> TurnManager : coordina turni
+GameFlow --> GameBoard : usa board
+GameFlow --> SoluzioneSegreta : verifica accuse
+
+ViewFactory --> GameBoardView
+ViewFactory --> MenuView
+ViewFactory --> SuspicionView
+ViewFactory --> AccusationView
+ViewFactory --> TableView
+
+@enduml

@@ -1,9 +1,10 @@
-package it.unibo.CluedoLite.model.turnmanager.api;
+package it.unibo.cluedolite.model.turnmanager.api;
 
 import java.util.Optional;
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.api.Player;
+
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.api.Player;
 
 /**
  * Interface rapresenting the logic of the class that manages the turn order of players in the game.

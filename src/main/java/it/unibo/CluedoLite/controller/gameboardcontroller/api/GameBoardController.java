@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.controller.gameboardcontroller.api;
+package it.unibo.cluedolite.controller.gameboardcontroller.api;
 
-import it.unibo.CluedoLite.model.gameboard.api.Room;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.view.gameboardview.api.BoardView;
+import it.unibo.cluedolite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.view.gameboardview.api.BoardView;
 
 /**
  * Controller for the game board.

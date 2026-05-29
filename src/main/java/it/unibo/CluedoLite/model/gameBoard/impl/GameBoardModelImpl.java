@@ -1,13 +1,13 @@
-package it.unibo.CluedoLite.model.gameboard.impl;
+package it.unibo.cluedolite.model.gameboard.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.CluedoLite.model.gameboard.api.GameBoardModel;
-import it.unibo.CluedoLite.model.gameboard.api.Room;
-import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.cluedolite.model.gameboard.api.GameBoardModel;
+import it.unibo.cluedolite.model.gameboard.api.Room;
+import it.unibo.cluedolite.model.player.api.Player;
 
 /**
  * Implementation of {@link GameBoardModel}.

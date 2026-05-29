@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.gamesetup.impl.CardDistribution;
-import it.unibo.CluedoLite.model.gamesetup.impl.Deck;
-import it.unibo.CluedoLite.model.gamesetup.impl.SecretSolution;
-import it.unibo.CluedoLite.model.player.api.Player;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.gamesetup.impl.CardDistribution;
+import it.unibo.cluedolite.model.gamesetup.impl.Deck;
+import it.unibo.cluedolite.model.gamesetup.impl.SecretSolution;
+import it.unibo.cluedolite.model.player.api.Player;
+import it.unibo.cluedolite.model.player.impl.PlayerImpl;
 
 /*
  * This test class verifies the correct distribution of cards to players in the CluedoLite game.

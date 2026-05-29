@@ -1,14 +1,14 @@
-package it.unibo.CluedoLite.controller.menucontroller.impl;
+package it.unibo.cluedolite.controller.menucontroller.impl;
 
 import javax.swing.JOptionPane;
 
-import it.unibo.CluedoLite.controller.GameController;
-import it.unibo.CluedoLite.controller.menucontroller.api.LobbyController;
-import it.unibo.CluedoLite.model.gameflow.api.Game;
-import it.unibo.CluedoLite.model.gameflow.impl.GameImpl;
-import it.unibo.CluedoLite.model.player.impl.CreationCharacterImpl;
-import it.unibo.CluedoLite.model.player.impl.PlayerImpl;
-import it.unibo.CluedoLite.view.menuview.LobbyView;
+import it.unibo.cluedolite.controller.GameController;
+import it.unibo.cluedolite.controller.menucontroller.api.LobbyController;
+import it.unibo.cluedolite.model.gameflow.api.Game;
+import it.unibo.cluedolite.model.gameflow.impl.GameImpl;
+import it.unibo.cluedolite.model.player.impl.CreationCharacterImpl;
+import it.unibo.cluedolite.model.player.impl.PlayerImpl;
+import it.unibo.cluedolite.view.menuview.LobbyView;
 
 /**
  * Controller for the LobbyView.

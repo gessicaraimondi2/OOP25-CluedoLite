@@ -1,8 +1,10 @@
-package it.unibo.CluedoLite.view.endgameview;
+package it.unibo.cluedolite.view.endgameview;
 
 import javax.swing.*;
+
+import it.unibo.cluedolite.view.AppColorFont;
+
 import java.awt.*;
-import it.unibo.CluedoLite.view.AppColorFont;
 
 public class DefeatView extends JFrame {
 

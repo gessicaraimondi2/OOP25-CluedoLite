@@ -1,8 +1,8 @@
-package it.unibo.CluedoLite.model.accuseandsuspect.impl;
+package it.unibo.cluedolite.model.accuseandsuspect.impl;
 
-import it.unibo.CluedoLite.model.accuseandsuspect.api.InterfaceSuspicionManager;
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.player.api.Player;
+import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceSuspicionManager;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.player.api.Player;
 
 /**
  * Implementation of the {@link InterfaceSuspicionManager} interface.
@@ -23,7 +23,7 @@ public class SuspicionManager implements InterfaceSuspicionManager {
      * and the room where the player is currently located.
      *
      * The room is passed directly by the controller rather than retrieved from the board,
-     * keeping this class decoupled from the {@link it.unibo.CluedoLite.model.gameboard.impl.GameBoardModelImpl}.
+     * keeping this class decoupled from the {@link it.unibo.cluedolite.model.gameboard.impl.GameBoardModelImpl}.
      *
      * @param player    the player who is making the suspicion
      * @param character the card representing the suspected character

@@ -1,10 +1,10 @@
-package it.unibo.CluedoLite.controller.tablecontroller.api;
+package it.unibo.cluedolite.controller.tablecontroller.api;
 
 import java.util.Optional;
 
-import it.unibo.CluedoLite.model.creationcards.impl.Card;
-import it.unibo.CluedoLite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.CluedoLite.view.tableview.TablePanel;
+import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
+import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.view.tableview.TablePanel;
 
 public interface TableController {
 

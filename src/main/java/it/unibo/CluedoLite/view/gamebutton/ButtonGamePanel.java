@@ -1,6 +1,19 @@
-package it.unibo.CluedoLite.view.gamebutton;
+package it.unibo.cluedolite.view.gamebutton;
 
 import javax.swing.JPanel;
+
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
+import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonController;
+import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
+import it.unibo.cluedolite.controller.endturnbuttoncontroller.api.EndTurnController;
+import it.unibo.cluedolite.view.AppColorFont;
+import it.unibo.cluedolite.view.accuseview.ButtonAccuseView;
+import it.unibo.cluedolite.view.buttonflowview.QuitButtonView;
+import it.unibo.cluedolite.view.buttonflowview.ResetButtonView;
+import it.unibo.cluedolite.view.endturnbuttonview.EndTurnButtonView;
+import it.unibo.cluedolite.view.suspicionview.ButtonSuspicionView;
+
 import javax.swing.BoxLayout;
 
 import java.awt.Dimension;
@@ -9,17 +22,6 @@ import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import it.unibo.CluedoLite.view.AppColorFont;
-import it.unibo.CluedoLite.view.buttonflowview.QuitButtonView;
-import it.unibo.CluedoLite.view.buttonflowview.ResetButtonView;
-import it.unibo.CluedoLite.view.endturnbuttonview.EndTurnButtonView;
-import it.unibo.CluedoLite.view.suspicionview.ButtonSuspicionView;
-import it.unibo.CluedoLite.view.accuseview.ButtonAccuseView;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.ResetButtonController;
-import it.unibo.CluedoLite.controller.endturnbuttoncontroller.api.EndTurnController;
-import it.unibo.CluedoLite.controller.buttonflowcontroller.api.QuitButtonController;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
-import it.unibo.CluedoLite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
 
 /**
  * Panel containing game action buttons.
