@@ -5,6 +5,7 @@ import it.unibo.cluedolite.model.creationcards.impl.Card;
 import it.unibo.cluedolite.model.gamesetup.impl.Deck;
 import it.unibo.cluedolite.model.suspectnotes.api.Box;
 import it.unibo.cluedolite.model.suspectnotes.api.Table;
+import it.unibo.cluedolite.model.suspectnotes.api.Box;
 import it.unibo.cluedolite.view.AppColorFont;
 
 import java.util.HashMap;

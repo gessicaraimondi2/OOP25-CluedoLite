@@ -3,6 +3,7 @@ package it.unibo.cluedolite.model.accuseandsuspect.impl;
 import java.util.List;
 
 import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceAccuseManager;
+import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceSuspicion;
 import it.unibo.cluedolite.model.creationcards.impl.*;
 import it.unibo.cluedolite.model.gamesetup.impl.*;
 
@@ -22,7 +23,7 @@ public class AccuseManager implements InterfaceAccuseManager {
     }
 
     @Override
-    public boolean checkAccuse(Suspicion suspicion) {
+    public boolean checkAccuse(InterfaceSuspicion suspicion) {
         List<Card> solution = secretSolution.getSolution();
         return solution.contains(suspicion.getCharacters())
             && solution.contains(suspicion.getWeapon())
