@@ -93,6 +93,7 @@ public class SuspicionController implements InterfaceSuspicionController {
         view.getConfirmButton().addActionListener(e -> handleConfirm(view));
     }
 
+
     /**
      * Handles the confirmation of the suspicion.
      * Disables the confirm button, reads the player's selections,
@@ -104,7 +105,7 @@ public class SuspicionController implements InterfaceSuspicionController {
         view.getConfirmButton().setEnabled(false);
 
         final Card selectedCharacter = view.getSelectedCharacter();
-        final Card selectedWeapon    = view.getSelectedWeapon();
+        final Card selectedWeapon = view.getSelectedWeapon();
 
         final Suspicion suspicion = suspicionManager.makeSuspicion(
                 playerSupplier.get(), selectedCharacter, selectedWeapon, roomSupplier.get());
