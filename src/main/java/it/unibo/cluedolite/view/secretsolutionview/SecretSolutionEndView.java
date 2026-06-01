@@ -1,36 +1,49 @@
 package it.unibo.cluedolite.view.secretsolutionview;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.net.URL;
+import java.util.List;
+import java.util.logging.Logger;
 
 import it.unibo.cluedolite.model.creationcards.impl.Card;
 import it.unibo.cluedolite.view.AppColorFont;
-
-import java.awt.*;
-import java.net.URL;
-import java.util.List;
 
 /**
  * Swing view displayed at the end of the game to reveal the secret solution.
  * Shows three cards side by side, each with its image and name,
  * rendered on the application's dark background.
- * The window closes automatically after {@value AUTO_CLOSE_MS} milliseconds.
+ *
+ * <p>The window closes automatically after {@value AUTO_CLOSE_MS} milliseconds.
  */
-public class SecretSolutionEndView extends JFrame {
+public final class SecretSolutionEndView extends JFrame {
 
-    /** Width in pixels of each individual card panel. */
+    private static final Logger LOG = Logger.getLogger(SecretSolutionEndView.class.getName());
+    private static final long serialVersionUID = 1L;
+
     private static final int CARD_WIDTH = 200;
-
-    /** Height in pixels of each individual card panel. */
     private static final int CARD_HEIGHT = 300;
-
-    /** Total width of the window. */
     private static final int WINDOW_WIDTH = 900;
-
-    /** Total height of the window. */
     private static final int WINDOW_HEIGHT = 600;
-
-    /** Delay in milliseconds before the window is automatically closed. */
     private static final int AUTO_CLOSE_MS = 3_000;
+    private static final int CARD_PADDING = 15;
+    private static final int LABEL_BORDER = 10;
+    private static final int NAME_FONT_SIZE = 14;
+    private static final int CARDS_GAP = 30;
+    private static final String FONT_SANS_SERIF = "SansSerif";
 
     /**
      * Creates and displays the secret solution reveal window.
@@ -40,23 +53,20 @@ public class SecretSolutionEndView extends JFrame {
      * @param solution the list of three secret cards (character, weapon, room)
      *                 whose names and images will be revealed
      */
-    public SecretSolutionEndView(List<Card> solution) {
+    public SecretSolutionEndView(final List<Card> solution) {
         setTitle("Secret Solution Revealed");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
 
-        // Outer panel centres the card row both vertically and horizontally
-        JPanel outerPanel = new JPanel(new GridBagLayout());
+        final JPanel outerPanel = new JPanel(new GridBagLayout());
         outerPanel.setBackground(AppColorFont.BACKGROUND_DARK);
 
-        // Horizontal row that holds the three revealed card panels
-        JPanel cardsRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
+        final JPanel cardsRow = new JPanel(new FlowLayout(FlowLayout.CENTER, CARDS_GAP, 0));
         cardsRow.setBackground(AppColorFont.BACKGROUND_DARK);
 
-        // Build and add one revealed card panel per solution card
-        for (Card card : solution) {
+        for (final Card card : solution) {
             cardsRow.add(createRevealedCard(card.getName(), card.getType().toString()));
         }
 
@@ -64,53 +74,45 @@ public class SecretSolutionEndView extends JFrame {
         add(outerPanel);
         setVisible(true);
 
-        // Automatically dispose the window after the configured delay
-        Timer timer = new Timer(AUTO_CLOSE_MS, e -> dispose());
+        final Timer timer = new Timer(AUTO_CLOSE_MS, e -> dispose());
         timer.setRepeats(false);
         timer.start();
     }
 
     /**
-     * Builds a single revealed card panel composed of:
-     * <ul>
-     *   <li>a white card area containing the card name and its image;</li>
-     *   <li>a label below the card showing the card type.</li>
-     * </ul>
+     * Builds a single revealed card panel with the card name, image, and type label.
      * If the image resource cannot be found, a fallback text is displayed instead.
      *
      * @param cardName  the display name of the card (e.g. "Miss Scarlett")
      * @param typeLabel the category string of the card (e.g. "CHARACTER", "WEAPON", "ROOM")
+     *
      * @return a {@link JPanel} representing the fully assembled revealed card
      */
-    private JPanel createRevealedCard(String cardName, String typeLabel) {
-        // Outer wrapper stacks the white card and the type label vertically
-        JPanel wrapper = new JPanel();
+    private JPanel createRevealedCard(final String cardName, final String typeLabel) {
+        final JPanel wrapper = new JPanel();
         wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
         wrapper.setBackground(AppColorFont.BACKGROUND_DARK);
 
-        // White card panel mimics a physical playing card
-        JPanel cardPanel = new JPanel();
+        final JPanel cardPanel = new JPanel();
         cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
         cardPanel.setBackground(Color.WHITE);
-        cardPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        cardPanel.setBorder(BorderFactory.createEmptyBorder(
+                CARD_PADDING, CARD_PADDING, CARD_PADDING, CARD_PADDING));
 
-        // Card name displayed in bold uppercase at the top of the card
-        JLabel nameLabel = new JLabel(cardName.toUpperCase());
+        final JLabel nameLabel = new JLabel(cardName.toUpperCase());
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        nameLabel.setFont(new Font(FONT_SANS_SERIF, Font.BOLD, NAME_FONT_SIZE));
         nameLabel.setForeground(Color.BLACK);
-        nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, LABEL_BORDER, 0));
 
-        // Image label that will host the scaled card artwork
-        JLabel imageLabel = new JLabel();
+        final JLabel imageLabel = new JLabel();
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imageLabel.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 
-        // Attempt to load the card image; fall back to an error message if missing
-        ImageIcon icon = loadCardImage(cardName);
+        final ImageIcon icon = loadCardImage(cardName);
         if (icon != null) {
-            Image scaled = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+            final Image scaled = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
             imageLabel.setIcon(new ImageIcon(scaled));
         } else {
             imageLabel.setText("Image not found");
@@ -120,12 +122,11 @@ public class SecretSolutionEndView extends JFrame {
         cardPanel.add(nameLabel);
         cardPanel.add(imageLabel);
 
-        // Type label placed below the white card area
-        JLabel typeLabelComponent = new JLabel(typeLabel);
+        final JLabel typeLabelComponent = new JLabel(typeLabel);
         typeLabelComponent.setAlignmentX(Component.CENTER_ALIGNMENT);
         typeLabelComponent.setFont(AppColorFont.FONT_BODY);
         typeLabelComponent.setForeground(AppColorFont.TEXT_PRIMARY);
-        typeLabelComponent.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        typeLabelComponent.setBorder(BorderFactory.createEmptyBorder(LABEL_BORDER, 0, 0, 0));
 
         wrapper.add(cardPanel);
         wrapper.add(typeLabelComponent);
@@ -134,31 +135,27 @@ public class SecretSolutionEndView extends JFrame {
     }
 
     /**
-     * Resolves the image resource for a given card name by normalising the name
-     * to a lowercase, whitespace-free filename and trying common image extensions.
-     * <p>
-     * Naming convention example: {@code "Miss Scarlett"} → {@code /images/missscarlett.png}
-     * </p>
+     * Loads the image resource for the given card name.
+     * The name is normalized to a lowercase filename without spaces or dots.
+     * Example: "Miss Scarlett" becomes /images/missscarlett.png.
      *
      * @param cardName the display name of the card whose image should be loaded
-     * @return the loaded {@link ImageIcon}, or {@code null} if no matching
-     *         resource is found for any supported extension
+     *
+     * @return the loaded {@link ImageIcon}, or {@code null} if not found
      */
-    private ImageIcon loadCardImage(String cardName) {
-        // Normalise to lowercase with no spaces or dots to match the file naming convention
-        String baseName = cardName.toLowerCase()
+    private ImageIcon loadCardImage(final String cardName) {
+        final String baseName = cardName.toLowerCase()
                 .replace(" ", "")
                 .replace(".", "");
 
-        // Try each supported image extension in order
-        for (String ext : new String[]{".png", ".jpg", ".jpeg"}) {
-            URL url = getClass().getResource("/images/" + baseName + ext);
+        for (final String ext : new String[]{".png", ".jpg", ".jpeg"}) {
+            final URL url = getClass().getResource("/images/" + baseName + ext);
             if (url != null) {
                 return new ImageIcon(url);
             }
         }
 
-        System.err.println("Image not found for card: " + cardName);
+        LOG.warning("Image not found for card: " + cardName);
         return null;
     }
 }
