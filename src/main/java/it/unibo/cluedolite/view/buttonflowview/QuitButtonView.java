@@ -6,17 +6,13 @@ import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonControl
 import it.unibo.cluedolite.view.AppColorFont;
 
 /**
- * A styled button that quits the current game and returns to the main menu.
- * Delegates the quit action to the provided {@link QuitButtonController}.
+ * Button that quits the game and returns to the main menu
  */
 public class QuitButtonView extends JButton {
 
-    private static final long serialVersionUID = 1L;
-
     /**
-     * Constructs the QUIT button and registers the quit action listener.
-     *
-     * @param controller the {@link QuitButtonController} that handles the quit action
+     * Creates the QUIT button
+     * @param controller the controller that handles the quit action
      */
     public QuitButtonView(final QuitButtonController controller) {
         setText("QUIT");
