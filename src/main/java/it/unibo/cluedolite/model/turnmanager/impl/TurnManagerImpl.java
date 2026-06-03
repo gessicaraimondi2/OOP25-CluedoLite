@@ -12,7 +12,6 @@ import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
 /**
  * Implementation of the {@link TurnManager} interface.
  */
-
 public class TurnManagerImpl implements TurnManager {
 
     private final List<Player> players;
@@ -25,10 +24,10 @@ public class TurnManagerImpl implements TurnManager {
      *
      * @param players the list of players in turn order
      */
-    public TurnManagerImpl(List<Player> players) {
-            this.players=new ArrayList<>(players);
-            this.currentIndex=0;
-            this.gameOver = false;
+    public TurnManagerImpl(final List<Player> players) {
+        this.players = new ArrayList<>(players);
+        this.currentIndex = 0;
+        this.gameOver = false;
     } 
 
     /**
@@ -75,7 +74,7 @@ public class TurnManagerImpl implements TurnManager {
      * {@inheritDoc}
      */
     @Override
-    public Optional<AbstractCard> checkSuspicion(InterfaceSuspicion suspicion) {
+    public Optional<AbstractCard> checkSuspicion(final InterfaceSuspicion suspicion) {
         final int suspectIndex = currentIndex;
 
         for (int i = 1; i < players.size(); i++) {
@@ -98,4 +97,4 @@ public class TurnManagerImpl implements TurnManager {
     public int getShownBy() {
         return this.shownBy;
     }
-} 
+}

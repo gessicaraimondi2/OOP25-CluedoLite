@@ -16,7 +16,6 @@ import it.unibo.cluedolite.view.AppColorFont;
 
 /**
  * This class represents the Swing VIEW for the suspicion phase of the CluedoLite game.
- *
  * Responsibilities:
  * - displays to the player:
  *      - the room they are currently in (not editable, determined by the game)
@@ -24,7 +23,6 @@ import it.unibo.cluedolite.view.AppColorFont;
  *      - a dropdown list of selectable weapons
  *  - exposes getter methods so the controller can read the player's choices
  *  - exposes the confirm button so the controller can attach the confirmation logic
- *
  * This class contains NO game logic: it only handles presentation and input collection.
  * It does not know what happens after the player confirms — that is the controller's responsibility.
  */
@@ -114,6 +112,7 @@ public class SuspicionView extends JFrame {
 
     /**
      * Returns the character card selected by the player.
+     * 
      * @return the selected character {@link AbstractCard}
      */
     public AbstractCard getSelectedCharacter() {
@@ -122,6 +121,7 @@ public class SuspicionView extends JFrame {
 
     /**
      * Returns the weapon card selected by the player.
+     * 
      * @return the selected weapon {@link AbstractCard}
      */
     public AbstractCard getSelectedWeapon() {
@@ -130,6 +130,7 @@ public class SuspicionView extends JFrame {
 
     /**
      * Returns the confirm button so the controller can attach the action listener.
+     * 
      * @return the confirm {@link JButton}
      */
     public JButton getConfirmButton() {

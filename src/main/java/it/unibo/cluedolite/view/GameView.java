@@ -1,11 +1,9 @@
 package it.unibo.cluedolite.view;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-
 
 import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
 import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceSuspicionController;
@@ -23,7 +21,6 @@ import it.unibo.cluedolite.view.gamebutton.ButtonGamePanel;
 import it.unibo.cluedolite.view.secretsolutionview.SecretSolutionStartView;
 import it.unibo.cluedolite.view.tableview.TablePanel;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -32,7 +29,6 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-
 /**
  * Main game view.
  * Layout: buttons panel (west) | board (center) | suspect table (east).
@@ -40,12 +36,10 @@ import java.util.function.Supplier;
  */
 public class GameView extends JPanel {
 
-
     private final ResetButtonController resetController;
     private final Function<Supplier<JFrame>, QuitButtonController> quitFactory;
     private final ButtonGamePanel buttonPanel;
     private final List<AbstractCard> solution;
-
 
     /**
      * Creates a new {@link GameView} with all required controllers and panels.
@@ -74,16 +68,13 @@ public class GameView extends JPanel {
                     final List<AbstractCard> solution,
                     final Function<Supplier<JFrame>, QuitButtonController> quitFactory) {
 
-
         this.resetController = resetController;
         this.quitFactory = quitFactory;
         this.solution = solution;
 
-
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         setLayout(new BorderLayout());
         setPreferredSize(screen);
-
 
         /*
          * Wraps the suspicion and accusation controllers to disable buttons
@@ -94,12 +85,10 @@ public class GameView extends JPanel {
             suspicionController.openSuspicionView();
         };
 
-
         final InterfaceAccusation wrappedAccuse = () -> {
             panelRef[0].disableActionButtons();
             accuseController.openAccusationView();
         };
-
 
         buttonPanel = new ButtonGamePanel(
                 wrappedSuspicion,
@@ -110,7 +99,6 @@ public class GameView extends JPanel {
         panelRef[0] = buttonPanel;
         add(buttonPanel, BorderLayout.WEST);
 
-
         final BoardViewImpl board = new BoardViewImpl(game.getPlayers(), boardController);
         boardController.setView(board);
         final int boardSize = (int) (screen.height * 0.95);
@@ -118,17 +106,14 @@ public class GameView extends JPanel {
         board.setMinimumSize(new Dimension(boardSize, boardSize));
         add(board, BorderLayout.CENTER);
 
-
         final JScrollPane scrollTable = new JScrollPane(tablePanel,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollTable.setPreferredSize(new Dimension(520, screen.height));
         add(scrollTable, BorderLayout.EAST);
 
-
         SwingUtilities.invokeLater(() -> new SecretSolutionStartView(solution));
     }
-
 
     /**
      * Disables the suspicion and accusation buttons and enables the end-turn button.
@@ -137,14 +122,12 @@ public class GameView extends JPanel {
         buttonPanel.disableActionButtons();
     }
 
-
     /**
      * Re-enables the suspicion and accusation buttons and disables the end-turn button.
      */
     public void resetForNewTurn() {
         buttonPanel.resetForNewTurn();
     }
-
 
     /**
      * Opens the victory screen and closes the game window.
@@ -158,20 +141,17 @@ public class GameView extends JPanel {
             final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
             ref[0] = new VictoryView(resetController, vc);
 
-
             final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
                 new it.unibo.cluedolite.view.secretsolutionview.SecretSolutionEndView(solution));
             timer.setRepeats(false);
             timer.start();
         });
 
-
         final Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {
             window.dispose();
         }
     }
-
 
     /**
      * Opens the temporary defeat screen.
@@ -180,7 +160,6 @@ public class GameView extends JPanel {
     public void showDefeat() {
         SwingUtilities.invokeLater(DefeatView::new);
     }
-
 
     /**
      * Opens the final defeat screen and closes the game window.
@@ -193,20 +172,17 @@ public class GameView extends JPanel {
             final QuitButtonController vc = quitFactory.apply(() -> ref[0]);
             ref[0] = new FinalDefeatView(resetController, vc);
 
-
             final javax.swing.Timer timer = new javax.swing.Timer(1000, e ->
                 new it.unibo.cluedolite.view.secretsolutionview.SecretSolutionEndView(solution));
             timer.setRepeats(false);
             timer.start();
         });
 
-
         final Window window = SwingUtilities.getWindowAncestor(this);
         if (window != null) {
             window.dispose();
         }
     }
-
 
     /**
      * Replaces the suspect notes panel in the east scroll pane.
@@ -219,7 +195,6 @@ public class GameView extends JPanel {
         revalidate();
         repaint();
     }
-
 
     /**
      * Adds an entry to the game history panel.

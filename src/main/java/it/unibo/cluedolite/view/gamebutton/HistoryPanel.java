@@ -1,10 +1,14 @@
 package it.unibo.cluedolite.view.gamebutton;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import it.unibo.cluedolite.view.AppColorFont;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 /**
  * Scrollable panel displaying the history of game actions.

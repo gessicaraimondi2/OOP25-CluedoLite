@@ -44,13 +44,14 @@ public class TablePanel extends JPanel {
     private final Map<String, CardPanel> cardMap = new HashMap<>();
     private final NotesPanel notesPanel;
     private final int panelWidth;
-    
+
     /**
      * Creates a new {@link TablePanel}, populating it with cards grouped
      * by type and adding a notes panel at the bottom.
      *
      * @param table the {@link Table} containing the current state of all cards
      */
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public TablePanel(final Table table) {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         panelWidth = (int) (screen.width * SCREEN_WIDTH_RATIO);

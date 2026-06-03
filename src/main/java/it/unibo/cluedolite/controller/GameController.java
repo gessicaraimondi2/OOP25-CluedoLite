@@ -1,17 +1,16 @@
 package it.unibo.cluedolite.controller;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
 
 import it.unibo.cluedolite.controller.accuseandsuspectcontroller.impl.AccusationController;
 import it.unibo.cluedolite.controller.accuseandsuspectcontroller.impl.SuspicionController;
@@ -36,10 +35,9 @@ import it.unibo.cluedolite.view.GameView;
 import it.unibo.cluedolite.view.menuview.StartView;
 import it.unibo.cluedolite.view.tableview.TablePanel;
 
-
 /**
  * Central controller for a CluedoLite game session.
- *
+ * <p>
  * <p>Turn flow:
  * <ol>
  *   <li>Player moves on the board (once per turn).</li>
@@ -49,7 +47,6 @@ import it.unibo.cluedolite.view.tableview.TablePanel;
  */
 public class GameController {
 
-
     private final Game game;
     private final AbstractCard[] characters;
     private final AbstractCard[] weapons;
@@ -57,31 +54,25 @@ public class GameController {
     private SecretSolution secretSolution;
     private AccuseManager accuseManager;
 
-
     private JFrame gameFrame;
     private GameBoardControllerImpl boardController;
     private GameView gameView;
     private AccusationController accusationController;
     private TableControllerImpl tableController;
 
-
     /**
      * Constructs a {@link GameController} for the given game session.
-     *
      * @param game the game model to control
      */
     public GameController(final Game game) {
         this.game = game;
 
-
         this.characters = Deck.getCardsByType(CardType.CHARACTER).toArray(new AbstractCard[0]);
-        this.weapons    = Deck.getCardsByType(CardType.WEAPON).toArray(new AbstractCard[0]);
-        this.rooms      = Deck.getCardsByType(CardType.ROOM).toArray(new AbstractCard[0]);
-
+        this.weapons = Deck.getCardsByType(CardType.WEAPON).toArray(new AbstractCard[0]);
+        this.rooms = Deck.getCardsByType(CardType.ROOM).toArray(new AbstractCard[0]);
 
         initSession();
     }
-
 
     /**
      * Builds and displays the main game window.
@@ -89,23 +80,20 @@ public class GameController {
      * @param previousWindow the window to dispose after opening the game window,
      *                       or {@code null} if there is none
      */
+    @SuppressWarnings("PMD.AvoidCatchingGenericException")
     public void openGameWindow(final JFrame previousWindow) {
         final JFrame oldFrame = gameFrame;
-
 
         try {
             boardController = new GameBoardControllerImpl(
                     game.getGameBoard(), game.getTurnManager());
 
-
             final TableImpl table = new TableImpl(
                     game.getTurnManager().getCurrentPlayer().getHand());
             final TablePanel tablePanel = new TablePanel(table);
 
-
             this.tableController = new TableControllerImpl(
                     game.getTurnManager(), table, tablePanel);
-
 
         final SuspicionController suspicionController = new SuspicionController(
             new SuspicionManager(),
@@ -127,7 +115,6 @@ public class GameController {
                 boardController.lockMovement();
                 gameView.disableActionButtons();
 
-
                 final String suspect = game.getTurnManager().getCurrentPlayer().getName();
                 if (refutation.isPresent()) {
                     gameView.addHistoryEntry(suspect + " made a suspicion: ["
@@ -144,7 +131,6 @@ public class GameController {
             () -> gameView.disableActionButtons()
         );
 
-
         this.accusationController = new AccusationController(
             accuseManager,
             characters,
@@ -154,14 +140,12 @@ public class GameController {
             () -> gameView.disableActionButtons()
         );
 
-
             final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
                 if (game.getTurnManager().isGameOver()) {
                     return;
                 }
                 advanceTurn();
             });
-
 
             final ResetButtonControllerImpl resetController =
                     new ResetButtonControllerImpl(game) {
@@ -180,9 +164,7 @@ public class GameController {
                         }
                     };
 
-
             gameFrame = new JFrame("Cluedo Lite");
-
 
             final QuitButtonControllerImpl quitController =
                     new QuitButtonControllerImpl(game, () -> gameFrame) {
@@ -199,7 +181,6 @@ public class GameController {
                         }
                     };
 
-
             gameView = new GameView(
                     game,
                     boardController,
@@ -213,9 +194,7 @@ public class GameController {
                     this::quitControllerFor
             );
 
-
             gameView.resetForNewTurn();
-
 
             gameFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             gameFrame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -234,7 +213,6 @@ public class GameController {
             gameFrame.add(gameView);
             gameFrame.setVisible(true);
 
-
             if (previousWindow != null) {
                 previousWindow.dispose();
             }
@@ -242,14 +220,12 @@ public class GameController {
                 oldFrame.dispose();
             }
 
-
-        } catch (final Exception e) {
+        } catch (final HeadlessException e) {
             JOptionPane.showMessageDialog(null,
                     "Error opening the game window: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 
     /**
      * Handles the result of an accusation.
@@ -262,7 +238,6 @@ public class GameController {
             gameView.showVictory();
         } else {
             game.getTurnManager().getCurrentPlayer().eliminate();
-
 
             if (countActivePlayers() == 1) {
                 game.getTurnManager().nextTurn();
@@ -278,7 +253,6 @@ public class GameController {
         }
     }
 
-
     /**
      * Resets the game to its initial state and reopens the game window.
      */
@@ -288,7 +262,6 @@ public class GameController {
         initSession();
         openGameWindow(null);
     }
-
 
     /**
      * Quits the current game session and returns to the main menu.
@@ -304,7 +277,6 @@ public class GameController {
             new StartView(startController);
         });
     }
-
 
     /**
      * Factory that creates a {@link QuitButtonController} bound to a specific frame.
@@ -338,7 +310,6 @@ public class GameController {
         };
     }
 
-
     /**
      * Advances the turn to the next player and updates the view accordingly.
      */
@@ -348,7 +319,6 @@ public class GameController {
         gameView.updateTablePanel(newPanel);
         gameView.resetForNewTurn();
     }
-
 
     /**
      * Returns the {@link AbstractCard} corresponding to the current player's room,
@@ -361,15 +331,12 @@ public class GameController {
             return null;
         }
 
-
         final var currentRoom = boardController.getCurrentRoomOf(
                 game.getTurnManager().getCurrentPlayer());
-
 
         if (currentRoom == null) {
             return null;
         }
-
 
         for (final AbstractCard card : rooms) {
             if (card.getName().equals(currentRoom.getName())) {
@@ -378,7 +345,6 @@ public class GameController {
         }
         return null;
     }
-
 
     /**
      * Returns the number of players that have not been eliminated.
@@ -391,7 +357,6 @@ public class GameController {
                 .count();
     }
 
-
     /**
      * Re-initialises the secret solution, accusation manager, and card distribution.
      * Called both at construction time and on every reset, to ensure each game
@@ -403,13 +368,10 @@ public class GameController {
         allCards.addAll(List.of(weapons));
         allCards.addAll(List.of(rooms));
 
-
         game.getPlayers().forEach(Player::clearHand);
 
-
         this.secretSolution = new SecretSolution(allCards);
-        this.accuseManager  = new AccuseManager(secretSolution);
-
+        this.accuseManager = new AccuseManager(secretSolution);
 
         Collections.shuffle(allCards);
         new CardDistribution(allCards, game.getPlayers());

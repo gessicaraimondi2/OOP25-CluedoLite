@@ -10,9 +10,9 @@ import it.unibo.cluedolite.model.suspectnotes.api.Box;
  * storing a card and its current state.
  */
 public class BoxImpl implements Box {
-    private AbstractCard name;
+    private final AbstractCard name;
     private State state;
-    
+
     /**
      * Creates a new {@link BoxImpl} with the given card.
      * The initial state is set to {@link State#POSSIBLE}.
@@ -28,7 +28,7 @@ public class BoxImpl implements Box {
      * {@inheritDoc}
      */
     @Override
-    public void excludeCard() {              
+    public void excludeCard() {
         this.state = State.EXCLUDED;
     }
 

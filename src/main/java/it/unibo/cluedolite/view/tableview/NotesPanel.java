@@ -42,6 +42,7 @@ public class NotesPanel extends JPanel {
      * Creates a new {@link NotesPanel} with a collapsible title
      * and a scrollable text area for personal notes.
      */
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public NotesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(AppColorFont.BACKGROUND_LIGHT);

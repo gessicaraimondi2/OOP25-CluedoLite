@@ -28,6 +28,7 @@ public class TableImpl implements Table {
      *
      * @param hand the list of cards in the player's hand
      */
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public TableImpl(final List<AbstractCard> hand) {
         for (final AbstractCard name : Deck.getAllCards()) {
             getListByType(name).add(new BoxImpl(name));
@@ -62,7 +63,7 @@ public class TableImpl implements Table {
     public boolean alreadyExcluded(final AbstractCard name) {
         return getListByType(name).stream()
             .filter(box -> box.getCard().equals(name))
-            .anyMatch(box -> box.getState().equals(State.EXCLUDED));
+            .anyMatch(box -> box.getState() == State.EXCLUDED);
     }
 
     /**

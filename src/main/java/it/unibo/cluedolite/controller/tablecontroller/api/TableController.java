@@ -28,5 +28,4 @@ public interface TableController {
      * @return the {@link TablePanel} for the current player
      */
     TablePanel refreshForPlayer();
-
 }

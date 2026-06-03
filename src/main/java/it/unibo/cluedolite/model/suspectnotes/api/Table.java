@@ -9,7 +9,7 @@ import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
  * tracking the state of each card during the game.
  */
 public interface Table {
-    
+
     /**
      * Updates the table based on the player's hand,
      * marking the corresponding cards as excluded.
@@ -17,7 +17,7 @@ public interface Table {
      * @param hand the list of cards in the player's hand
      */
     void initializeTable(List<AbstractCard> hand);
-    
+
     /**
      * Returns the list of boxes corresponding to the given card's type.
      *
@@ -25,7 +25,7 @@ public interface Table {
      * @return a {@link List} of {@link Box} of the same type as the given card
      */
     List<Box> searchType(AbstractCard name);
-    
+
     /**
      * Checks whether the given card is already marked as excluded in the table.
      *
@@ -33,7 +33,7 @@ public interface Table {
      * @return {@code true} if the card is excluded, {@code false} otherwise
      */
     boolean alreadyExcluded(AbstractCard name);
-    
+
     /**
      * Marks the box corresponding to the given card as excluded.
      *

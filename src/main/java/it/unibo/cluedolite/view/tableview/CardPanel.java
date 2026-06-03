@@ -32,6 +32,8 @@ public class CardPanel extends JPanel {
     private static final int TEXT_PADDING = 4;
     private static final int OVERLAY_ALPHA = 120;
     private static final int STROKE_WIDTH = 3;
+    private static final java.util.logging.Logger LOGGER =
+        java.util.logging.Logger.getLogger(CardPanel.class.getName());
 
     private final String name;
     private State state;
@@ -43,6 +45,7 @@ public class CardPanel extends JPanel {
      * @param name  the name of the card
      * @param state the initial {@link State} of the card
      */
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public CardPanel(final String name, final State state) {
         this.name = name;
         this.state = state;
@@ -65,13 +68,13 @@ public class CardPanel extends JPanel {
         for (final String ext : List.of("png", "jpg", "jpeg")) {
             final String path = "/images/" + baseName + "." + ext;
             try {
-                final var stream = getClass().getResourceAsStream(path);
+                final var stream = CardPanel.class.getResourceAsStream(path);
                 if (stream != null) {
                     image = ImageIO.read(stream);
                     return;
                 }
             } catch (final IOException e) {
-                // stream could not be read, try next extension
+                LOGGER.log(java.util.logging.Level.SEVERE, "Error loading image: " + path, e);
             }
         }
         image = null;

@@ -14,7 +14,6 @@ public final class AppColorFont {
     private AppColorFont() { }
 
     private static final String FONT_FAMILY = "Serif";
-    
     public static final Color BACKGROUND_DARK = new Color(80, 0, 0);
     public static final Color BACKGROUND_MEDIUM = new Color(100, 0, 0);
     public static final Color BACKGROUND_LIGHT = new Color(120, 0, 0);
