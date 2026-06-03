@@ -11,9 +11,6 @@ import java.awt.Font;
  */
 public final class AppColorFont {
 
-    private AppColorFont() { }
-
-    private static final String FONT_FAMILY = "Serif";
     public static final Color BACKGROUND_DARK = new Color(80, 0, 0);
     public static final Color BACKGROUND_MEDIUM = new Color(100, 0, 0);
     public static final Color BACKGROUND_LIGHT = new Color(120, 0, 0);
@@ -33,10 +30,13 @@ public final class AppColorFont {
     public static final Color BUTTON_BACKGROUND = ACCENT_PRIMARY;
     public static final Color BUTTON_FOREGROUND = TEXT_PRIMARY;
     public static final Color BUTTON_HOVER = ACCENT_HOVER;
+
     public static final Color BORDER = new Color(100, 30, 30);
     public static final Color PANEL_BACKGROUND = new Color(50, 0, 0);
     public static final Color DROPDOWN_BACKGROUND = new Color(100, 15, 15);
     public static final Color DROPDOWN_FOREGROUND = TEXT_PRIMARY;
+
+    private static final String FONT_FAMILY = "Serif";
 
     public static final Font FONT_TITLE = new Font(FONT_FAMILY, Font.BOLD, 36);
     public static final Font FONT_LABEL = new Font(FONT_FAMILY, Font.BOLD, 30);
@@ -44,4 +44,6 @@ public final class AppColorFont {
     public static final Font FONT_DROPDOWN = new Font(FONT_FAMILY, Font.BOLD, 15);
     public static final Font FONT_SMALL = new Font(FONT_FAMILY, Font.PLAIN, 12);
     public static final Font FONT_BODY = new Font(FONT_FAMILY, Font.PLAIN, 16);
+
+    private AppColorFont() { }
 }
