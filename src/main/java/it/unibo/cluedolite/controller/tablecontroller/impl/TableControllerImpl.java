@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import it.unibo.cluedolite.controller.tablecontroller.api.TableController;
 import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceSuspicion;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.suspectnotes.api.Table;
 import it.unibo.cluedolite.model.suspectnotes.impl.TableImpl;
 import it.unibo.cluedolite.model.turnmanager.api.TurnManager;
@@ -45,7 +45,7 @@ public class TableControllerImpl implements TableController {
      * {@inheritDoc}
      */
     @Override
-    public void handleSuspicion(final InterfaceSuspicion suspicion, final Optional<Card> shownCard) {
+    public void handleSuspicion(final InterfaceSuspicion suspicion, final Optional<AbstractCard> shownCard) {
         shownCard.ifPresent(c -> {
             table.updateTable(c);
             tablePanel.refresh(c);

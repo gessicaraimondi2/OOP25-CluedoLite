@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.creationcards.impl.CardType;
 import it.unibo.cluedolite.model.creationcards.impl.Characters;
 import it.unibo.cluedolite.model.creationcards.impl.Weapons;
@@ -43,23 +43,23 @@ public enum Deck {
     HALL(new Rooms("Hall")),
     STUDY(new Rooms("Study"));
 
-    private final Card card;
+    private final AbstractCard card;
 
     /**
      * Constructs a Deck constant with the given card.
      *
      * @param card the card associated with this enum constant
      */
-    Deck(Card card) {
+    Deck(final AbstractCard card) {
         this.card = card;
     }
 
     /**
      * Returns the card associated with this enum constant.
      *
-     * @return the {@link Card} of this enum constant
+     * @return the {@link AbstractCard} of this enum constant
      */
-    public Card getCard() {
+    public AbstractCard getCard() {
         return card;
     }
 
@@ -84,9 +84,9 @@ public enum Deck {
     /**
      * Returns all cards in the deck as a list.
      *
-     * @return a {@link List} containing all {@link Card} objects in the deck
+     * @return a {@link List} containing all {@link AbstractCard} objects in the deck
      */
-    public static List<Card> getAllCards() {
+    public static List<AbstractCard> getAllCards() {
         return Arrays.stream(values())
                 .map(Deck::getCard)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -96,9 +96,9 @@ public enum Deck {
      * Returns all cards of a specific type as a list.
      *
      * @param type the {@link CardType} to filter by
-     * @return a {@link List} containing all {@link Card} objects of the given type
+     * @return a {@link List} containing all {@link AbstractCard} objects of the given type
      */
-    public static List<Card> getCardsByType(CardType type) {
+    public static List<AbstractCard> getCardsByType(final CardType type) {
         return Arrays.stream(values())
                 .filter(d -> d.getType() == type)
                 .map(Deck::getCard)

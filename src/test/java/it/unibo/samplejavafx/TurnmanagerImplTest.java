@@ -19,7 +19,7 @@ import java.util.Optional;
 public class TurnmanagerImplTest {
     private PlayerImpl p1, p2, p3, p4;
     private List<Player> players;
-    private Card character, weapon, room;
+    private AbstractCard character, weapon, room;
     private Suspicion suspect;
 	private TurnManager tm;
 

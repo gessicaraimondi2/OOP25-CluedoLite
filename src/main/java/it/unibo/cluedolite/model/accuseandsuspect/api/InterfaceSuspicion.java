@@ -1,6 +1,6 @@
 package it.unibo.cluedolite.model.accuseandsuspect.api;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 
 /**
  * Interface for a suspicion made by a player in the CluedoLite game.
@@ -10,19 +10,22 @@ public interface InterfaceSuspicion {
 
     /**
      * Returns the suspected character.
+     * 
      * @return the character card suspected by the player.
      */
-    Card getCharacter();
+    AbstractCard getCharacter();
 
     /**
      * Returns the suspected weapon.
+     * 
      * @return the weapon card suspected by the player.
      */
-    Card getWeapon();
+    AbstractCard getWeapon();
 
     /**
      * Returns the room where the suspicion is made.
+     * 
      * @return the room where the player is located.
      */
-    Card getRoom();
+    AbstractCard getRoom();
 }

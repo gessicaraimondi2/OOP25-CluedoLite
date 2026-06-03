@@ -9,7 +9,7 @@ import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceSu
 import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceSuspicion;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.SuspicionManager;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.player.api.Player;
 import it.unibo.cluedolite.view.suspicionview.SuspicionView;
 
@@ -36,9 +36,9 @@ public class SuspicionController implements InterfaceSuspicionController {
     private final SuspicionManager suspicionManager;
     private final Consumer<InterfaceSuspicion> suspicionCallback;
     private final Runnable onConfirmed;
-    private final Card[] characters;
-    private final Card[] weapons;
-    private final Supplier<Card> roomSupplier;
+    private final AbstractCard[] characters;
+    private final AbstractCard[] weapons;
+    private final Supplier<AbstractCard> roomSupplier;
     private final Supplier<Player> playerSupplier;
 
     /**
@@ -57,9 +57,9 @@ public class SuspicionController implements InterfaceSuspicionController {
      */
     public SuspicionController(
             final SuspicionManager suspicionManager,
-            final Card[] characters,
-            final Card[] weapons,
-            final Supplier<Card> roomSupplier,
+            final AbstractCard[] characters,
+            final AbstractCard[] weapons,
+            final Supplier<AbstractCard> roomSupplier,
             final Consumer<InterfaceSuspicion> suspicionCallback,
             final Supplier<Player> playerSupplier,
             final Runnable onConfirmed) {
@@ -123,8 +123,8 @@ public class SuspicionController implements InterfaceSuspicionController {
     private void handleConfirm(final SuspicionView view) {
         view.getConfirmButton().setEnabled(false);
 
-        final Card selectedCharacter = view.getSelectedCharacter();
-        final Card selectedWeapon    = view.getSelectedWeapon();
+        final AbstractCard selectedCharacter = view.getSelectedCharacter();
+        final AbstractCard selectedWeapon = view.getSelectedWeapon();
 
         final InterfaceSuspicion suspicion = suspicionManager.makeSuspicion(
                 playerSupplier.get(), selectedCharacter, selectedWeapon, roomSupplier.get());
@@ -138,7 +138,6 @@ public class SuspicionController implements InterfaceSuspicionController {
             view.getConfirmButton().setEnabled(true);
             return;
         }
-        
         onConfirmed.run();
         suspicionCallback.accept(suspicion);
         view.dispose();

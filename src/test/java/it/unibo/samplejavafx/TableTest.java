@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.creationcards.impl.CardType;
 import it.unibo.cluedolite.model.gamesetup.impl.Deck;
 import it.unibo.cluedolite.model.suspectnotes.api.Box;
@@ -25,13 +25,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class TableTest {
 
-    private Card missScarlett;
-    private Card candlestick;
-    private Card kitchen;
+    private AbstractCard missScarlett;
+    private AbstractCard candlestick;
+    private AbstractCard kitchen;
 
     @BeforeEach
     void setUp() {
-        final List<Card> allCards = Deck.getAllCards();
+        final List<AbstractCard> allCards = Deck.getAllCards();
 
         missScarlett = allCards.stream()
                 .filter(c -> c.getType() == CardType.CHARACTER)
@@ -93,7 +93,7 @@ class TableTest {
 
     @Test
     void initializeTableTwice() {
-        final List<Card> hand = List.of(missScarlett);
+        final List<AbstractCard> hand = List.of(missScarlett);
         final Table table = new TableImpl(hand);
         assertDoesNotThrow(() -> table.initializeTable(hand));
 
@@ -118,7 +118,7 @@ class TableTest {
 
     @Test
     void initializeTableExcludesHandCards() {
-        final List<Card> hand = List.of(missScarlett, candlestick, kitchen);
+        final List<AbstractCard> hand = List.of(missScarlett, candlestick, kitchen);
         final Table table = new TableImpl(hand);
         assertTrue(table.alreadyExcluded(missScarlett));
         assertTrue(table.alreadyExcluded(candlestick));

@@ -24,7 +24,7 @@ import it.unibo.cluedolite.controller.menucontroller.impl.StartControllerImpl;
 import it.unibo.cluedolite.controller.tablecontroller.impl.TableControllerImpl;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.AccuseManager;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.SuspicionManager;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.creationcards.impl.CardType;
 import it.unibo.cluedolite.model.gameflow.api.Game;
 import it.unibo.cluedolite.model.gamesetup.impl.CardDistribution;
@@ -51,9 +51,9 @@ public class GameController {
 
 
     private final Game game;
-    private final Card[] characters;
-    private final Card[] weapons;
-    private final Card[] rooms;
+    private final AbstractCard[] characters;
+    private final AbstractCard[] weapons;
+    private final AbstractCard[] rooms;
     private SecretSolution secretSolution;
     private AccuseManager accuseManager;
 
@@ -74,9 +74,9 @@ public class GameController {
         this.game = game;
 
 
-        this.characters = Deck.getCardsByType(CardType.CHARACTER).toArray(new Card[0]);
-        this.weapons    = Deck.getCardsByType(CardType.WEAPON).toArray(new Card[0]);
-        this.rooms      = Deck.getCardsByType(CardType.ROOM).toArray(new Card[0]);
+        this.characters = Deck.getCardsByType(CardType.CHARACTER).toArray(new AbstractCard[0]);
+        this.weapons    = Deck.getCardsByType(CardType.WEAPON).toArray(new AbstractCard[0]);
+        this.rooms      = Deck.getCardsByType(CardType.ROOM).toArray(new AbstractCard[0]);
 
 
         initSession();
@@ -113,7 +113,7 @@ public class GameController {
             weapons,
             this::getCurrentPlayerRoom,
             suspicion -> {
-                final Optional<Card> refutation = game.getTurnManager().checkSuspicion(suspicion);
+                final Optional<AbstractCard> refutation = game.getTurnManager().checkSuspicion(suspicion);
                 if (refutation.isPresent()) {
                     JOptionPane.showMessageDialog(null,
                             "A player show the card: " + refutation.get().getName(),
@@ -351,12 +351,12 @@ public class GameController {
 
 
     /**
-     * Returns the {@link Card} corresponding to the current player's room,
+     * Returns the {@link AbstractCard} corresponding to the current player's room,
      * or {@code null} if the player is not in any room.
      *
      * @return the room card, or {@code null}
      */
-    private Card getCurrentPlayerRoom() {
+    private AbstractCard getCurrentPlayerRoom() {
         if (boardController == null) {
             return null;
         }
@@ -371,7 +371,7 @@ public class GameController {
         }
 
 
-        for (final Card card : rooms) {
+        for (final AbstractCard card : rooms) {
             if (card.getName().equals(currentRoom.getName())) {
                 return card;
             }
@@ -398,7 +398,7 @@ public class GameController {
      * has a different solution.
      */
     private void initSession() {
-        final List<Card> allCards = new ArrayList<>();
+        final List<AbstractCard> allCards = new ArrayList<>();
         allCards.addAll(List.of(characters));
         allCards.addAll(List.of(weapons));
         allCards.addAll(List.of(rooms));

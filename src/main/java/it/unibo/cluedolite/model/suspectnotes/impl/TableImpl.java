@@ -3,7 +3,7 @@ package it.unibo.cluedolite.model.suspectnotes.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.creationcards.impl.Characters;
 import it.unibo.cluedolite.model.creationcards.impl.Weapons;
 import it.unibo.cluedolite.model.gamesetup.impl.Deck;
@@ -28,8 +28,8 @@ public class TableImpl implements Table {
      *
      * @param hand the list of cards in the player's hand
      */
-    public TableImpl(final List<Card> hand) {
-        for (final Card name : Deck.getAllCards()) {
+    public TableImpl(final List<AbstractCard> hand) {
+        for (final AbstractCard name : Deck.getAllCards()) {
             getListByType(name).add(new BoxImpl(name));
         }
         initializeTable(hand);
@@ -39,8 +39,8 @@ public class TableImpl implements Table {
      * {@inheritDoc}
      */
     @Override
-    public void initializeTable(final List<Card> hand) {
-        for (final Card name : hand) {
+    public void initializeTable(final List<AbstractCard> hand) {
+        for (final AbstractCard name : hand) {
             getListByType(name).stream()
                 .filter(box -> box.getCard().equals(name))
                 .forEach(Box::excludeCard);
@@ -51,7 +51,7 @@ public class TableImpl implements Table {
      * {@inheritDoc}
      */
     @Override
-    public List<Box> searchType(final Card name) {
+    public List<Box> searchType(final AbstractCard name) {
         return List.copyOf(getListByType(name));
     }
 
@@ -59,7 +59,7 @@ public class TableImpl implements Table {
      * {@inheritDoc}
      */
     @Override
-    public boolean alreadyExcluded(final Card name) {
+    public boolean alreadyExcluded(final AbstractCard name) {
         return getListByType(name).stream()
             .filter(box -> box.getCard().equals(name))
             .anyMatch(box -> box.getState().equals(State.EXCLUDED));
@@ -69,7 +69,7 @@ public class TableImpl implements Table {
      * {@inheritDoc}
      */
     @Override
-    public void updateTable(final Card name) {
+    public void updateTable(final AbstractCard name) {
         getListByType(name).stream()
             .filter(box -> box.getCard().equals(name))
             .forEach(Box::excludeCard);
@@ -81,7 +81,7 @@ public class TableImpl implements Table {
      * @param name the card whose type determines the list to return
      * @return the mutable internal {@link List} of {@link Box}
      */
-    private List<Box> getListByType(final Card name) {
+    private List<Box> getListByType(final AbstractCard name) {
         if (name instanceof Characters) {
             return characters;
         } else if (name instanceof Weapons) {

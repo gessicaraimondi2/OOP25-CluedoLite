@@ -10,11 +10,11 @@ import it.unibo.cluedolite.view.AppColorFont;
  * This class represents the button that triggers the accusation phase in the game screen.
  * It belongs to the VIEW layer of the MVC pattern.
  *
- * Responsibilities:
+ * <p>Responsibilities:
  *  - displays a button always visible on the game screen
  *  - when clicked, delegates to the {@link InterfaceAccusationController} to open the accusation view
  *
- * This class has no game logic: it only knows the controller and calls
+ * <p>This class has no game logic: it only knows the controller and calls
  * {@link InterfaceAccusationController#openAccusationView()} when the button is pressed.
  * It does not know anything about the model, the cards, or the accusation result.
  */
@@ -27,7 +27,7 @@ public class ButtonAccuseView extends JPanel {
      *
      * @param controller the {@link InterfaceAccusation} controller that handles the accusation phase.
      */
-    public ButtonAccuseView(InterfaceAccusation controller) {
+    public ButtonAccuseView(final InterfaceAccusation controller) {
 
         setBackground(AppColorFont.PANEL_BACKGROUND);
 
@@ -45,6 +45,7 @@ public class ButtonAccuseView extends JPanel {
     /**
      * Enables or disables both the panel and the inner button.
      * Overridden because setEnabled on a JPanel does not propagate to children.
+     * 
      * @param enabled {@code true} to enable the button, {@code false} to disable it
      */
     @Override

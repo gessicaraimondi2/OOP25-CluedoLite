@@ -15,7 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.creationcards.impl.CardType;
 import it.unibo.cluedolite.model.gamesetup.impl.Deck;
 import it.unibo.cluedolite.model.suspectnotes.api.Box;
@@ -149,9 +149,9 @@ public class TablePanel extends JPanel {
     /**
      * Marks the {@link CardPanel} corresponding to the given card as excluded.
      *
-     * @param card the {@link Card} to mark as excluded
+     * @param card the {@link AbstractCard} to mark as excluded
      */
-    public void refresh(final Card card) {
+    public void refresh(final AbstractCard card) {
         final CardPanel panel = cardMap.get(card.getName());
         if (panel != null) {
             panel.excludeCard();

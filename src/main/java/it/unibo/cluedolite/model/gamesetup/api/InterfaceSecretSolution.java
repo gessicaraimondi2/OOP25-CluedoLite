@@ -2,7 +2,7 @@ package it.unibo.cluedolite.model.gamesetup.api;
 
 import java.util.List;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 
 /**
  * Interface for the secret solution of the game.
@@ -12,7 +12,8 @@ public interface InterfaceSecretSolution {
 
     /**
      * Returns the list of cards that compose the secret solution.
+     * 
      * @return a list containing the secret character, weapon and room card.
      */
-    List<Card> getSolution();
+    List<AbstractCard> getSolution();
 }

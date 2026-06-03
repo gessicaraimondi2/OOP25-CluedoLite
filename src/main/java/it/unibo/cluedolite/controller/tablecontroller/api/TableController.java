@@ -3,7 +3,7 @@ package it.unibo.cluedolite.controller.tablecontroller.api;
 import java.util.Optional;
 
 import it.unibo.cluedolite.model.accuseandsuspect.api.InterfaceSuspicion;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.view.tableview.TablePanel;
 
 /**
@@ -19,7 +19,7 @@ public interface TableController {
      * @param suspicion  the suspicion made by the current player
      * @param shownCard  the card shown to refute the suspicion, if any
      */
-    void handleSuspicion(InterfaceSuspicion suspicion, Optional<Card> shownCard);
+    void handleSuspicion(InterfaceSuspicion suspicion, Optional<AbstractCard> shownCard);
 
     /**
      * Returns the {@link TablePanel} for the current player,

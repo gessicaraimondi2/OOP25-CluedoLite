@@ -2,15 +2,16 @@ package it.unibo.cluedolite.model.creationcards.impl;
 
 /**
  * Represents a weapon card in the CluedoLite game.
- * Extends {@link Card} and returns {@link CardType#WEAPON} as its type.
+ * Extends {@link AbstractCard} and returns {@link CardType#WEAPON} as its type.
  */
-public class Weapons extends Card { 
+public final class Weapons extends AbstractCard { 
 
     /**
-    * Constructs a Weapons card with the given name.
-    * @param name the name of the weapon
-    */
-    public Weapons(String name) {
+     * Constructs a Weapons card with the given name.
+     * 
+     * @param name the name of the weapon
+     */
+    public Weapons(final String name) {
         super(name);
     }
 

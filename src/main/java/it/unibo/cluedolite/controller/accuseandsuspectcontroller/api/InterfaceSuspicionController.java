@@ -1,11 +1,12 @@
 package it.unibo.cluedolite.controller.accuseandsuspectcontroller.api;
+
 /**
  * Defines the contract for the controller that manages the suspicion phase.
  *
- * The controller that implements this interface is responsible for:
+ * <p>The controller that implements this interface is responsible for:
  *  - opening the suspicion view when the player requests it
  *
- * It does not expose handleConfirm or setupListeners because those are
+ * <p>It does not expose handleConfirm or setupListeners because those are
  * internal implementation details — only openSuspicionView is part of
  * the public contract that other components (e.g. ButtonSuspicionView) depend on.
  */
@@ -17,5 +18,4 @@ public interface InterfaceSuspicionController {
      * Each call must create a fully independent view instance.
      */
     void openSuspicionView();
-
 }

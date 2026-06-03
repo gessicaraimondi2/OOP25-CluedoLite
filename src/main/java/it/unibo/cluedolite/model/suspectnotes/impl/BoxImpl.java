@@ -1,6 +1,6 @@
 package it.unibo.cluedolite.model.suspectnotes.impl;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.suspectnotes.api.State;
 import it.unibo.cluedolite.model.suspectnotes.api.Box;
 
@@ -10,16 +10,16 @@ import it.unibo.cluedolite.model.suspectnotes.api.Box;
  * storing a card and its current state.
  */
 public class BoxImpl implements Box {
-    private Card name;
+    private AbstractCard name;
     private State state;
     
     /**
      * Creates a new {@link BoxImpl} with the given card.
      * The initial state is set to {@link State#POSSIBLE}.
      *
-     * @param name the {@link Card} associated with this box
+     * @param name the {@link AbstractCard} associated with this box
      */
-    public BoxImpl(final Card name) {
+    public BoxImpl(final AbstractCard name) {
         this.name = name;
         this.state = State.POSSIBLE;
     }
@@ -44,7 +44,7 @@ public class BoxImpl implements Box {
      * {@inheritDoc}
      */
     @Override
-    public Card getCard() {
+    public AbstractCard getCard() {
         return name;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.player.api.CreationCharacter;
 import it.unibo.cluedolite.model.player.api.Player;
 
@@ -18,7 +18,7 @@ public class PlayerImpl implements Player {
 
     private final String name;
     private CreationCharacter character;
-    private final List<Card> hand;
+    private final List<AbstractCard> hand;
     private boolean eliminated;
 
     /**
@@ -60,7 +60,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public void addCard(final Card card) {
+    public void addCard(final AbstractCard card) {
         hand.add(card);
     }
 
@@ -68,7 +68,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public List<Card> getHand() {
+    public List<AbstractCard> getHand() {
         return hand;
     }
 
@@ -76,8 +76,8 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Card> findMatchingCard(final Card characterCard, final Card weapon, final Card room) {
-        final List<Card> shuffled = new ArrayList<>(hand);
+    public Optional<AbstractCard> findMatchingCard(final AbstractCard characterCard, final AbstractCard weapon, final AbstractCard room) {
+        final List<AbstractCard> shuffled = new ArrayList<>(hand);
         Collections.shuffle(shuffled);
         return shuffled.stream()
                 .filter(c -> c.getName().equals(characterCard.getName())

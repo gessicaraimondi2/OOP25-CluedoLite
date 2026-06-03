@@ -32,41 +32,44 @@ public class CardView extends JFrame {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 900;
     private static final int AUTO_CLOSE_MS = 5_000;
+    private static final int FONT_SIZE = 28;
+    private static final int BORDER_OUTER = 30;
+    private static final int BORDER_LABEL_BOTTOM = 20;
 
     /**
      * Creates and shows a large window displaying the card with the given name.
      *
      * @param cardName the name of the card (e.g. "Miss Scarlett", "Revolver")
      */
-    public CardView(String cardName) {
+    public CardView(final String cardName) {
         setTitle(cardName);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setLocationRelativeTo(null);
 
-        JPanel outerPanel = new JPanel(new GridBagLayout());
+        final JPanel outerPanel = new JPanel(new GridBagLayout());
         outerPanel.setBackground(Color.BLACK);
 
-        JPanel cardPanel = new JPanel();
+        final JPanel cardPanel = new JPanel();
         cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.Y_AXIS));
         cardPanel.setBackground(Color.WHITE);
-        cardPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        cardPanel.setBorder(BorderFactory.createEmptyBorder(BORDER_OUTER, BORDER_OUTER, BORDER_OUTER, BORDER_OUTER));
 
-        JLabel nameLabel = new JLabel(cardName.toUpperCase());
+        final JLabel nameLabel = new JLabel(cardName.toUpperCase());
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
+        nameLabel.setFont(new Font("SansSerif", Font.BOLD, FONT_SIZE));
         nameLabel.setForeground(Color.BLACK);
-        nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, BORDER_LABEL_BOTTOM, 0));
 
-        JLabel imageLabel = new JLabel();
+        final JLabel imageLabel = new JLabel();
         imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imageLabel.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 
-        ImageIcon icon = loadCardImage(cardName);
+        final ImageIcon icon = loadCardImage(cardName);
         if (icon != null) {
-            Image scaled = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
+            final Image scaled = icon.getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
             imageLabel.setIcon(new ImageIcon(scaled));
         } else {
             imageLabel.setText("Image not found: " + cardName);
@@ -81,7 +84,7 @@ public class CardView extends JFrame {
         add(outerPanel);
         setVisible(true);
 
-        Timer timer = new Timer(AUTO_CLOSE_MS, e -> dispose());
+        final Timer timer = new Timer(AUTO_CLOSE_MS, e -> dispose());
         timer.setRepeats(false);
         timer.start();
     }
@@ -93,14 +96,13 @@ public class CardView extends JFrame {
      * @param cardName the name of the card
      * @return the loaded {@link ImageIcon}, or {@code null} if not found
      */
-    private ImageIcon loadCardImage(String cardName) {
-
-        String baseName = cardName.toLowerCase()
+    private ImageIcon loadCardImage(final String cardName) {
+        final String baseName = cardName.toLowerCase()
                 .replace(" ", "")
                 .replace(".", "");
 
-        for (String ext : new String[]{".png", ".jpg", ".jpeg"}) {
-            URL url = getClass().getResource("/images/" + baseName + ext);
+        for (final String ext : new String[]{".png", ".jpg", ".jpeg"}) {
+            final URL url = getClass().getResource("/images/" + baseName + ext);
             if (url != null) {
                 return new ImageIcon(url);
             }

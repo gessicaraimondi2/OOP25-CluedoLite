@@ -3,7 +3,7 @@ package it.unibo.cluedolite.model.player.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 
 /**
  * Defines the contract for a player in the CluedoLite game.
@@ -38,14 +38,14 @@ public interface Player {
      *
      * @param card the card to add
      */
-    void addCard(Card card);
+    void addCard(AbstractCard card);
 
     /**
      * Returns the list of cards currently in this player's hand.
      *
      * @return an unmodifiable or live list of the player's cards
      */
-    List<Card> getHand();
+    List<AbstractCard> getHand();
 
     /**
      * Searches the player's hand for a card matching any of the three suspect
@@ -57,7 +57,7 @@ public interface Player {
      * @param room      the room card to match
      * @return an {@link Optional} containing the matching card, or empty if none found
      */
-    Optional<Card> findMatchingCard(Card character, Card weapon, Card room);
+    Optional<AbstractCard> findMatchingCard(AbstractCard character, AbstractCard weapon, AbstractCard room);
 
     /**
      * Marks this player as eliminated after a wrong final accusation.

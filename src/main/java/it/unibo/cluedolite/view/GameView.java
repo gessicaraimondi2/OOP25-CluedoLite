@@ -13,7 +13,7 @@ import it.unibo.cluedolite.controller.buttonflowcontroller.api.QuitButtonControl
 import it.unibo.cluedolite.controller.buttonflowcontroller.api.ResetButtonController;
 import it.unibo.cluedolite.controller.endturnbuttoncontroller.api.EndTurnController;
 import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.model.gameflow.api.Game;
 import it.unibo.cluedolite.view.endgameview.DefeatView;
 import it.unibo.cluedolite.view.endgameview.FinalDefeatView;
@@ -44,7 +44,7 @@ public class GameView extends JPanel {
     private final ResetButtonController resetController;
     private final Function<Supplier<JFrame>, QuitButtonController> quitFactory;
     private final ButtonGamePanel buttonPanel;
-    private final List<Card> solution;
+    private final List<AbstractCard> solution;
 
 
     /**
@@ -71,7 +71,7 @@ public class GameView extends JPanel {
                     final QuitButtonController quitController,
                     final EndTurnController endTurnController,
                     final TablePanel tablePanel,
-                    final List<Card> solution,
+                    final List<AbstractCard> solution,
                     final Function<Supplier<JFrame>, QuitButtonController> quitFactory) {
 
 

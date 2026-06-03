@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import it.unibo.cluedolite.controller.accuseandsuspectcontroller.api.InterfaceAccusation;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.AccuseManager;
 import it.unibo.cluedolite.model.accuseandsuspect.impl.Suspicion;
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 import it.unibo.cluedolite.view.accuseview.AccuseView;
 
 /**
@@ -33,9 +33,9 @@ public class AccusationController implements InterfaceAccusation {
     private final AccuseManager accuseManager;
     private final Consumer<Boolean> accusationResultCallback;
     private final Runnable onConfirmed;
-    private final Card[] characters;
-    private final Card[] weapons;
-    private final Card[] rooms;
+    private final AbstractCard[] characters;
+    private final AbstractCard[] weapons;
+    private final AbstractCard[] rooms;
 
     /**
      * Constructs an {@link AccusationController} with all the data needed
@@ -52,9 +52,9 @@ public class AccusationController implements InterfaceAccusation {
      */
     public AccusationController(
             final AccuseManager accuseManager,
-            final Card[] characters,
-            final Card[] weapons,
-            final Card[] rooms,
+            final AbstractCard[] characters,
+            final AbstractCard[] weapons,
+            final AbstractCard[] rooms,
             final Consumer<Boolean> accusationResultCallback,
             final Runnable onConfirmed) {
         this.accuseManager = accuseManager;
@@ -119,9 +119,9 @@ public class AccusationController implements InterfaceAccusation {
         view.getConfirmButton().setEnabled(false);
         onConfirmed.run();
 
-        final Card selectedCharacter = view.getSelectedCharacter();
-        final Card selectedWeapon    = view.getSelectedWeapon();
-        final Card selectedRoom      = view.getSelectedRoom();
+        final AbstractCard selectedCharacter = view.getSelectedCharacter();
+        final AbstractCard selectedWeapon = view.getSelectedWeapon();
+        final AbstractCard selectedRoom = view.getSelectedRoom();
 
         final Suspicion suspicion = new Suspicion(selectedCharacter, selectedWeapon, selectedRoom);
         final boolean result = accuseManager.checkAccuse(suspicion);

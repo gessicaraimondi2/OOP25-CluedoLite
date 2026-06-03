@@ -1,6 +1,6 @@
 package it.unibo.cluedolite.model.suspectnotes.api;
 
-import it.unibo.cluedolite.model.creationcards.impl.Card;
+import it.unibo.cluedolite.model.creationcards.impl.AbstractCard;
 
 /**
  * Represents a single entry in the suspect notes,
@@ -23,7 +23,7 @@ public interface Box {
     /**
      * Returns the card associated with this box.
      *
-     * @return the {@link Card} of this box
+     * @return the {@link AbstractCard} of this box
      */
-    Card getCard();
+    AbstractCard getCard();
 }

@@ -24,56 +24,55 @@ import it.unibo.cluedolite.view.buttonflowview.ResetButtonView;
 public class VictoryView extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    
-    private static final int WINDOW_WIDTH = 700;
-    private static final int WINDOW_HEIGHT = 400;
+    private static final int BORDER_THICKNESS = 6;
+    private static final float TITLE_FONT_SIZE = 72f;
+    private static final int INNER_PADDING_V = 30;
+    private static final int INNER_PADDING_H = 40;
+    private static final int SUBTITLE_TOP_PADDING = 20;
+    private static final int BUTTON_GAP_H = 20;
+    private static final int BUTTON_GAP_V = 10;
 
     /**
-    * Constructs and displays the victory screen.
-    * @param resetController the controller handling the reset button action
-    * @param quitController  the controller handling the quit button action
-    */
+     * Constructs and displays the victory screen.
+     * 
+     * @param resetController the controller handling the reset button action
+     * @param quitController  the controller handling the quit button action
+     */
     public VictoryView(final ResetButtonController resetController, final QuitButtonController quitController) {
         setTitle("Victory!");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        setLocationRelativeTo(null);
-
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
-        // Root panel: BorderLayout to place buttons at the bottom
         final JPanel rootPanel = new JPanel(new BorderLayout());
         rootPanel.setBackground(AppColorFont.BACKGROUND_DARK);
-        rootPanel.setBorder(BorderFactory.createLineBorder(AppColorFont.ACCENT_SECONDARY, 6));
+        rootPanel.setBorder(BorderFactory.createLineBorder(AppColorFont.ACCENT_SECONDARY, BORDER_THICKNESS));
 
-        // Outer panel centres content both vertically and horizontally
         final JPanel outerPanel = new JPanel(new GridBagLayout());
         outerPanel.setBackground(AppColorFont.BACKGROUND_DARK);
 
-        // Inner vertical panel stacks the two text labels
         final JPanel innerPanel = new JPanel();
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
         innerPanel.setBackground(AppColorFont.BACKGROUND_DARK);
-        innerPanel.setBorder(BorderFactory.createEmptyBorder(30, 40, 30, 40));
+        innerPanel.setBorder(BorderFactory.createEmptyBorder(
+            INNER_PADDING_V, INNER_PADDING_H, INNER_PADDING_V, INNER_PADDING_H));
 
         final JLabel titleLabel = new JLabel("WINNER :)");
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setFont(AppColorFont.FONT_TITLE.deriveFont(72f));
+        titleLabel.setFont(AppColorFont.FONT_TITLE.deriveFont(TITLE_FONT_SIZE));
         titleLabel.setForeground(AppColorFont.ACCENT_SECONDARY);
 
         final JLabel subtitleLabel = new JLabel("Congratulations!");
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         subtitleLabel.setFont(AppColorFont.FONT_LABEL);
         subtitleLabel.setForeground(AppColorFont.TEXT_PRIMARY);
-        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(SUBTITLE_TOP_PADDING, 0, 0, 0));
 
         innerPanel.add(titleLabel);
         innerPanel.add(subtitleLabel);
         outerPanel.add(innerPanel);
 
-        // Buttons panel at the bottom
-        final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, BUTTON_GAP_H, BUTTON_GAP_V));
         buttonsPanel.setBackground(AppColorFont.BACKGROUND_DARK);
         final ResetButtonView resetBtn = new ResetButtonView(resetController);
         resetBtn.addActionListener(e -> {

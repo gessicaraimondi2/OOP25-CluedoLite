@@ -3,7 +3,7 @@ package it.unibo.cluedolite.model.accuseandsuspect.api;
 /**
  * Interface for the accusation manager in CluedoLite.
  * 
- * An accusation reuses {@link Suspicion} as its data structure,
+ * <p>An accusation reuses {@link Suspicion} as its data structure,
  * since an accusation is conceptually a suspicion checked against the solution.
  */
 public interface InterfaceAccuseManager {
