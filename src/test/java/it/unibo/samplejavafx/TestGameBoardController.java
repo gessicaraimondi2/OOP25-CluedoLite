@@ -40,7 +40,6 @@ final class TestGameBoardController {
         controller.setView(new DummyView());
     }
 
-
     @Test
     void testMoveToKitchen() {
         final Room kitchen = model.getRoomByName("kitchen");
