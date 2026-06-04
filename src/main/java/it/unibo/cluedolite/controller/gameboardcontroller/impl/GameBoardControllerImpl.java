@@ -2,6 +2,7 @@ package it.unibo.cluedolite.controller.gameboardcontroller.impl;
 
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.cluedolite.controller.gameboardcontroller.api.GameBoardController;
 import it.unibo.cluedolite.model.gameboard.api.GameBoardModel;
 import it.unibo.cluedolite.model.gameboard.api.Room;
@@ -14,7 +15,6 @@ import it.unibo.cluedolite.view.gameboardview.api.BoardView;
  * Manages player movement on the board and delegates turn advancement
  * to the provided {@link TurnManager}.
  */
-@SuppressWarnings("PMD.ExposeInternalRepresentation")
 public final class GameBoardControllerImpl implements GameBoardController {
 
     private final GameBoardModel gb;
@@ -52,6 +52,8 @@ public final class GameBoardControllerImpl implements GameBoardController {
      *   On subsequent turns the player may only move to the turn-start room
      *       or one of its two adjacent rooms.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2",
+    justification = "Room is effectively immutable within a game session")
     @Override
     public void move(final Room r) {
         if (r == null) {
