@@ -132,7 +132,7 @@ public class GameController {
                 }
             },
             game.getTurnManager()::getCurrentPlayer,
-            gameView::disableActionButtons
+            this::disableGameViewButtons
         );
 
         this.accusationController = new AccusationController(
@@ -141,7 +141,7 @@ public class GameController {
             weapons,
             rooms,
             this::handleAccusationResult,
-            gameView::disableActionButtons
+            this::disableGameViewButtons
         );
 
             final EndTurnControllerImpl endTurnController = new EndTurnControllerImpl(() -> {
@@ -379,5 +379,14 @@ public class GameController {
 
         Collections.shuffle(allCards);
         new CardDistribution(allCards, game.getPlayers());
+    }
+
+    /**
+     * Disables the action buttons in the game view.
+     * Used as a method reference to defer access to {@code gameView}
+     * until after it has been initialized.
+     */
+    private void disableGameViewButtons() {
+        gameView.disableActionButtons();
     }
 }
