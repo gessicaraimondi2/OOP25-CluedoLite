@@ -71,21 +71,4 @@ public final class GameBoardModelImpl implements GameBoardModel {
     public void setPlayerPosition(final Player p, final Room r) {
         playerPositions.put(p, r);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean areAdjacent(final Room r1, final Room r2) {
-        return r1.getAdjacent().contains(r2);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean canMoveTo(final Player p, final Room target) {
-        final Room current = playerPositions.get(p);
-        return current == null || current.getAdjacent().contains(target);
-    }
 }

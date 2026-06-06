@@ -1,9 +1,11 @@
 package it.unibo.samplejavafx;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import it.unibo.cluedolite.model.gameboard.api.Room;
 import it.unibo.cluedolite.model.gameboard.impl.GameBoardModelImpl;
@@ -19,6 +21,7 @@ import org.junit.jupiter.api.Test;
 final class GameBoardModelImplTest {
 
     private static final int EXPECTED_SIZE = 9;
+    private static final String FAKE_ROOM = "FakeRoom";
     private GameBoardModelImpl board;
     private PlayerImpl player;
 
@@ -35,7 +38,26 @@ final class GameBoardModelImplTest {
 
     @Test
     void testGetRoomsReturnsUnmodifiableCopy() {
-        assertThrows(UnsupportedOperationException.class, () -> board.getRooms().add(new RoomImpl("FakeRoom")));
+        assertThrows(UnsupportedOperationException.class,
+                () -> board.getRooms().add(new RoomImpl(FAKE_ROOM)));
+    }
+
+    @Test
+    void testGetRoomByName() {
+        final Room kitchen = board.getRoomByName("Kitchen");
+        assertNotNull(kitchen);
+        assertEquals("Kitchen", kitchen.getName());
+    }
+
+    @Test
+    void testGetRoomByNameCaseInsensitive() {
+        final Room kitchen = board.getRoomByName("kitchen");
+        assertNotNull(kitchen);
+    }
+
+    @Test
+    void testGetRoomByNameNotFound() {
+        assertNull(board.getRoomByName(FAKE_ROOM));
     }
 
     @Test
@@ -46,38 +68,37 @@ final class GameBoardModelImplTest {
     }
 
     @Test
-    void testAreAdjacentTrue() {
+    void testGetPlayerPositionNullAtStart() {
+        assertNull(board.getPlayerPosition(player));
+    }
+
+    @Test
+    void testCircularAdjacencyFirstAndLast() {
+        final Room first = board.getRooms().get(0);
+        final Room last = board.getRooms().get(EXPECTED_SIZE - 1);
+        assertTrue(first.getAdjacent().contains(last));
+        assertTrue(last.getAdjacent().contains(first));
+    }
+
+    @Test
+    void testAdjacencyBetweenConsecutiveRooms() {
         final Room r1 = board.getRooms().get(0);
         final Room r2 = board.getRooms().get(1);
-        assertTrue(board.areAdjacent(r1, r2));
+        assertTrue(r1.getAdjacent().contains(r2));
+        assertTrue(r2.getAdjacent().contains(r1));
     }
 
     @Test
-    void testAreAdjacentFalse() {
+    void testNoAdjacencyBetweenNonConsecutiveRooms() {
         final Room r1 = board.getRooms().get(0);
         final Room r3 = board.getRooms().get(3);
-        assertFalse(board.areAdjacent(r1, r3));
+        assertFalse(r1.getAdjacent().contains(r3));
     }
 
     @Test
-    void testCanMoveToAnyRoomAtStart() {
-        final Room anyRoom = board.getRooms().get(5);
-        assertTrue(board.canMoveTo(player, anyRoom));
-    }
-
-    @Test
-    void testCanMoveToAdjacentRoom() {
+    void testAdjacentListIsUnmodifiable() {
         final Room kitchen = board.getRooms().get(0);
-        final Room ballroom = board.getRooms().get(1);
-        board.setPlayerPosition(player, kitchen);
-        assertTrue(board.canMoveTo(player, ballroom));
-    }
-
-    @Test
-    void testCannotMoveToNonAdjacentRoom() {
-        final Room kitchen = board.getRooms().get(0);
-        final Room library = board.getRooms().get(4);
-        board.setPlayerPosition(player, kitchen);
-        assertFalse(board.canMoveTo(player, library));
+        assertThrows(UnsupportedOperationException.class,
+                () -> kitchen.getAdjacent().add(new RoomImpl(FAKE_ROOM)));
     }
 }

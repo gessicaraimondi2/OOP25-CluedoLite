@@ -41,24 +41,4 @@ public interface GameBoardModel {
      * @param r the room where the player will be placed
      */
     void setPlayerPosition(Player p, Room r);
-
-    /**
-     * Checks whether two rooms are adjacent to each other.
-     *
-     * @param r1 the first room
-     * @param r2 the second room
-     * @return {@code true} if {@code r1} and {@code r2} are adjacent, {@code false} otherwise
-     */
-    boolean areAdjacent(Room r1, Room r2);
-
-    /**
-     * Checks whether the given player can move to the target room.
-     * A player with no current position (start of the game) can move to any room.
-     * Otherwise, the target room must be adjacent to the player's current position.
-     *
-     * @param p      the player who wants to move
-     * @param target the room the player wants to move to
-     * @return {@code true} if the move is allowed, {@code false} otherwise
-     */
-    boolean canMoveTo(Player p, Room target);
 }
